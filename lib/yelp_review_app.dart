@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'home_screen.dart';
+import 'package:yelp_app/home_screen.dart';
 
 class YelpReviewApp extends StatelessWidget {
   const YelpReviewApp({Key? key}) : super(key: key);

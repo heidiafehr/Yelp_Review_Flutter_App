@@ -12,15 +12,15 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     //examples of text strings to see the ellipsis truncation
-    const String text_example1 = 'This is a reallyyyyy long restaurant nameeee';
-    const String text_example2 = 'Medium Restaurant Name This Is';
-    const String text_example3 = 'Short and Simple';
+    //const String text_example1 = 'This is a reallyyyyy long restaurant nameeee';
+    //const String text_example2 = 'Medium Restaurant Name This Is';
+    //const String text_example3 = 'Short and Simple';
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Center(
-          child: Text('${text_example3}',
+          child: Text('Restaurant name goes here',
               style: TextStyle(color: Colors.black),
               overflow: TextOverflow.ellipsis),
         ),
