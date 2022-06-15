@@ -10,15 +10,29 @@ void main() {
       ..overrideDevicesForAllScenarios(devices: [
         Device.phone,
         Device.iphone11,
-        Device.tabletPortrait,
-        Device.tabletLandscape,
       ])
       ..addScenario(
-        widget: const HomeScreen(),
-        name: 'home screen default state',
+        widget: const HomeScreen(appBarTitle: 'Short and Simple',),
+        name: 'app bar with short name',
       );
     await tester.pumpDeviceBuilder(builder);
 
-    await screenMatchesGolden(tester, 'home_screen_default_state');
+    await screenMatchesGolden(tester, 'app_bar_with_short_name');
   });
+
+  testGoldens('DeviceBuilder - multiple scenarios - with onCreate',
+          (tester) async {
+        final builder = DeviceBuilder()
+          ..overrideDevicesForAllScenarios(devices: [
+            Device.phone,
+            Device.iphone11,
+          ])
+          ..addScenario(
+            widget: const HomeScreen(appBarTitle: 'Realyyy realy realy Reallyyyyyyy Long Title ',),
+            name: 'app bar with long name',
+          );
+        await tester.pumpDeviceBuilder(builder);
+
+        await screenMatchesGolden(tester, 'app_bar_with_long_name');
+      });
 }
