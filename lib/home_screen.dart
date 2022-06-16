@@ -55,7 +55,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     overflow: TextOverflow.ellipsis),
               ),
             ),
+            body:
+            Image.network(snapshot.data!.image),
           );
+
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         }
