@@ -34,31 +34,46 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
-            appBar: AppBar(
-              //centered, w/ white background and black text
-              //ellipsis when the text is too long
-              systemOverlayStyle: const SystemUiOverlayStyle(
-                statusBarColor: Colors.white,
-                //sets status bar background to white
-                statusBarIconBrightness: Brightness.dark,
-                //sets text colors to dark color
-                statusBarBrightness: Brightness.light,
-              ),
+              body: ListView(
+            children: <Widget>[
+              AppBar(
+                //centered, w/ white background and black text
+                //ellipsis when the text is too long
+                systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarColor: Colors.white.withOpacity(0.5),
+                  //sets status bar background to white
+                  statusBarIconBrightness: Brightness.dark,
+                  //sets text colors to dark color
+                  statusBarBrightness: Brightness.dark,
+                ),
 
-              elevation: 0.0,
-              backgroundColor: Colors.white,
-              centerTitle: true,
-              title: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                child: Text(widget.appBarTitle ?? snapshot.data!.name,
-                    style: const TextStyle(color: Colors.black),
-                    overflow: TextOverflow.ellipsis),
+                elevation: 0.0,
+                backgroundColor: Colors.white,
+                centerTitle: true,
+                title: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                  child: Text(widget.appBarTitle ?? snapshot.data!.name,
+                      style: const TextStyle(color: Colors.black),
+                      overflow: TextOverflow.ellipsis),
+                ),
               ),
-            ),
-            body:
-            Image.network(snapshot.data!.image),
-          );
-
+              snapshot.data?.image != null && snapshot.data!.image.isNotEmpty
+                  ? Image.network(snapshot.data!.image)
+                  : const SizedBox.shrink(),
+              Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Row(
+                  children: [
+                    Text(snapshot.data!.price),
+                    Text(' ${snapshot.data!.categories.first.title}'),
+                    const Spacer(),
+                    Text(snapshot.data!.price),
+                    Text(snapshot.data!.categories.first.title),
+                  ],
+                ),
+              ),
+            ],
+          ));
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         }
