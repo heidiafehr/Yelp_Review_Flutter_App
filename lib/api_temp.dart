@@ -37,7 +37,8 @@ Future<void> main() async {
     "state": "CA",
     "display_address": [
       "123 Second St", "San Francisco, CA 94105"],
-    "cross_streets": ""},
+    "cross_streets": ""
+    },
   "coordinates": {
     "latitude": 37.787789124691,
     "longitude": -122.399305736113},
