@@ -11,7 +11,7 @@ Future<void> main() async {
 
   print(response.body);
 }
-{
+/*{
   "id": "gR9DTbKCvezQlqvD7_FzPw",
   "alias": "north-india-restaurant-san-francisco-7",
   "name": "North India Restaurant",
@@ -82,21 +82,5 @@ Future<void> main() async {
     "pickup",
     "restaurant_reservation",
     "delivery"]
-}
-
-"hours":
-  [{
-    "open":
-      [
-        {"is_overnight": false, "start": "1000", "end": "2300", "day": 0},
-        {"is_overnight": false, "start": "1000", "end": "2300", "day": 1},
-        {"is_overnight": false, "start": "1000", "end": "2300", "day": 2},
-        {"is_overnight": false, "start": "1000", "end": "2300", "day": 3},
-        {"is_overnight": false, "start": "1000", "end": "2330", "day": 4},
-        {"is_overnight": false, "start": "1000", "end": "2330", "day": 5},
-        {"is_overnight": false, "start": "1000", "end": "2300", "day": 6}
-      ],
-    "hours_type": "REGULAR",
-    "is_open_now": true
-  }]
+}*/
 

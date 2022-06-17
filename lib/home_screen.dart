@@ -67,11 +67,43 @@ class _HomeScreenState extends State<HomeScreen> {
                     Text(snapshot.data!.price),
                     Text(' ${snapshot.data!.categories.first.title}'),
                     const Spacer(),
-                    Text(snapshot.data!.price),
-                    Text(snapshot.data!.categories.first.title),
+                    if (snapshot.data!.hours.first.isOpenNow)
+                      Row(
+                        children: const [
+                          Text('Open Now ',
+                              style: TextStyle(fontStyle: FontStyle.italic)),
+                          Icon(
+                            Icons.circle,
+                            color: Colors.green,
+                            size: 12.0,
+                          )
+                        ],
+                      )
+                    else
+                      Row(
+                        children: const [
+                          Text('Closed Now ',
+                              style: TextStyle(fontStyle: FontStyle.italic)),
+                          Icon(
+                            Icons.circle,
+                            color: Colors.red,
+                            size: 12.0,
+                          )
+                        ],
+                      ),
                   ],
                 ),
               ),
+              const Divider(
+                height: 0.0,
+                indent: 30.0,
+                color: Colors.grey,
+                endIndent: 30.0,
+              ),
+              /*Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: const Text('Address'),
+              ),*/
             ],
           ));
         } else if (snapshot.hasError) {
