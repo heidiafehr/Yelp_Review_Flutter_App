@@ -38,8 +38,6 @@ class _HomeScreenState extends State<HomeScreen> {
             body: ListView(
               children: <Widget>[
                 AppBar(
-                  //centered, w/ white background and black text
-                  //ellipsis when the text is too long
                   systemOverlayStyle: SystemUiOverlayStyle(
                     statusBarColor: Colors.white.withOpacity(0.5),
                     //sets status bar background to white
@@ -47,7 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     //sets text colors to dark color
                     statusBarBrightness: Brightness.dark,
                   ),
-
                   elevation: 0.0,
                   backgroundColor: Colors.white,
                   centerTitle: true,
@@ -100,12 +97,77 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: Colors.grey,
                   endIndent: _indent,
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(_indent),
-                  child: Text('Address'),
+                Padding(
+                  padding: const EdgeInsets.all(_indent),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Address'),
+                      Padding(
+                        padding: const EdgeInsets.only(top: _indent),
+                        child: Text(
+                          '${snapshot.data!.location.displayAddress.addressLineOne}'
+                          '\n${snapshot.data!.location.displayAddress.addressLineTwo}',
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16.0),
+                        ),
+                      ),
+                      snapshot.data?.location.displayAddress.addressLineThree !=
+                                  null &&
+                              snapshot.data!.location.displayAddress
+                                  .addressLineThree!.isNotEmpty
+                          ? Text(
+                              snapshot.data!.location.displayAddress
+                                  .addressLineThree!,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16.0),
+                            )
+                          : const SizedBox.shrink(),
+                    ],
+                  ),
                 ),
-                Text(snapshot.data!.location.displayAddress.addressLineOne),
+                const Divider(
+                  height: 0.0,
+                  indent: _indent,
+                  color: Colors.grey,
+                  endIndent: _indent,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(_indent),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Overall Rating'),
+                      Padding(
+                        padding: const EdgeInsets.only(top: _indent),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: [
+                            Text(
+                              snapshot.data!.rating,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 40.0),
+                            ),
+                            Icon(
+                              Icons.star,
+                              color: Colors.yellow[700],
+                              size: 20.0,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Divider(
+                  height: 0.0,
+                  indent: _indent,
+                  color: Colors.grey,
+                  endIndent: _indent,
+                ),
               ],
+
             ),
           );
         } else if (snapshot.hasError) {
