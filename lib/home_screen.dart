@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:yelp_app/api_call_class.dart';
 import 'package:yelp_app/restaurant_class.dart';
+//import 'package:expansion_tile_card/expansion_tile_card.dart';
 
 class HomeScreen extends StatefulWidget {
   final String? appBarTitle;
@@ -161,6 +162,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
+                ),
+                const Divider(
+                  height: 0.0,
+                  indent: _indent,
+                  color: Colors.grey,
+                  endIndent: _indent,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(_indent),
+                  child: Text('${snapshot.data!.reviewCount} Reviews'),
                 ),
                 const Divider(
                   height: 0.0,

@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   golden_toolkit: ^0.13.0
   google_fonts: ^3.0.1
+  expansion_tile_card: ^2.0.0
 
 dev_dependencies:
   flutter_test:
