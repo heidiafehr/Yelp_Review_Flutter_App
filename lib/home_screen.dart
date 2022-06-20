@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   title: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 50.0),
                     child: Text(widget.appBarTitle ?? snapshot.data!.name,
-                        style: const TextStyle(color: Colors.black),
+                        style: Theme.of(context).textTheme.headline1,
                         overflow: TextOverflow.ellipsis),
                   ),
                 ),
@@ -147,7 +147,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             Text(
                               snapshot.data!.rating,
                               style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 40.0),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 40.0,
+                                  fontFamily: 'LoraBold'),
                             ),
                             Icon(
                               Icons.star,
@@ -167,7 +169,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   endIndent: _indent,
                 ),
               ],
-
             ),
           );
         } else if (snapshot.hasError) {
