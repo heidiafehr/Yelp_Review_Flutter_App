@@ -231,16 +231,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.grey,
                       endIndent: _indent,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(_indent),
-                      child: Text('${snapshot.data!.reviewCount} Reviews'),
-                    ),
-                    const Divider(
-                      height: 0.0,
-                      indent: _indent,
-                      color: Colors.grey,
-                      endIndent: _indent,
-                    ),
                   ],
                 );
               } else {
@@ -248,21 +238,39 @@ class _HomeScreenState extends State<HomeScreen> {
               }
             },
           ),
-          //Container( height: 100.0, color: Colors.blue,),
-
           FutureBuilder<Reviews>(
             future: futureReviews,
             builder: (context, snapshot) {
-              if (snapshot.hasData) {
+              if (snapshot.hasData && snapshot.data != null) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.all(_indent),
+                      child: Text(
+                          '${snapshot.data!.totalNumberOfReviews} Reviews'),
+                    ),
                     ListView.builder(
-                      itemCount: 16,
+                      itemCount: snapshot.data!.singleUserReview.length,
                       shrinkWrap: true,
                       physics: const ClampingScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return const Text('Hi');
+                      itemBuilder: (_, index) {
+                        return Card(
+                          color: Colors.grey[50],
+                          elevation: 0.0,
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: _indent),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(snapshot
+                                    .data!.singleUserReview[index].text),
+                                //Text(snapshot.data!.singleUserReview.first.user.name),
+                              ],
+                            ),
+                          ),
+                        );
                       },
                     )
                   ],

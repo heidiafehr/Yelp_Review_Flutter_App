@@ -10,7 +10,6 @@ class Restaurant {
   final List<Category> categories;
   final Location location;
   final String rating;
-  final String reviewCount;
 
   bool get isAddressValid =>
       (location.displayAddress.addressLineOne.isNotEmpty &&
@@ -24,7 +23,6 @@ class Restaurant {
     required this.categories,
     required this.location,
     required this.rating,
-    required this.reviewCount,
   });
 
   factory Restaurant.fromJson(Map<String, dynamic> json) {
@@ -40,7 +38,6 @@ class Restaurant {
           .toList(),
       location: Location.fromJson(json['location']),
       rating: json['rating'].toString(),
-      reviewCount: json['review_count'].toString(),
     );
   }
 }

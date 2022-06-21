@@ -8,27 +8,11 @@ class Location {
 
   factory Location.fromJson(Map<String, dynamic> json) {
     return Location(
-      //addressOne: json['address1'],
         displayAddress: DisplayAddress.fromStringArray(
             (json['display_address'] as List)
                 .map((address) => address.toString())
                 .toList())
     );
-//final String addressOne;
-
-/*Location({
-    //required this.addressOne,
-    required this.displayAddress,
-  });
-
-  factory Location.fromJson(Map<String, dynamic> json) {
-    return Location(
-      //addressOne: json['address1'],
-        displayAddress: (json['display_address'] as List)
-            .map((address) => address.toString())
-            .toList()
-    );
-  }*/
   }
 }
 
