@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:yelp_app/hours.dart';
 import 'category.dart';
 import 'package:yelp_app/location.dart';
@@ -14,6 +12,10 @@ class Restaurant {
   final String rating;
   final String reviewCount;
 
+  bool get isAddressValid =>
+      (location.displayAddress.addressLineOne.isNotEmpty &&
+      location.displayAddress.addressLineTwo.isNotEmpty);
+
   Restaurant({
     required this.name,
     required this.image,
@@ -27,18 +29,18 @@ class Restaurant {
 
   factory Restaurant.fromJson(Map<String, dynamic> json) {
     return Restaurant(
-        name: json['name'],
-        image: json['image_url'],
-        price: json['price'],
-        categories: (json['categories'] as List)
-            .map((categoryJson) => Category.fromJson(categoryJson))
-            .toList(),
-        hours: (json['hours'] as List)
-            .map((hoursJson) => Hours.fromJson(hoursJson))
-            .toList(),
-        location: Location.fromJson(json['location']),
-        rating: json['rating'].toString(),
-        reviewCount: json['review_count'].toString(),
+      name: json['name'],
+      image: json['image_url'],
+      price: json['price'],
+      categories: (json['categories'] as List)
+          .map((categoryJson) => Category.fromJson(categoryJson))
+          .toList(),
+      hours: (json['hours'] as List)
+          .map((hoursJson) => Hours.fromJson(hoursJson))
+          .toList(),
+      location: Location.fromJson(json['location']),
+      rating: json['rating'].toString(),
+      reviewCount: json['review_count'].toString(),
     );
   }
 }

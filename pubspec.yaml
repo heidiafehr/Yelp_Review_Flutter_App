@@ -38,6 +38,7 @@ dependencies:
   golden_toolkit: ^0.13.0
   google_fonts: ^3.0.1
   expansion_tile_card: ^2.0.0
+  pull_to_refresh: ^2.0.0
 
 dev_dependencies:
   flutter_test:

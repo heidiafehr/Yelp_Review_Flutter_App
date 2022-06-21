@@ -1,17 +1,17 @@
 
 class Category {
   final String alias;
-  final String title;
+  final String restaurantType;
 
   Category({
     required this.alias,
-    required this.title,
+    required this.restaurantType,
   });
 
   factory Category.fromJson(Map<String, dynamic> json) {
     return Category(
         alias: json['alias'],
-        title: json['title']
+        restaurantType: json['title']
     );
   }
 }
