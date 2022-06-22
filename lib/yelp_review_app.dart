@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yelp_app/home_screen.dart';
+import 'package:yelp_app/home_screen/home_screen.dart';
 import 'package:yelp_app/restaurantour_screen.dart';
 
 class YelpReviewApp extends StatefulWidget {
@@ -43,7 +43,8 @@ class _YelpReviewAppState extends State<YelpReviewApp> {
 }
 
 class YelpDivider extends StatelessWidget {
-  const YelpDivider({Key? key}) : super(key: key);
+  final double? indents;
+  const YelpDivider({Key? key, this.indents}) : super(key: key);
 
   @override
   Widget build(BuildContext context){
@@ -52,8 +53,8 @@ class YelpDivider extends StatelessWidget {
       height: dividerTheme.space,
       thickness: dividerTheme.thickness,
       color: dividerTheme.color,
-      indent: dividerTheme.indent,
-      endIndent: dividerTheme.endIndent,
+      indent: indents ?? dividerTheme.indent,
+      endIndent: indents ?? dividerTheme.endIndent,
     );
   }
 }

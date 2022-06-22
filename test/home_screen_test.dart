@@ -1,4 +1,4 @@
-import 'package:yelp_app/home_screen.dart';
+import 'package:yelp_app/home_screen/home_screen.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 
 void main() {

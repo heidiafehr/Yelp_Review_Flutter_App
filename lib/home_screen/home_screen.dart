@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yelp_app/api_call_class.dart';
+import 'package:yelp_app/display_restaurant_hours.dart';
+import 'package:yelp_app/home_screen/widgets/restaurant_address.dart';
 import 'package:yelp_app/restaurant_class.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:yelp_app/review_class.dart';
@@ -55,11 +57,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     (snapshot.data?.name != null &&
                             snapshot.data!.name.isNotEmpty)
                         ? CustomYelpAppBar(snapshot.data!.name)
-                        : const CustomYelpAppBar(
-                            'N/A Restaurant Name'),
+                        : const CustomYelpAppBar('N/A Restaurant Name'),
                     if (snapshot.data?.image != null &&
                         snapshot.data!.image.isNotEmpty)
-                      Image.network(snapshot.data!.image),
+                      Image.network(
+                        snapshot.data!.image,
+                      ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: ExpansionTileCard(
@@ -112,57 +115,29 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ],
                         ),
-                        children: const [
-                          Divider(
-                            height: 0.0,
-                            indent: _indent,
-                            color: Colors.grey,
-                            endIndent: _indent,
-                          ),
+                        children: [
+                          const YelpDivider(),
                           Align(
                             alignment: Alignment.bottomLeft,
                             child: Padding(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 30.0, vertical: 10.0),
-                              child: Text('Does it work?'),
+                              child: DisplayRestaurantHours(
+                                  snapshot.data!.hours.first.openHours),
                             ),
                           ),
                         ],
                       ),
                     ),
                     const YelpDivider(),
-                    Padding(
-                      padding: const EdgeInsets.all(_indent),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text('Address'),
-                          Padding(
-                            padding: const EdgeInsets.only(top: _indent),
-                            child: (snapshot.data!.isAddressValid)
-                                ? Text(
-                                    '${snapshot.data!.location.displayAddress.addressLineOne}'
-                                    '\n${snapshot.data!.location.displayAddress.addressLineTwo}',
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16.0),
-                                  )
-                                : const SizedBox.shrink(),
-                          ),
-                          if (snapshot.data?.location.displayAddress
-                                      .addressLineThree !=
-                                  null &&
-                              snapshot.data!.location.displayAddress
-                                  .addressLineThree!.isNotEmpty)
-                            Text(
-                              snapshot.data!.location.displayAddress
-                                  .addressLineThree!,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16.0),
-                            ),
-                        ],
-                      ),
-                    ),
+                    RestaurantAddress(
+                        isAddressValid: snapshot.data!.isAddressValid,
+                        addressLineOne: snapshot
+                            .data!.location.displayAddress.addressLineOne,
+                        addressLineTwo: snapshot
+                            .data!.location.displayAddress.addressLineTwo,
+                        addressLineThree: snapshot
+                            .data!.location.displayAddress.addressLineThree),
                     const YelpDivider(),
                     Padding(
                       padding: const EdgeInsets.all(_indent),
@@ -300,10 +275,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                                 const Padding(
                                   padding: EdgeInsets.symmetric(vertical: 20.0),
-                                  child: Divider(
-                                    color: Colors.grey,
-                                    indent: 0.0,
-                                    endIndent: 0.0,
+                                  child: YelpDivider(
+                                    indents: 0.0,
                                   ),
                                 ),
                               ],
