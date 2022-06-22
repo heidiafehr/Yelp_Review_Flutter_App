@@ -11,6 +11,7 @@ class Restaurant {
   final Location location;
   final String rating;
 
+  bool get isRestaurantNameValid => (name.isNotEmpty);
   bool get isAddressValid =>
       (location.displayAddress.addressLineOne.isNotEmpty &&
       location.displayAddress.addressLineTwo.isNotEmpty);

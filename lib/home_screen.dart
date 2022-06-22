@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
           FutureBuilder<Restaurant>(
             future: futureRestaurant,
             builder: (context, snapshot) {
-              if (snapshot.hasData) {
+              if (snapshot.hasData && snapshot.data != null) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -66,17 +66,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       title: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 50.0),
                         child: (snapshot.data?.name != null &&
-                                snapshot.data!.name.isNotEmpty)
+                                snapshot.data!.isRestaurantNameValid)
                             ? Text(widget.appBarTitle ?? snapshot.data!.name,
                                 style: Theme.of(context).textTheme.headline1,
                                 overflow: TextOverflow.ellipsis)
                             : const Text('Restaurant Name Not Available'),
                       ),
                     ),
-                    snapshot.data?.image != null &&
-                            snapshot.data!.image.isNotEmpty
-                        ? Image.network(snapshot.data!.image)
-                        : const SizedBox.shrink(),
+                    if (snapshot.data?.image != null &&
+                        snapshot.data!.image.isNotEmpty)
+                      Image.network(snapshot.data!.image),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: ExpansionTileCard(
@@ -156,8 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           const Text('Address'),
                           Padding(
                             padding: const EdgeInsets.only(top: _indent),
-                            child: (snapshot.data != null &&
-                                    snapshot.data!.isAddressValid)
+                            child: (snapshot.data!.isAddressValid)
                                 ? Text(
                                     '${snapshot.data!.location.displayAddress.addressLineOne}'
                                     '\n${snapshot.data!.location.displayAddress.addressLineTwo}',
@@ -188,32 +186,34 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Overall Rating'),
-                          Padding(
-                            padding: const EdgeInsets.only(top: _indent),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.baseline,
-                              textBaseline: TextBaseline.alphabetic,
-                              children: [
-                                Text(
-                                  snapshot.data!.rating,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 40.0,
-                                      fontFamily: 'LoraBold'),
-                                ),
-                                Transform(
-                                  transform:
-                                      Matrix4.translationValues(0.0, 2.5, 0.0),
-                                  child: const YelpStarIcon(),
-                                ),
-                              ],
+                          if (snapshot.data?.rating != null)
+                            const Text('Overall Rating'),
+                          if (snapshot.data?.rating != null)
+                            Padding(
+                              padding: const EdgeInsets.only(top: _indent),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.baseline,
+                                textBaseline: TextBaseline.alphabetic,
+                                children: [
+                                  Text(
+                                    snapshot.data!.rating,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 40.0,
+                                        fontFamily: 'LoraBold'),
+                                  ),
+                                  Transform(
+                                    transform: Matrix4.translationValues(
+                                        0.0, 2.5, 0.0),
+                                    child: const YelpStarIcon(),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
                         ],
                       ),
                     ),
-                    const YelpDivider(),
+                    if (snapshot.data?.rating != null) const YelpDivider(),
                   ],
                 );
               } else {
@@ -221,7 +221,6 @@ class _HomeScreenState extends State<HomeScreen> {
               }
             },
           ),
-          
           FutureBuilder<Reviews>(
             future: futureReviews,
             builder: (context, snapshot) {
@@ -229,88 +228,105 @@ class _HomeScreenState extends State<HomeScreen> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(_indent),
-                      child: Text(
-                          '${snapshot.data!.totalNumberOfReviews} Reviews'),
-                    ),
-                    ListView.builder(
-                      itemCount: snapshot.data!.individualUserReviews.length,
-                      shrinkWrap: true,
-                      physics: const ClampingScrollPhysics(),
-                      itemBuilder: (_, index) {
-                        return Card(
-                          color: Colors.grey[50],
-                          elevation: 0.0,
-                          margin:
-                              const EdgeInsets.symmetric(horizontal: _indent),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              RatingBarIndicator(
-                                rating: snapshot.data!
-                                    .individualUserReviews[index].ratingNumber
-                                    .toDouble(),
-                                itemBuilder: (context, index) =>
-                                    const YelpStarIcon(),
-                                itemCount: snapshot.data!
-                                    .individualUserReviews[index].ratingNumber
-                                    .toInt(),
-                                itemSize: 20.0,
-                                direction: Axis.horizontal,
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 10.0),
-                                child: Text(
-                                  snapshot
-                                      .data!.individualUserReviews[index].text,
-                                  style: const TextStyle(
-                                      fontSize: 18.0, height: 1.35),
+                    if (snapshot.data?.totalNumberOfReviews != null)
+                      Padding(
+                        padding: const EdgeInsets.all(_indent),
+                        child: Text(
+                            '${snapshot.data!.totalNumberOfReviews} Reviews'),
+                      ),
+                    if (snapshot.data?.individualUserReviews != null &&
+                        snapshot.data!.individualUserReviews.isNotEmpty)
+                      ListView.builder(
+                        itemCount: snapshot.data!.individualUserReviews.length,
+                        shrinkWrap: true,
+                        physics: const ClampingScrollPhysics(),
+                        itemBuilder: (_, index) {
+                          return Card(
+                            color: Colors.grey[50],
+                            elevation: 0.0,
+                            margin:
+                                const EdgeInsets.symmetric(horizontal: _indent),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                if (snapshot.data?.individualUserReviews[index]
+                                        .ratingNumber !=
+                                    null)
+                                  RatingBarIndicator(
+                                    rating: snapshot
+                                        .data!
+                                        .individualUserReviews[index]
+                                        .ratingNumber
+                                        .toDouble(),
+                                    itemBuilder: (context, index) =>
+                                        const YelpStarIcon(),
+                                    itemCount: snapshot
+                                        .data!
+                                        .individualUserReviews[index]
+                                        .ratingNumber
+                                        .toInt(),
+                                    itemSize: 20.0,
+                                    direction: Axis.horizontal,
+                                  ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 10.0),
+                                  child: Text(
+                                    snapshot.data!.individualUserReviews[index]
+                                        .text,
+                                    style: const TextStyle(
+                                        fontSize: 18.0, height: 1.32),
+                                  ),
                                 ),
-                              ),
-                              Row(
-                                children: [
-                                  if (snapshot
-                                          .data!
-                                          .individualUserReviews[index]
-                                          .user
-                                          .imageURL !=
-                                      null)
-                                    CircleAvatar(
-                                      radius: 25.0,
-                                      backgroundColor: Colors.transparent,
-                                      backgroundImage: NetworkImage(
-                                        snapshot
+                                Row(
+                                  children: [
+                                    if (snapshot
                                             .data!
                                             .individualUserReviews[index]
                                             .user
-                                            .imageURL!,
+                                            .imageURL !=
+                                        null)
+                                      CircleAvatar(
+                                        radius: 25.0,
+                                        backgroundColor: Colors.transparent,
+                                        backgroundImage: NetworkImage(
+                                          snapshot
+                                              .data!
+                                              .individualUserReviews[index]
+                                              .user
+                                              .imageURL!,
+                                        ),
                                       ),
-                                    ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: Text(snapshot
-                                        .data!
-                                        .individualUserReviews[index]
-                                        .user
-                                        .name),
-                                  ),
-                                ],
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 20.0),
-                                child: Divider(
-                                  color: Colors.grey,
-                                  indent: 0.0,
-                                  endIndent: 0.0,
+                                    if (snapshot
+                                            .data
+                                            ?.individualUserReviews[index]
+                                            .user
+                                            .name !=
+                                        null)
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 8.0),
+                                        child: Text(snapshot
+                                            .data!
+                                            .individualUserReviews[index]
+                                            .user
+                                            .name),
+                                      ),
+                                  ],
                                 ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    )
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 20.0),
+                                  child: Divider(
+                                    color: Colors.grey,
+                                    indent: 0.0,
+                                    endIndent: 0.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      )
                   ],
                 );
               } else {
