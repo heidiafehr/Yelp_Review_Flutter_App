@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yelp_app/home_screen.dart';
+import 'package:yelp_app/restaurantour_screen.dart';
 
 class YelpReviewApp extends StatefulWidget {
   const YelpReviewApp({Key? key}) : super(key: key);
@@ -34,6 +35,7 @@ class _YelpReviewAppState extends State<YelpReviewApp> {
       ),
       initialRoute: '/home_screen',
       routes: {
+        '/restaurantour_screen': (context) => const RestauranTourScreen(),
         '/home_screen': (context) => const HomeScreen(),
       },
     );
