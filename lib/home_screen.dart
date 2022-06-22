@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:yelp_app/api_call_class.dart';
 import 'package:yelp_app/restaurant_class.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:yelp_app/review_class.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:yelp_app/yelp_appbar.dart';
 import 'package:yelp_app/yelp_review_app.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -52,27 +52,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppBar(
-                      systemOverlayStyle: SystemUiOverlayStyle(
-                        statusBarColor: Colors.white.withOpacity(0.5),
-                        //sets status bar background to white
-                        statusBarIconBrightness: Brightness.dark,
-                        //sets text colors to dark color
-                        statusBarBrightness: Brightness.dark,
-                      ),
-                      elevation: 0.0,
-                      backgroundColor: Colors.white,
-                      centerTitle: true,
-                      title: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                        child: (snapshot.data?.name != null &&
-                                snapshot.data!.isRestaurantNameValid)
-                            ? Text(widget.appBarTitle ?? snapshot.data!.name,
-                                style: Theme.of(context).textTheme.headline1,
-                                overflow: TextOverflow.ellipsis)
-                            : const Text('Restaurant Name Not Available'),
-                      ),
-                    ),
+                    (snapshot.data?.name != null &&
+                            snapshot.data!.name.isNotEmpty)
+                        ? CustomYelpAppBar(snapshot.data!.name)
+                        : const CustomYelpAppBar(
+                            'N/A Restaurant Name'),
                     if (snapshot.data?.image != null &&
                         snapshot.data!.image.isNotEmpty)
                       Image.network(snapshot.data!.image),
