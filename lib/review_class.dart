@@ -1,19 +1,19 @@
-import 'package:yelp_app/single_review.dart';
+import 'package:yelp_app/individual_user_reviews.dart';
 
 class Reviews {
   final int totalNumberOfReviews;
-  final List<SingleUserReview> singleUserReview;
+  final List<IndividualUserReviews> individualUserReviews;
 
   Reviews({
     required this.totalNumberOfReviews,
-    required this.singleUserReview,
+    required this.individualUserReviews,
   });
 
   factory Reviews.fromJson(Map<String, dynamic> json) {
     return Reviews(
       totalNumberOfReviews: json['total'],
-      singleUserReview: (json['reviews'] as List)
-          .map((reviewJson) => SingleUserReview.fromJson(reviewJson))
+      individualUserReviews: (json['reviews'] as List)
+          .map((reviewJson) => IndividualUserReviews.fromJson(reviewJson))
           .toList(),
     );
   }

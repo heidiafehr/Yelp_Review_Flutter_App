@@ -20,11 +20,51 @@ class _YelpReviewAppState extends State<YelpReviewApp> {
               fontWeight: FontWeight.bold,
               fontFamily: 'LoraBold'),
         ),
+        dividerTheme: const DividerThemeData(
+          space: 0.0,
+          thickness: 0.0,
+          color: Colors.grey,
+          indent: 30.0,
+          endIndent: 30.0,
+        ),
+        iconTheme: const IconThemeData(
+          color: Colors.amber,
+          size: 20.0,
+        ),
       ),
       initialRoute: '/home_screen',
       routes: {
         '/home_screen': (context) => const HomeScreen(),
       },
+    );
+  }
+}
+
+class YelpDivider extends StatelessWidget {
+  const YelpDivider({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context){
+    final dividerTheme = Theme.of(context).dividerTheme;
+    return Divider(
+      height: dividerTheme.space,
+      thickness: dividerTheme.thickness,
+      color: dividerTheme.color,
+      indent: dividerTheme.indent,
+      endIndent: dividerTheme.endIndent,
+    );
+  }
+}
+
+class YelpStarIcon extends StatelessWidget {
+  const YelpStarIcon({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context){
+    final iconThemes = Theme.of(context).iconTheme;
+    return IconTheme(
+      data: IconThemeData(color: iconThemes.color, size: iconThemes.size),
+      child: const Icon(Icons.star),
     );
   }
 }

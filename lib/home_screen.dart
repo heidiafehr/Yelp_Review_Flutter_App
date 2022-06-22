@@ -4,6 +4,8 @@ import 'package:yelp_app/api_call_class.dart';
 import 'package:yelp_app/restaurant_class.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:yelp_app/review_class.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:yelp_app/yelp_review_app.dart';
 
 class HomeScreen extends StatefulWidget {
   final String? appBarTitle;
@@ -145,12 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
-                    const Divider(
-                      height: 0.0,
-                      indent: _indent,
-                      color: Colors.grey,
-                      endIndent: _indent,
-                    ),
+                    const YelpDivider(),
                     Padding(
                       padding: const EdgeInsets.all(_indent),
                       child: Column(
@@ -184,12 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
-                    const Divider(
-                      height: 0.0,
-                      indent: _indent,
-                      color: Colors.grey,
-                      endIndent: _indent,
-                    ),
+                    const YelpDivider(),
                     Padding(
                       padding: const EdgeInsets.all(_indent),
                       child: Column(
@@ -213,11 +205,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Transform(
                                   transform:
                                       Matrix4.translationValues(0.0, 2.5, 0.0),
-                                  child: Icon(
-                                    Icons.star,
-                                    color: Colors.yellow[700],
-                                    size: 20.0,
-                                  ),
+                                  child: const YelpStarIcon(),
                                 ),
                               ],
                             ),
@@ -225,12 +213,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
-                    const Divider(
-                      height: 0.0,
-                      indent: _indent,
-                      color: Colors.grey,
-                      endIndent: _indent,
-                    ),
+                    const YelpDivider(),
                   ],
                 );
               } else {
@@ -238,6 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
               }
             },
           ),
+          
           FutureBuilder<Reviews>(
             future: futureReviews,
             builder: (context, snapshot) {
@@ -251,24 +235,78 @@ class _HomeScreenState extends State<HomeScreen> {
                           '${snapshot.data!.totalNumberOfReviews} Reviews'),
                     ),
                     ListView.builder(
-                      itemCount: snapshot.data!.singleUserReview.length,
+                      itemCount: snapshot.data!.individualUserReviews.length,
                       shrinkWrap: true,
                       physics: const ClampingScrollPhysics(),
                       itemBuilder: (_, index) {
                         return Card(
                           color: Colors.grey[50],
                           elevation: 0.0,
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: _indent),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(snapshot
-                                    .data!.singleUserReview[index].text),
-                                //Text(snapshot.data!.singleUserReview.first.user.name),
-                              ],
-                            ),
+                          margin:
+                              const EdgeInsets.symmetric(horizontal: _indent),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              RatingBarIndicator(
+                                rating: snapshot.data!
+                                    .individualUserReviews[index].ratingNumber
+                                    .toDouble(),
+                                itemBuilder: (context, index) =>
+                                    const YelpStarIcon(),
+                                itemCount: snapshot.data!
+                                    .individualUserReviews[index].ratingNumber
+                                    .toInt(),
+                                itemSize: 20.0,
+                                direction: Axis.horizontal,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10.0),
+                                child: Text(
+                                  snapshot
+                                      .data!.individualUserReviews[index].text,
+                                  style: const TextStyle(
+                                      fontSize: 18.0, height: 1.35),
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  if (snapshot
+                                          .data!
+                                          .individualUserReviews[index]
+                                          .user
+                                          .imageURL !=
+                                      null)
+                                    CircleAvatar(
+                                      radius: 25.0,
+                                      backgroundColor: Colors.transparent,
+                                      backgroundImage: NetworkImage(
+                                        snapshot
+                                            .data!
+                                            .individualUserReviews[index]
+                                            .user
+                                            .imageURL!,
+                                      ),
+                                    ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: Text(snapshot
+                                        .data!
+                                        .individualUserReviews[index]
+                                        .user
+                                        .name),
+                                  ),
+                                ],
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 20.0),
+                                child: Divider(
+                                  color: Colors.grey,
+                                  indent: 0.0,
+                                  endIndent: 0.0,
+                                ),
+                              ),
+                            ],
                           ),
                         );
                       },
