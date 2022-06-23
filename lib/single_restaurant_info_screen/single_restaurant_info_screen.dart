@@ -3,7 +3,7 @@ import 'package:yelp_app/api_call_class.dart';
 import 'package:yelp_app/single_restaurant_info_screen/widgets/display_overall_rating.dart';
 import 'package:yelp_app/single_restaurant_info_screen/widgets/display_price_and_hours_status.dart';
 import 'package:yelp_app/single_restaurant_info_screen/widgets/display_user_reviews.dart';
-import 'package:yelp_app/single_restaurant_info_screen/widgets/restaurant_address.dart';
+import 'package:yelp_app/single_restaurant_info_screen/widgets/display_restaurant_address.dart';
 import 'package:yelp_app/restaurant_class.dart';
 import 'package:yelp_app/review_class.dart';
 import 'package:yelp_app/yelp_appbar.dart';
@@ -24,6 +24,7 @@ class SingleRestaurantInfoScreen extends StatefulWidget {
 class _SingleRestaurantInfoScreen extends State<SingleRestaurantInfoScreen> {
   Future<Restaurant>? futureRestaurant;
   Future<Reviews>? futureReviews;
+  Future<Restaurant>? futureListOfRestaurants;
   APICall api = APICall();
 
   @override
@@ -31,6 +32,7 @@ class _SingleRestaurantInfoScreen extends State<SingleRestaurantInfoScreen> {
     super.initState();
     _getRestaurant();
     _getReview();
+    _getListOfRestaurants();
   }
 
   void _getRestaurant() async {
@@ -41,6 +43,10 @@ class _SingleRestaurantInfoScreen extends State<SingleRestaurantInfoScreen> {
   void _getReview() async {
     futureReviews = null;
     futureReviews = api.fetchReview();
+  }
+
+  void _getListOfRestaurants() async {
+    futureListOfRestaurants = api.fetchListOfRestaurants();
   }
 
   @override
@@ -71,14 +77,12 @@ class _SingleRestaurantInfoScreen extends State<SingleRestaurantInfoScreen> {
                         isOpenNow: snapshot.data!.hours.first.isOpenNow,
                         openHours: snapshot.data!.hours.first.openHours),
                     const YelpDivider(),
-                    RestaurantAddress(
-                        isAddressValid: snapshot.data!.isAddressValid,
-                        addressLineOne: snapshot
-                            .data!.location.displayAddress.addressLineOne,
-                        addressLineTwo: snapshot
-                            .data!.location.displayAddress.addressLineTwo,
-                        addressLineThree: snapshot
-                            .data!.location.displayAddress.addressLineThree),
+                    DisplayRestaurantAddress(
+                      addressLineOne: snapshot.data!.location.addressLineOne,
+                      city: snapshot.data!.location.city,
+                      state: snapshot.data!.location.state,
+                      zipcode: snapshot.data!.location.zipcode,
+                    ),
                     const YelpDivider(),
                     DisplayOverallRating(
                       rating: snapshot.data!.rating,

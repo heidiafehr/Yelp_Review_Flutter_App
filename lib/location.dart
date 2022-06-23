@@ -1,22 +1,34 @@
 
 class Location {
-  final DisplayAddress displayAddress;
+  //final DisplayAddress displayAddress;
+  final String addressLineOne;
+  final String city;
+  final String state;
+  final String zipcode;
 
   Location({
-    required this.displayAddress,
+    //required this.displayAddress,
+    required this.addressLineOne,
+    required this.city,
+    required this.state,
+    required this.zipcode,
   });
 
   factory Location.fromJson(Map<String, dynamic> json) {
     return Location(
-        displayAddress: DisplayAddress.fromStringArray(
+        addressLineOne: json['address1'],
+        city: json['city'],
+        state: json['state'],
+        zipcode: json['zip_code'],
+        /*displayAddress: DisplayAddress.fromStringArray(
             (json['display_address'] as List)
                 .map((address) => address.toString())
-                .toList())
+                .toList())*/
     );
   }
 }
 
-class DisplayAddress {
+/*class DisplayAddress {
   final String addressLineOne;
   final String addressLineTwo;
   final String? addressLineThree;
@@ -34,4 +46,4 @@ class DisplayAddress {
         addressLineThree: (addresses.length >= 3) ? addresses[2] : null,
     );
   }
-}
+}*/

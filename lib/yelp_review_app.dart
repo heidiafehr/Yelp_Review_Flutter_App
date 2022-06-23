@@ -36,7 +36,8 @@ class _YelpReviewAppState extends State<YelpReviewApp> {
       initialRoute: '/single_restaurant_info_screen',
       routes: {
         '/restaurantour_screen': (context) => const RestauranTourScreen(),
-        '/single_restaurant_info_screen': (context) => const SingleRestaurantInfoScreen(),
+        '/single_restaurant_info_screen': (context) =>
+            const SingleRestaurantInfoScreen(),
       },
     );
   }
@@ -44,10 +45,11 @@ class _YelpReviewAppState extends State<YelpReviewApp> {
 
 class YelpDivider extends StatelessWidget {
   final double? indents;
+
   const YelpDivider({Key? key, this.indents}) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     final dividerTheme = Theme.of(context).dividerTheme;
     return Divider(
       height: dividerTheme.space,
@@ -63,7 +65,7 @@ class YelpStarIcon extends StatelessWidget {
   const YelpStarIcon({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     final iconThemes = Theme.of(context).iconTheme;
     return IconTheme(
       data: IconThemeData(color: iconThemes.color, size: iconThemes.size),
