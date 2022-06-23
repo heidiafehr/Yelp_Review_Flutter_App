@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yelp_app/home_screen/home_screen.dart';
+import 'package:yelp_app/single_restaurant_info_screen/single_restaurant_info_screen.dart';
 import 'package:yelp_app/restaurantour_screen.dart';
 
 class YelpReviewApp extends StatefulWidget {
@@ -33,10 +33,10 @@ class _YelpReviewAppState extends State<YelpReviewApp> {
           size: 20.0,
         ),
       ),
-      initialRoute: '/home_screen',
+      initialRoute: '/single_restaurant_info_screen',
       routes: {
         '/restaurantour_screen': (context) => const RestauranTourScreen(),
-        '/home_screen': (context) => const HomeScreen(),
+        '/single_restaurant_info_screen': (context) => const SingleRestaurantInfoScreen(),
       },
     );
   }

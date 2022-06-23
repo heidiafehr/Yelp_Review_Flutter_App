@@ -1,4 +1,4 @@
-import 'package:yelp_app/home_screen/home_screen.dart';
+import 'package:yelp_app/single_restaurant_info_screen/single_restaurant_info_screen.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 
 void main() {
@@ -10,7 +10,7 @@ void main() {
         Device.iphone11,
       ])
       ..addScenario(
-        widget: const HomeScreen(appBarTitle: 'Short and Simple',),
+        widget: const SingleRestaurantInfoScreen(appBarTitle: 'Short and Simple',),
         name: 'app bar with short name',
       );
     await tester.pumpDeviceBuilder(builder);
@@ -26,7 +26,7 @@ void main() {
             Device.iphone11,
           ])
           ..addScenario(
-            widget: const HomeScreen(appBarTitle: 'Realyyy realy realy Reallyyyyyyy Long Title ',),
+            widget: const SingleRestaurantInfoScreen(appBarTitle: 'Realyyy realy realy Reallyyyyyyy Long Title ',),
             name: 'app bar with long name',
           );
         await tester.pumpDeviceBuilder(builder);

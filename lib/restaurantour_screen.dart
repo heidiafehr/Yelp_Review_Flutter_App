@@ -5,7 +5,7 @@ class RestauranTourScreen extends StatelessWidget {
   const RestauranTourScreen({Key? key,}) : super(key :key);
 
   @override
-  Widget build(BuildContext){
+  Widget build(BuildContext context){
     return const Scaffold(
       body: CustomYelpAppBar('RestauranTour'),
     );
