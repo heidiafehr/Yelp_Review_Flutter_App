@@ -37,8 +37,11 @@ String processingTime(OpenHours dayInfo) {
   //if 12:00 => just say noon
   // 00:00 => midnight
   //check for overnight and stuff
-  final startTime = (int.parse(dayInfo.start) % 1200).toString();
+  String startTime = (int.parse(dayInfo.start) % 1200).toString();
   final endTime = (int.parse(dayInfo.end) % 1200).toString();
+  if(startTime.length == 3) {
+    startTime = '0$startTime';
+  }
   final startTimeWithColon =
       startTime.substring(0, 2) + ':' + startTime.substring(2, 4) + 'AM';
   final endTimeWithColon =

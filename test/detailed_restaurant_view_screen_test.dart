@@ -1,4 +1,4 @@
-import 'package:yelp_app/single_restaurant_info_screen/single_restaurant_info_screen.dart';
+import 'package:yelp_app/detailed_restaurant_view_screen/detailed_restaurant_view_screen.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 
 void main() {
@@ -10,7 +10,7 @@ void main() {
         Device.iphone11,
       ])
       ..addScenario(
-        widget: const SingleRestaurantInfoScreen(
+        widget: const DetailedRestaurantViewScreen(
           appBarTitle: 'Short and Simple',
         ),
         name: 'app bar with short name',
@@ -28,7 +28,7 @@ void main() {
         Device.iphone11,
       ])
       ..addScenario(
-        widget: const SingleRestaurantInfoScreen(
+        widget: const DetailedRestaurantViewScreen(
           appBarTitle: 'Realyyy realy realy Reallyyyyyyy Long Title ',
         ),
         name: 'app bar with long name',

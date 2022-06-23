@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:yelp_app/single_restaurant_info_screen/single_restaurant_info_screen.dart';
-import 'package:yelp_app/restaurantour_screen.dart';
+import 'package:yelp_app/detailed_restaurant_view_screen/detailed_restaurant_view_screen.dart';
+import 'package:yelp_app/restaurantour_screen/restaurantour_screen.dart';
 
 class YelpReviewApp extends StatefulWidget {
   const YelpReviewApp({Key? key}) : super(key: key);
@@ -33,11 +33,11 @@ class _YelpReviewAppState extends State<YelpReviewApp> {
           size: 20.0,
         ),
       ),
-      initialRoute: '/single_restaurant_info_screen',
+      initialRoute: '/detailed_restaurant_view_screen',
       routes: {
         '/restaurantour_screen': (context) => const RestauranTourScreen(),
-        '/single_restaurant_info_screen': (context) =>
-            const SingleRestaurantInfoScreen(),
+        '/detailed_restaurant_view_screen': (context) =>
+            const DetailedRestaurantViewScreen(),
       },
     );
   }

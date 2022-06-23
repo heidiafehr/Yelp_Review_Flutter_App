@@ -1,30 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:yelp_app/api_call_class.dart';
-import 'package:yelp_app/single_restaurant_info_screen/widgets/display_overall_rating.dart';
-import 'package:yelp_app/single_restaurant_info_screen/widgets/display_price_and_hours_status.dart';
-import 'package:yelp_app/single_restaurant_info_screen/widgets/display_user_reviews.dart';
-import 'package:yelp_app/single_restaurant_info_screen/widgets/display_restaurant_address.dart';
+import 'package:yelp_app/yelp_repository.dart';
+import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_overall_rating.dart';
+import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_price_and_hours_status.dart';
+import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_user_reviews.dart';
+import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_restaurant_address.dart';
 import 'package:yelp_app/restaurant_class.dart';
 import 'package:yelp_app/review_class.dart';
 import 'package:yelp_app/yelp_appbar.dart';
 import 'package:yelp_app/yelp_review_app.dart';
 
-class SingleRestaurantInfoScreen extends StatefulWidget {
+class DetailedRestaurantViewScreen extends StatefulWidget {
   final String? appBarTitle;
 
-  const SingleRestaurantInfoScreen(
+  const DetailedRestaurantViewScreen(
       {@visibleForTesting this.appBarTitle, Key? key})
       : super(key: key);
 
   @override
-  State<SingleRestaurantInfoScreen> createState() =>
+  State<DetailedRestaurantViewScreen> createState() =>
       _SingleRestaurantInfoScreen();
 }
 
-class _SingleRestaurantInfoScreen extends State<SingleRestaurantInfoScreen> {
+class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
   Future<Restaurant>? futureRestaurant;
   Future<Reviews>? futureReviews;
-  Future<Restaurant>? futureListOfRestaurants;
   APICall api = APICall();
 
   @override
@@ -32,7 +31,6 @@ class _SingleRestaurantInfoScreen extends State<SingleRestaurantInfoScreen> {
     super.initState();
     _getRestaurant();
     _getReview();
-    _getListOfRestaurants();
   }
 
   void _getRestaurant() async {
@@ -43,10 +41,6 @@ class _SingleRestaurantInfoScreen extends State<SingleRestaurantInfoScreen> {
   void _getReview() async {
     futureReviews = null;
     futureReviews = api.fetchReview();
-  }
-
-  void _getListOfRestaurants() async {
-    futureListOfRestaurants = api.fetchListOfRestaurants();
   }
 
   @override
@@ -70,12 +64,13 @@ class _SingleRestaurantInfoScreen extends State<SingleRestaurantInfoScreen> {
                       Image.network(
                         snapshot.data!.image,
                       ),
+                    if(snapshot.data!.hours != null && snapshot.data!.hours!.isNotEmpty)
                     DisplayPriceAndHoursStatus(
                         price: snapshot.data!.price,
                         restaurantType:
                             snapshot.data!.categories.first.restaurantType,
-                        isOpenNow: snapshot.data!.hours.first.isOpenNow,
-                        openHours: snapshot.data!.hours.first.openHours),
+                        isOpenNow: snapshot.data!.hours!.first.isOpenNow,
+                        openHours: snapshot.data!.hours!.first.openHours),
                     const YelpDivider(),
                     DisplayRestaurantAddress(
                       addressLineOne: snapshot.data!.location.addressLineOne,

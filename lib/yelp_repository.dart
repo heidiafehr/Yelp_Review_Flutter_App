@@ -1,3 +1,4 @@
+import 'package:yelp_app/list_of_restaurants.dart';
 import 'package:yelp_app/restaurant_class.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -9,7 +10,7 @@ class APICall {
   Future<Restaurant> fetchRestaurant() async {
     final response = await http.get(
         Uri.parse(
-            'https://api.yelp.com/v3/businesses/north-india-restaurant-san-francisco'),
+            'https://api.yelp.com/v3/businesses/chick-fil-a-las-vegas-8'),
         headers: {
           'Authorization':
               'Bearer wigdsJl9SwNA3dZ3S0hjTtXyUZy6iLmQPFcPEkN2J_nVGcQOoPT5g1JCmF4IEjvAmArwWSCFR6Y-0nk_drkVefLFrrKpDA3LsLsP39U13rf3eCqMSffpH-fIu22mYnYx',
@@ -47,42 +48,42 @@ class APICall {
     }
   }
 
-  Future<Restaurant> fetchListOfRestaurants() async {
+  Future<ListOfRestaurants> fetchListOfRestaurants() async {
     Location location = Location();
-    bool _serviceEnabled;
-    PermissionStatus _permissionGranted;
-    LocationData _locationData;
+    bool serviceEnabled;
+    PermissionStatus permissionGranted;
+    LocationData locationData;
 
-    _serviceEnabled = await location.serviceEnabled();
-    if(!_serviceEnabled) {
-      _serviceEnabled = await location.requestService();
-      if(!_serviceEnabled){
+    serviceEnabled = await location.serviceEnabled();
+    if(!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+      if(!serviceEnabled){
         throw Exception('Failed to enable service');
       }
     }
 
-    _permissionGranted = await location.hasPermission();
-    if(_permissionGranted == PermissionStatus.denied){
-      _permissionGranted = await location.requestPermission();
-      if(_permissionGranted != PermissionStatus.granted) {
+    permissionGranted = await location.hasPermission();
+    if(permissionGranted == PermissionStatus.denied){
+      permissionGranted = await location.requestPermission();
+      if(permissionGranted != PermissionStatus.granted) {
         throw Exception('Failed to get permission');
       }
     }
 
-    _locationData = await location.getLocation();
+    locationData = await location.getLocation();
 
-    final responseReview = await http.get(
+    final response = await http.get(
         Uri.parse(
-            'https://api.yelp.com/v3/businesses/search?latitude=${_locationData.latitude}&longitude=${_locationData.longitude}'),
+            'https://api.yelp.com/v3/businesses/search?latitude=${locationData.latitude}&longitude=${locationData.longitude}'),
         headers: {
           'Authorization':
           'Bearer wigdsJl9SwNA3dZ3S0hjTtXyUZy6iLmQPFcPEkN2J_nVGcQOoPT5g1JCmF4IEjvAmArwWSCFR6Y-0nk_drkVefLFrrKpDA3LsLsP39U13rf3eCqMSffpH-fIu22mYnYx',
         });
 
-    if (responseReview.statusCode == 200) {
+    if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
-      return Restaurant.fromJson(jsonDecode(responseReview.body));
+      return ListOfRestaurants.fromJson(jsonDecode(response.body));
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.

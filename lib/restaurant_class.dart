@@ -5,7 +5,7 @@ import 'package:yelp_app/location.dart';
 class Restaurant {
   final String name;
   final String image;
-  final List<Hours> hours;
+  final List<Hours>? hours;
   final String price;
   final List<Category> categories;
   final Location location;
@@ -16,7 +16,7 @@ class Restaurant {
   Restaurant({
     required this.name,
     required this.image,
-    required this.hours,
+    this.hours,
     required this.price,
     required this.categories,
     required this.location,
@@ -31,9 +31,11 @@ class Restaurant {
       categories: (json['categories'] as List)
           .map((categoryJson) => Category.fromJson(categoryJson))
           .toList(),
-      hours: (json['hours'] as List)
-          .map((hoursJson) => Hours.fromJson(hoursJson))
-          .toList(),
+      hours: json.containsKey('hours')
+          ? (json['hours'] as List)
+              .map((hoursJson) => Hours.fromJson(hoursJson))
+              .toList()
+          : null,
       location: Location.fromJson(json['location']),
       rating: json['rating'].toString(),
     );
