@@ -33,7 +33,7 @@ class _YelpReviewAppState extends State<YelpReviewApp> {
           size: 20.0,
         ),
       ),
-      initialRoute: '/detailed_restaurant_view_screen',
+      initialRoute: '/restaurantour_screen',
       routes: {
         '/restaurantour_screen': (context) => const RestauranTourScreen(),
         '/detailed_restaurant_view_screen': (context) =>

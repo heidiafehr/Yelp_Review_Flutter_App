@@ -27,7 +27,7 @@ class DisplayOverallRating extends StatelessWidget{
                 textBaseline: TextBaseline.alphabetic,
                 children: [
                   Text(
-                    rating!,
+                    rating!.toString(),
                     style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 40.0,

@@ -9,7 +9,7 @@ class Restaurant {
   final String price;
   final List<Category> categories;
   final Location location;
-  final String rating;
+  final num rating;
 
   bool get isRestaurantNameValid => (name.isNotEmpty);
 
@@ -37,7 +37,7 @@ class Restaurant {
               .toList()
           : null,
       location: Location.fromJson(json['location']),
-      rating: json['rating'].toString(),
+      rating: json['rating'],
     );
   }
 }

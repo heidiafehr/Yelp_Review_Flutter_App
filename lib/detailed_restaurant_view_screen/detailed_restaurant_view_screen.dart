@@ -57,8 +57,8 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
                   children: [
                     (snapshot.data?.name != null &&
                             snapshot.data!.name.isNotEmpty)
-                        ? CustomYelpAppBar(snapshot.data!.name)
-                        : const CustomYelpAppBar('N/A Restaurant Name'),
+                        ? CustomYelpAppBar(title: snapshot.data!.name)
+                        : const CustomYelpAppBar(title: 'N/A Restaurant Name'),
                     if (snapshot.data?.image != null &&
                         snapshot.data!.image.isNotEmpty)
                       Image.network(
@@ -80,7 +80,7 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
                     ),
                     const YelpDivider(),
                     DisplayOverallRating(
-                      rating: snapshot.data!.rating,
+                      rating: snapshot.data!.rating.toString(),
                     ),
                     if (snapshot.data?.rating != null) const YelpDivider(),
                   ],

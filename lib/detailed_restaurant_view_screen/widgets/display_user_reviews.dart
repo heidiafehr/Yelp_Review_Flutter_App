@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:yelp_app/individual_user_reviews.dart';
-
+import 'package:flutter_initicon/flutter_initicon.dart';
 import '../../yelp_review_app.dart';
 
 class DisplayUserReviews extends StatelessWidget {
@@ -58,20 +58,29 @@ class DisplayUserReviews extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        if (individualUserReviews![index].user.imageURL != null)
-                          CircleAvatar(
-                            radius: 25.0,
-                            backgroundColor: Colors.transparent,
-                            backgroundImage: NetworkImage(
-                              individualUserReviews![index].user.imageURL!,
-                            ),
-                          ),
-                        if (individualUserReviews?[index].user.name != null)
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child:
-                                Text(individualUserReviews![index].user.name),
-                          ),
+                        (individualUserReviews![index].user.imageURL != null)
+                            ? CircleAvatar(
+                                radius: 25.0,
+                                backgroundColor: Colors.transparent,
+                                backgroundImage: NetworkImage(
+                                  individualUserReviews![index].user.imageURL!,
+                                ),
+                              )
+                            : Initicon(
+                                text: (individualUserReviews?[index]
+                                            .user
+                                            .name !=
+                                        null)
+                                    ? individualUserReviews![index].user.name
+                                    : 'N A',
+                              ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: Text(
+                              (individualUserReviews?[index].user.name != null)
+                                  ? individualUserReviews![index].user.name
+                                  : 'Yelp User'),
+                        ),
                       ],
                     ),
                     const Padding(

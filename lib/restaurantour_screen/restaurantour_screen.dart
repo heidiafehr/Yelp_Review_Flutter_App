@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:yelp_app/list_of_restaurants.dart';
 import 'package:yelp_app/yelp_appbar.dart';
+import '../restaurant_class.dart';
 import '../yelp_repository.dart';
+import '../yelp_review_app.dart';
 
 class RestauranTourScreen extends StatefulWidget {
   const RestauranTourScreen({Key? key}) : super(key: key);
@@ -27,18 +30,126 @@ class _RestauranTourScreen extends State<RestauranTourScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
+      body: Column(
         children: [
-          const CustomYelpAppBar('RestauranTour'),
-          FutureBuilder<ListOfRestaurants>(
-            future: futureListOfRestaurants,
-            builder: (context, snapshot) {
-              if (snapshot.hasData && snapshot.data != null) {
-                return Text(snapshot.data!.listOfRestaurants.length.toString());
-              } else {
-                return const Center(child: CircularProgressIndicator());
-              }
-            },
+          const CustomYelpAppBar(
+            title: 'RestauranTour',
+            elevations: 3.0,
+          ),
+          Expanded(
+            child: ListView(
+              children: [
+                FutureBuilder<ListOfRestaurants>(
+                  future: futureListOfRestaurants,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData && snapshot.data != null) {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        physics: const ClampingScrollPhysics(),
+                        itemCount: snapshot.data!.listOfRestaurants.length,
+                        itemBuilder: (_, index) {
+                          return Card(
+                            margin: const EdgeInsets.only(
+                                top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                bottomRight: Radius.circular(15.0),
+                                bottomLeft: Radius.circular(15.0),
+                                topRight: Radius.circular(15.0),
+                                topLeft: Radius.circular(15.0),
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width * .3,
+                                    height:
+                                        MediaQuery.of(context).size.width * .3,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      child: Image.network(
+                                          fit: BoxFit.cover,
+                                          snapshot.data!
+                                              .listOfRestaurants[index].image),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height:
+                                        MediaQuery.of(context).size.width * .3,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                .51,
+                                            child: Text(
+                                              snapshot
+                                                  .data!
+                                                  .listOfRestaurants[index]
+                                                  .name,
+                                              style: const TextStyle(
+                                                  fontSize: 20.0),
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                          const Spacer(),
+                                          Row(
+                                            children: [
+                                              Text(snapshot
+                                                  .data!
+                                                  .listOfRestaurants[index]
+                                                  .price),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 8.0),
+                                                child: Text(snapshot
+                                                    .data!
+                                                    .listOfRestaurants[index]
+                                                    .categories
+                                                    .first
+                                                    .restaurantType),
+                                              ),
+                                            ],
+                                          ),
+                                          RatingBarIndicator(
+                                            rating: snapshot.data!
+                                                .listOfRestaurants[index].rating
+                                                .toDouble(),
+                                            itemBuilder: (context, index) =>
+                                                const YelpStarIcon(),
+                                            itemCount: snapshot.data!
+                                                .listOfRestaurants[index].rating
+                                                .toInt(),
+                                            itemSize: 20.0,
+                                            direction: Axis.horizontal,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ],
       ),

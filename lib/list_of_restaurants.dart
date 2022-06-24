@@ -16,18 +16,3 @@ class ListOfRestaurants {
     );
   }
 }
-
-class Business {
-  final String name;
-
-  Business({required this.name});
-
-  factory Business.fromJson(Map<String, dynamic> json) {
-
-    return Business(
-      //total: json['total'],
-      name: json['name'],
-    );
-  }
-
-}

@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CustomYelpAppBar extends StatelessWidget {
-  const CustomYelpAppBar(this.title, {Key? key,}) : super(key :key);
+  const CustomYelpAppBar({
+    required this.title,
+    this.elevations,
+    Key? key,
+  }) : super(key :key);
 
   final String title;
+  final double? elevations;
 
   @override
   Widget build(BuildContext context){
@@ -16,7 +21,7 @@ class CustomYelpAppBar extends StatelessWidget {
         //sets text colors to dark color
         statusBarBrightness: Brightness.dark,
       ),
-      elevation: 0.0,
+      elevation: elevations ?? 0.0,
       backgroundColor: Colors.white,
       centerTitle: true,
       title: Padding(
