@@ -5,18 +5,18 @@ class CustomYelpAppBar extends StatelessWidget {
   const CustomYelpAppBar({
     required this.title,
     this.elevations,
-    required this.addLeadingIcon,
+    required this.addNavigateBack,
     Key? key,
   }) : super(key: key);
 
   final String title;
   final double? elevations;
-  final bool addLeadingIcon;
+  final bool addNavigateBack;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: addLeadingIcon
+      leading: addNavigateBack
           ? ElevatedButton(
               onPressed: () {
                 Navigator.pop(context);

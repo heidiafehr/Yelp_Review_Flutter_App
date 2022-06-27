@@ -34,7 +34,7 @@ class _RestauranTourScreen extends State<RestauranTourScreen> {
           const CustomYelpAppBar(
             title: 'RestauranTour',
             elevations: 3.0,
-            addLeadingIcon: false,
+            addNavigateBack: false,
           ),
           Expanded(
             child: ListView(

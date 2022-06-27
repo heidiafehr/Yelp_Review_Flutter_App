@@ -34,18 +34,54 @@ class DisplayRestaurantHours extends StatelessWidget {
 }
 
 String processingTime(OpenHours dayInfo) {
-  //if 12:00 => just say noon
-  // 00:00 => midnight
-  //check for overnight and stuff
-  String startTime = (int.parse(dayInfo.start) % 1200).toString();
-  final endTime = (int.parse(dayInfo.end) % 1200).toString();
-  if(startTime.length == 3) {
-    startTime = '0$startTime';
+
+  String startTimeWithColon;
+  String endTimeWithColon;
+
+  //start parsing the start string
+  if(dayInfo.start == '1200') {
+    startTimeWithColon = '12:00 PM';
   }
-  final startTimeWithColon =
-      startTime.substring(0, 2) + ':' + startTime.substring(2, 4) + 'AM';
-  final endTimeWithColon =
-      endTime.substring(0, 2) + ':' + endTime.substring(2, 4) + 'PM';
-  //if(dayInfo.isOvernight)
+  else if(dayInfo.start == '0000') {
+    startTimeWithColon = '12:00 AM';
+  }
+  else {
+    String startTime = (int.parse(dayInfo.start) % 1200).toString();
+    if(startTime.length == 3) {
+      startTime = '0$startTime';
+    }
+    startTimeWithColon =
+        '${startTime.substring(0, 2)}:${startTime.substring(2, 4)}';
+    if(int.parse(dayInfo.start) > 1200) {
+      startTimeWithColon += ' PM';
+    }
+    else {
+      startTimeWithColon += ' AM';
+    }
+  }
+
+  //start parsing the end string
+  if(dayInfo.end == '1200') {
+    endTimeWithColon = '12:00 PM';
+  }
+  else if(dayInfo.end == '0000') {
+    endTimeWithColon = '12:00 AM';
+  }
+  else {
+    String endTime = (int.parse(dayInfo.end) % 1200).toString();
+    if(endTime.length == 3) {
+      endTime = '0$endTime';
+    }
+    endTimeWithColon =
+    '${endTime.substring(0, 2)}:${endTime.substring(2, 4)}';
+
+    if(int.parse(dayInfo.end) > 1200) {
+      endTimeWithColon += ' PM';
+    }
+    else {
+      endTimeWithColon += ' AM';
+    }
+  }
+
   return '$startTimeWithColon - $endTimeWithColon';
 }

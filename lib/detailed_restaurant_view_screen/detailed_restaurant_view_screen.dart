@@ -61,23 +61,15 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
                             snapshot.data!.name.isNotEmpty)
                         ? CustomYelpAppBar(
                             title: snapshot.data!.name,
-                            addLeadingIcon: true,
+                            addNavigateBack: true,
                           )
                         : const CustomYelpAppBar(
                             title: 'N/A Restaurant Name',
-                            addLeadingIcon: true,
+                            addNavigateBack: true,
                           ),
                     if (snapshot.data?.image != null &&
                         snapshot.data!.image.isNotEmpty)
                       RestaurantImageCarousel(photos: snapshot.data!.photos),
-                      /*SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.width *0.7,
-                        child: Image.network(
-                          fit: BoxFit.cover,
-                          snapshot.data!.image,
-                        ),
-                      ),*/
                     if (snapshot.data!.hours != null &&
                         snapshot.data!.hours!.isNotEmpty)
                       DisplayPriceAndHoursStatus(
