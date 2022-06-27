@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yelp_app/detailed_restaurant_view_screen/widgets/restaurant_image_carousel.dart';
 import 'package:yelp_app/yelp_repository.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_overall_rating.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_price_and_hours_status.dart';
@@ -26,30 +27,31 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
   Future<Reviews>? futureReviews;
   APICall api = APICall();
 
+
   @override
   void initState() {
     super.initState();
-    _getRestaurant();
-    _getReview();
+    _getRestaurant(null);
+    _getReview(null);
   }
 
-  void _getRestaurant() async {
-    futureRestaurant = null;
-    futureRestaurant = api.fetchRestaurant();
+  Future<Restaurant> _getRestaurant(String? apiAlias) async {
+    return api.fetchRestaurant(apiAlias!);
   }
 
-  void _getReview() async {
-    futureReviews = null;
-    futureReviews = api.fetchReview();
+  Future<Reviews> _getReview(String? apiAlias) async {
+    return api.fetchReview(apiAlias!);
   }
 
   @override
   Widget build(BuildContext context) {
+    final arg = ModalRoute.of(context)!.settings.arguments as String;
+
     return Scaffold(
       body: ListView(
         children: [
           FutureBuilder<Restaurant>(
-            future: futureRestaurant,
+            future: _getRestaurant(arg),
             builder: (context, snapshot) {
               if (snapshot.hasData && snapshot.data != null) {
                 return Column(
@@ -57,20 +59,33 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
                   children: [
                     (snapshot.data?.name != null &&
                             snapshot.data!.name.isNotEmpty)
-                        ? CustomYelpAppBar(title: snapshot.data!.name)
-                        : const CustomYelpAppBar(title: 'N/A Restaurant Name'),
+                        ? CustomYelpAppBar(
+                            title: snapshot.data!.name,
+                            addLeadingIcon: true,
+                          )
+                        : const CustomYelpAppBar(
+                            title: 'N/A Restaurant Name',
+                            addLeadingIcon: true,
+                          ),
                     if (snapshot.data?.image != null &&
                         snapshot.data!.image.isNotEmpty)
-                      Image.network(
-                        snapshot.data!.image,
-                      ),
-                    if(snapshot.data!.hours != null && snapshot.data!.hours!.isNotEmpty)
-                    DisplayPriceAndHoursStatus(
-                        price: snapshot.data!.price,
-                        restaurantType:
-                            snapshot.data!.categories.first.restaurantType,
-                        isOpenNow: snapshot.data!.hours!.first.isOpenNow,
-                        openHours: snapshot.data!.hours!.first.openHours),
+                      RestaurantImageCarousel(photos: snapshot.data!.photos),
+                      /*SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.width *0.7,
+                        child: Image.network(
+                          fit: BoxFit.cover,
+                          snapshot.data!.image,
+                        ),
+                      ),*/
+                    if (snapshot.data!.hours != null &&
+                        snapshot.data!.hours!.isNotEmpty)
+                      DisplayPriceAndHoursStatus(
+                          price: snapshot.data!.price,
+                          restaurantType:
+                              snapshot.data!.categories.first.restaurantType,
+                          isOpenNow: snapshot.data!.hours!.first.isOpenNow,
+                          openHours: snapshot.data!.hours!.first.openHours),
                     const YelpDivider(),
                     DisplayRestaurantAddress(
                       addressLineOne: snapshot.data!.location.addressLineOne,
@@ -91,7 +106,7 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
             },
           ),
           FutureBuilder<Reviews>(
-            future: futureReviews,
+            future: _getReview(arg),
             builder: (context, snapshot) {
               if (snapshot.hasData && snapshot.data != null) {
                 return DisplayUserReviews(

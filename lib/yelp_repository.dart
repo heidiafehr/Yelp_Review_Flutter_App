@@ -7,10 +7,10 @@ import 'package:location/location.dart';
 import 'package:yelp_app/review_class.dart';
 
 class APICall {
-  Future<Restaurant> fetchRestaurant() async {
+  Future<Restaurant> fetchRestaurant(String apiAlias) async {
     final response = await http.get(
         Uri.parse(
-            'https://api.yelp.com/v3/businesses/north-india-restaurant-san-francisco'),
+            'https://api.yelp.com/v3/businesses/$apiAlias'),
         headers: {
           'Authorization':
               'Bearer wigdsJl9SwNA3dZ3S0hjTtXyUZy6iLmQPFcPEkN2J_nVGcQOoPT5g1JCmF4IEjvAmArwWSCFR6Y-0nk_drkVefLFrrKpDA3LsLsP39U13rf3eCqMSffpH-fIu22mYnYx',
@@ -27,11 +27,11 @@ class APICall {
     }
   }
 
-  Future<Reviews> fetchReview() async {
+  Future<Reviews> fetchReview(String apiAlias) async {
 
     final responseReview = await http.get(
         Uri.parse(
-            'https://api.yelp.com/v3/businesses/north-india-restaurant-san-francisco/reviews'),
+            'https://api.yelp.com/v3/businesses/$apiAlias/reviews'),
         headers: {
           'Authorization':
               'Bearer wigdsJl9SwNA3dZ3S0hjTtXyUZy6iLmQPFcPEkN2J_nVGcQOoPT5g1JCmF4IEjvAmArwWSCFR6Y-0nk_drkVefLFrrKpDA3LsLsP39U13rf3eCqMSffpH-fIu22mYnYx',

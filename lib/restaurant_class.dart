@@ -10,6 +10,8 @@ class Restaurant {
   final List<Category> categories;
   final Location location;
   final num rating;
+  final String apiAlias;
+  final List<String>? photos;
 
   bool get isRestaurantNameValid => (name.isNotEmpty);
 
@@ -21,6 +23,8 @@ class Restaurant {
     required this.categories,
     required this.location,
     required this.rating,
+    required this.apiAlias,
+    required this.photos,
   });
 
   factory Restaurant.fromJson(Map<String, dynamic> json) {
@@ -38,6 +42,10 @@ class Restaurant {
           : null,
       location: Location.fromJson(json['location']),
       rating: json['rating'],
+      apiAlias: json['alias'],
+      photos: json.containsKey('photos')
+          ? (json['photos'] as List).map((photo) => photo.toString()).toList()
+          : null,
     );
   }
 }
