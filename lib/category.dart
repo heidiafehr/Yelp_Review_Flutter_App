@@ -1,7 +1,9 @@
-
 class Category {
   final String alias;
-  final String restaurantType;
+  final String? restaurantType;
+
+  bool get typeIsValid =>
+      (restaurantType != null && restaurantType!.isNotEmpty);
 
   Category({
     required this.alias,
@@ -9,9 +11,6 @@ class Category {
   });
 
   factory Category.fromJson(Map<String, dynamic> json) {
-    return Category(
-        alias: json['alias'],
-        restaurantType: json['title']
-    );
+    return Category(alias: json['alias'], restaurantType: json['title']);
   }
 }

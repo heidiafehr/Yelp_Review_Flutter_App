@@ -1,8 +1,10 @@
 class Hours {
-  final bool isOpenNow;
-  final List<OpenHours> openHours;
+  final bool? isOpenNow;
+  final List<OpenHours>? openHours;
 
-  Hours({required this.isOpenNow, required this.openHours});
+  bool get openHoursListIsValid => (openHours != null && openHours!.isNotEmpty);
+
+  Hours({this.isOpenNow, this.openHours});
 
   factory Hours.fromJson(Map<String, dynamic> json) {
     return Hours(

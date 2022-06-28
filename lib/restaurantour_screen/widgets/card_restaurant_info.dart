@@ -45,7 +45,7 @@ class CardRestaurantInfo extends StatelessWidget {
                   child: Image.network(
                       fit: BoxFit.cover,
                       singleRestaurant
-                          .image),
+                          .image!),
                 ),
               ),
               SizedBox(
@@ -67,7 +67,7 @@ class CardRestaurantInfo extends StatelessWidget {
                             .51,
                         child: Text(
                           singleRestaurant
-                              .name,
+                              .name!,
                           style: const TextStyle(
                               fontSize: 17.5,
                               fontFamily: 'LoraRegular'),
@@ -79,26 +79,26 @@ class CardRestaurantInfo extends StatelessWidget {
                       Row(
                         children: [
                           Text(singleRestaurant
-                              .price),
+                              .price!),
                           Padding(
                             padding:
                             const EdgeInsets.only(
                                 left: 8.0),
                             child: Text(singleRestaurant
-                                .categories
+                                .categories!
                                 .first
-                                .restaurantType),
+                                .restaurantType!),
                           ),
                         ],
                       ),
                       RatingBarIndicator(
                         rating: singleRestaurant
-                            .rating
+                            .rating!
                             .toDouble(),
                         itemBuilder: (context, index) =>
                         const YelpStarIcon(),
                         itemCount: singleRestaurant
-                            .rating
+                            .rating!
                             .toInt(),
                         itemSize: 20.0,
                         direction: Axis.horizontal,

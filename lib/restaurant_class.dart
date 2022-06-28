@@ -3,28 +3,35 @@ import 'category.dart';
 import 'package:yelp_app/location.dart';
 
 class Restaurant {
-  final String name;
-  final String image;
+  final String? name;
+  final String? image;
   final List<Hours>? hours;
-  final String price;
-  final List<Category> categories;
-  final Location location;
-  final num rating;
-  final String apiAlias;
+  final String? price;
+  final List<Category>? categories;
+  final Location? location;
+  final num? rating;
+  final String? apiAlias;
   final List<String>? photos;
 
-  bool get isRestaurantNameValid => (name.isNotEmpty);
+  bool get nameIsValid => (name != null && name!.isNotEmpty);
+  bool get photosAreValid => (photos != null && photos!.isNotEmpty);
+  bool get hoursAreValid => (hours != null && hours!.isNotEmpty);
+  bool get categoriesIsValid => (categories != null && categories!.isNotEmpty);
+  bool get priceAndTypeAreValid => (price != null &&
+      price!.isNotEmpty &&
+      categoriesIsValid &&
+      categories!.first.typeIsValid);
 
   Restaurant({
-    required this.name,
-    required this.image,
+    this.name,
+    this.image,
     this.hours,
-    required this.price,
-    required this.categories,
-    required this.location,
-    required this.rating,
-    required this.apiAlias,
-    required this.photos,
+    this.price,
+    this.categories,
+    this.location,
+    this.rating,
+    this.apiAlias,
+    this.photos,
   });
 
   factory Restaurant.fromJson(Map<String, dynamic> json) {
