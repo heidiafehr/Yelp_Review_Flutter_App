@@ -90,23 +90,23 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
                       rating: snapshot.data!.rating.toString(),
                     ),
                     if (snapshot.data?.rating != null) const YelpDivider(),
+                    FutureBuilder<Reviews>(
+                      future: _getReview(arg),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData && snapshot.data != null) {
+                          return DisplayUserReviews(
+                            totalNumberOfReviews: snapshot.data?.totalNumberOfReviews,
+                            individualUserReviews: snapshot.data?.individualUserReviews,
+                          );
+                        } else {
+                          return const SizedBox.shrink();
+                        }
+                      },
+                    ),
                   ],
                 );
               } else {
                 return const Center(child: CircularProgressIndicator());
-              }
-            },
-          ),
-          FutureBuilder<Reviews>(
-            future: _getReview(arg),
-            builder: (context, snapshot) {
-              if (snapshot.hasData && snapshot.data != null) {
-                return DisplayUserReviews(
-                  totalNumberOfReviews: snapshot.data?.totalNumberOfReviews,
-                  individualUserReviews: snapshot.data?.individualUserReviews,
-                );
-              } else {
-                return const SizedBox.shrink();
               }
             },
           ),
