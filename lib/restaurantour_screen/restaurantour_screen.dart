@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yelp_app/list_of_restaurants.dart';
+import 'package:yelp_app/restaurantour_screen/restaurantour_screen_cubit.dart';
 import 'package:yelp_app/restaurantour_screen/widgets/display_list_of_restaurants.dart';
 import 'package:yelp_app/yelp_appbar.dart';
 import '../yelp_repository.dart';
@@ -12,18 +14,18 @@ class RestauranTourScreen extends StatefulWidget {
 }
 
 class _RestauranTourScreen extends State<RestauranTourScreen> {
-  Future<ListOfRestaurants>? futureListOfRestaurants;
-  APICall api = APICall();
+  /*Future<ListOfRestaurants>? futureListOfRestaurants;
+  APICall api = APICall();*/
 
-  @override
+  /*@override
   void initState() {
     super.initState();
     _getListOfRestaurants();
-  }
+  }*/
 
-  void _getListOfRestaurants() async {
+  /*void _getListOfRestaurants() async {
     futureListOfRestaurants = api.fetchListOfRestaurants();
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -35,21 +37,28 @@ class _RestauranTourScreen extends State<RestauranTourScreen> {
             elevations: 3.0,
             addNavigateBack: false,
           ),
-          Expanded(
-            child: ListView(
-              children: [
-                FutureBuilder<ListOfRestaurants>(
-                  future: futureListOfRestaurants,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData && snapshot.data != null) {
-                      return DisplayListOfRestaurants(
-                          restaurants: snapshot.data!.listOfRestaurants);
-                    } else {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                  },
-                ),
-              ],
+          BlocProvider(
+            create: (_) => RestauranTourCubit(),
+            child: BlocBuilder<RestauranTourCubit, RestauranTourState>(
+              builder: (context, state) {
+                if (state is RestauranTourLoadedState) {
+                  return Expanded(
+                    child: ListView(
+                      children: [
+                        DisplayListOfRestaurants(
+                            restaurants:
+                                state.restaurants.listOfRestaurants)
+                      ],
+                    ),
+                  );
+                  /*DisplayListOfRestaurants(
+                      restaurants: state.restaurants.listOfRestaurants);*/
+                } else {
+                  return SizedBox(
+                    height: MediaQuery.of(context).size.height / 1.3,
+                      child: const Center(child: CircularProgressIndicator()));
+                }
+              },
             ),
           ),
         ],

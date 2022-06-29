@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:yelp_app/restaurantour_screen/widgets/card_restaurant_info.dart';
 import '../../restaurant_class.dart';
-import '../../yelp_review_app.dart';
 
 class DisplayListOfRestaurants extends StatelessWidget {
   final List<Restaurant> restaurants;

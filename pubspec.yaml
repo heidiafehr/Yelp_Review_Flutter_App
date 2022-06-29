@@ -43,6 +43,7 @@ dependencies:
   intl: ^0.17.0
   location: ^4.4.0
   flutter_initicon: ^2.0.0
+  flutter_bloc: ^8.0.1
 
 dev_dependencies:
   flutter_test:
