@@ -26,7 +26,7 @@ class DetailedRestaurantViewScreen extends StatefulWidget {
 class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
   Future<Restaurant>? futureRestaurant;
   Future<Reviews>? futureReviews;
-  APICall api = APICall();
+  YelpRepo api = YelpRepo();
 
   @override
   void initState() {

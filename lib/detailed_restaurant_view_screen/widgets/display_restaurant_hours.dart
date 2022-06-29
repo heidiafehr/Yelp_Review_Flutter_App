@@ -47,6 +47,12 @@ String processingTime(OpenHours dayInfo) {
   }
   else {
     String startTime = (int.parse(dayInfo.start) % 1200).toString();
+    if(startTime.length == 1) {
+      startTime = '120$startTime';
+    }
+    if(startTime.length == 2) {
+      startTime = '12$startTime';
+    }
     if(startTime.length == 3) {
       startTime = '0$startTime';
     }
@@ -69,6 +75,12 @@ String processingTime(OpenHours dayInfo) {
   }
   else {
     String endTime = (int.parse(dayInfo.end) % 1200).toString();
+    if(endTime.length == 1) {
+      endTime = '120$endTime';
+    }
+    if(endTime.length == 2) {
+      endTime = '12$endTime';
+    }
     if(endTime.length == 3) {
       endTime = '0$endTime';
     }

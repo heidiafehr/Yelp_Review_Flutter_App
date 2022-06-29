@@ -6,6 +6,7 @@ import '../../yelp_review_app.dart';
 
 class CardRestaurantInfo extends StatelessWidget {
   final Restaurant singleRestaurant;
+  final double _cardIndent = 15.0;
 
   const CardRestaurantInfo({required this.singleRestaurant, Key? key,})
       : super(key: key);
@@ -15,12 +16,12 @@ class CardRestaurantInfo extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.only(
           top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          bottomRight: Radius.circular(15.0),
-          bottomLeft: Radius.circular(15.0),
-          topRight: Radius.circular(15.0),
-          topLeft: Radius.circular(15.0),
+          bottomRight: Radius.circular(_cardIndent),
+          bottomLeft: Radius.circular(_cardIndent),
+          topRight: Radius.circular(_cardIndent),
+          topLeft: Radius.circular(_cardIndent),
         ),
       ),
       child: InkWell(
@@ -76,6 +77,7 @@ class CardRestaurantInfo extends StatelessWidget {
                         ),
                       ),
                       const Spacer(),
+                      singleRestaurant.priceAndTypeAreValid ?
                       Row(
                         children: [
                           Text(singleRestaurant
@@ -90,7 +92,8 @@ class CardRestaurantInfo extends StatelessWidget {
                                 .restaurantType!),
                           ),
                         ],
-                      ),
+                      )
+                      : const SizedBox.shrink(),
                       RatingBarIndicator(
                         rating: singleRestaurant
                             .rating!

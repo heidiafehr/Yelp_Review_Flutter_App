@@ -6,7 +6,7 @@ import 'package:location/location.dart';
 
 import 'package:yelp_app/review_class.dart';
 
-class APICall {
+class YelpRepo {
   Future<Restaurant> fetchRestaurant(String apiAlias) async {
     final response = await http.get(
         Uri.parse(
