@@ -12,19 +12,6 @@ class RestauranTourScreen extends StatefulWidget {
 }
 
 class _RestauranTourScreen extends State<RestauranTourScreen> {
-  /*Future<ListOfRestaurants>? futureListOfRestaurants;
-  APICall api = APICall();*/
-
-  /*@override
-  void initState() {
-    super.initState();
-    _getListOfRestaurants();
-  }*/
-
-  /*void _getListOfRestaurants() async {
-    futureListOfRestaurants = api.fetchListOfRestaurants();
-  }*/
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
