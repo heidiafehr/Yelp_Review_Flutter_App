@@ -28,45 +28,51 @@ class _RestauranTourScreen extends State<RestauranTourScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          const CustomYelpAppBar(
-            title: 'RestauranTour',
-            elevations: 3.0,
-            addNavigateBack: false,
-          ),
-          BlocProvider(
-            create: (_) => RestauranTourCubit(),
-            child: BlocBuilder<RestauranTourCubit, RestauranTourState>(
-              builder: (context, state) {
-                if (state is RestauranTourErrorState) {
-                  return SizedBox(
-                    height: MediaQuery.of(context).size.height / 1.3,
-                    child: const Center(
-                      child: Text(
-                          'Ooops something went wrong!\nAre you connected to the internet?'),
-                    ),
-                  );
-                }
-                if (state is RestauranTourLoadedState) {
-                  return Expanded(
+      body: BlocProvider(
+        create: (_) => RestauranTourCubit(),
+        child: Column(
+          children: [
+            const CustomYelpAppBar(
+              title: 'RestauranTour',
+              elevations: 3.0,
+              addNavigateBack: false,
+            ),
+            Expanded(
+              child: BlocBuilder<RestauranTourCubit, RestauranTourState>(
+                builder: (context, state) {
+                  return RefreshIndicator(
+                    onRefresh: () async {
+                      context.read<RestauranTourCubit>().load();
+                      return;
+                    },
                     child: ListView(
                       children: [
-                        DisplayListOfRestaurants(
-                            restaurants: state.restaurants.listOfRestaurants)
+                        if (state is RestauranTourLoadedState)
+                          DisplayListOfRestaurants(
+                            restaurants: state.restaurants.listOfRestaurants,
+                          ),
+                        if (state is RestauranTourLoadingState)
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height / 1.3,
+                            child: const Center(
+                                child: CircularProgressIndicator()),
+                          ),
+                        if (state is RestauranTourErrorState)
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height / 1.3,
+                            child: const Center(
+                              child: Text('Ooops something went wrong!'
+                                  '\nAre you connected to the internet?'),
+                            ),
+                          ),
                       ],
                     ),
                   );
-                } else {
-                  return SizedBox(
-                    height: MediaQuery.of(context).size.height / 1.3,
-                    child: const Center(child: CircularProgressIndicator()),
-                  );
-                }
-              },
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
