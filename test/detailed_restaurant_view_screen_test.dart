@@ -12,6 +12,7 @@ void main() {
       ..addScenario(
         widget: const DetailedRestaurantViewScreen(
           appBarTitle: 'Short and Simple',
+          alias: 'yuh',
         ),
         name: 'app bar with short name',
       );
@@ -30,6 +31,7 @@ void main() {
       ..addScenario(
         widget: const DetailedRestaurantViewScreen(
           appBarTitle: 'Realyyy realy realy Reallyyyyyyy Long Title ',
+          alias: 'yuh-pt-2',
         ),
         name: 'app bar with long name',
       );

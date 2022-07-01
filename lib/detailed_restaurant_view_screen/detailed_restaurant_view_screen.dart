@@ -15,10 +15,10 @@ import 'package:yelp_app/yelp_review_app.dart';
 
 class DetailedRestaurantViewScreen extends StatefulWidget {
   final String? appBarTitle;
-  final String? alias;
+  final String alias;
 
   const DetailedRestaurantViewScreen(
-      {@visibleForTesting this.appBarTitle, this.alias, Key? key})
+      {@visibleForTesting this.appBarTitle, required this.alias, Key? key})
       : super(key: key);
 
   @override
@@ -58,61 +58,53 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
             if (state is DetailedRestaurantViewLoadedState) {
               return ListView(
                 children: [
-                  /*if (snapshot.hasData && snapshot.data != null) {
-                        final Restaurant data = snapshot.data!;
-                        final bool displayWithExpanded = (data.hoursAreValid &&
-                            data.hours!.first.openHoursListIsValid &&
-                            data.hours!.first.isOpenNow != null);
-                        final bool canDisplayPriceOrOpen =
-                            (data.hoursAreValid ||
-                                data.priceAndTypeAreValid ||
-                                data.hours!.first.isOpenNow != null);
-                        final bool displayedExpandedOrPrice =
-                            displayWithExpanded || canDisplayPriceOrOpen;*/
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      (state.restaurant.nameIsValid)
+                      (state.nameIsValid)
                           ? CustomYelpAppBar(
-                        title: state.restaurant.name!,
-                        addNavigateBack: true,
-                      )
+                              title: state.restaurant.name!,
+                              addNavigateBack: true,
+                            )
                           : const CustomYelpAppBar(
-                        title: 'N/A Restaurant Name',
-                        addNavigateBack: true,
-                      ),
-                      if (state.restaurant.photosAreValid)
+                              title: 'N/A Restaurant Name',
+                              addNavigateBack: true,
+                            ),
+                      if (state.photosAreValid)
                         RestaurantImageCarousel(
                             photos: state.restaurant.photos),
 
                       //if openHoursList is valid display with expanded tile
                       //else if open status or priceAndType are valid display
                       //those instead w/out expanded tile
-                      DisplayExpandedHoursWithHeader(
-                        price: state.restaurant.price!,
-                        restaurantType:
-                        state.restaurant.categories!.first.restaurantType,
-                        isOpenNow: state.restaurant.hours!.first.isOpenNow,
-                        openHours: state.restaurant.hours!.first.openHours!,
-                        priceAndTypeAreValid:
-                        state.restaurant.priceAndTypeAreValid,
-                        openHoursListIsValid:
-                        state.restaurant.hours!.first.openHoursListIsValid,
-                      ),
-                      /*DisplayPriceAliasAndOpenStatus(
-                        priceAndTypeAreValid:
-                        state.restaurant.priceAndTypeAreValid,
-                        price: state.restaurant.price!,
-                        restaurantType:
-                        state.restaurant.categories!.first.restaurantType,
-                        isOpenNow: state.restaurant.hours!.first.isOpenNow,
-                        hoursAreValid: state.restaurant.hoursAreValid,
-                      ),*/
-                      const YelpDivider(),
+                      if (state.hasHours && state.displayedExpandedOrPrice)
+                        DisplayExpandedHoursWithHeader(
+                          price: state.restaurant.price!,
+                          restaurantType:
+                              state.restaurant.categories!.first.restaurantType,
+                          isOpenNow: state.restaurant.hours!.first.isOpenNow,
+                          openHours: state.restaurant.hours!.first.openHours!,
+                          priceAndTypeAreValid:
+                              state.priceAndTypeAreValid,
+                          openHoursListIsValid: state
+                              .restaurant.hours!.first.openHoursListIsValid,
+                        ),
+
+                      /*if (state.canDisplayPriceOrOpen)
+                        DisplayPriceAliasAndOpenStatus(
+                          priceAndTypeAreValid:
+                              state.priceAndTypeAreValid,
+                          price: state.restaurant.price!,
+                          restaurantType:
+                              state.restaurant.categories!.first.restaurantType,
+                          isOpenNow: state.restaurant.hours!.first.isOpenNow,
+                          hoursAreValid: state.hoursAreValid,
+                        ),*/
+                      if (state.displayedExpandedOrPrice) const YelpDivider(),
 
                       DisplayRestaurantAddress(
                         addressLineOne:
-                        state.restaurant.location!.addressLineOne,
+                            state.restaurant.location!.addressLineOne,
                         city: state.restaurant.location!.city,
                         state: state.restaurant.location!.state,
                         zipcode: state.restaurant.location!.zipcode,
@@ -124,16 +116,24 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
                       if (state.restaurant.rating != null) const YelpDivider(),
                       DisplayUserReviews(
                         totalNumberOfReviews:
-                        state.reviews.totalNumberOfReviews,
+                            state.reviews.totalNumberOfReviews,
                         individualUserReviews:
-                        state.reviews.individualUserReviews,
+                            state.reviews.individualUserReviews,
                       ),
                     ],
                   ),
                 ],
               );
-            } else {
+            } else if (state is DetailedRestaurantViewLoadingState) {
               return const Center(child: CircularProgressIndicator());
+            } else {
+              return SizedBox(
+                height: MediaQuery.of(context).size.height / 1.3,
+                child: const Center(
+                  child: Text('Ooops something went wrong!'
+                      '\nAre you connected to the internet?'),
+                ),
+              );
             }
           },
         ),

@@ -18,22 +18,63 @@ class DetailedRestaurantViewLoadedState extends DetailedRestaurantViewState {
     required this.restaurant,
     required this.reviews,
   });
+
+  //display expanded tile
+  //hours is valid
+  //has a list of restaurant hours
+  //optional - price and type (will check later?)
+
+  //displaying without expanded tile
+  //price and type are valid
+  //OR
+  //is open now is valid :)
+  bool get nameIsValid =>
+      (restaurant.name != null && restaurant.name!.isNotEmpty);
+
+  bool get photosAreValid =>
+      (restaurant.photos != null && restaurant.photos!.isNotEmpty);
+
+  bool get hoursAreValid =>
+      (restaurant.hours != null && restaurant.hours!.isNotEmpty);
+
+  bool get categoriesIsValid =>
+      (restaurant.categories != null && restaurant.categories!.isNotEmpty);
+
+  bool get priceAndTypeAreValid => (restaurant.price != null &&
+      restaurant.price!.isNotEmpty &&
+      categoriesIsValid &&
+      restaurant.categories!.first.typeIsValid);
+
+  bool get hasHours =>
+      hoursAreValid &&
+      restaurant.hours!.first.openHoursListIsValid &&
+      restaurant.hours!.first.isOpenNow != null;
+
+  bool get canDisplayPriceOrOpen =>
+      priceAndTypeAreValid ||
+      restaurant.hours!.first.isOpenNow != null;
+
+  bool get displayedExpandedOrPrice => hasHours || canDisplayPriceOrOpen;
 }
 
 class DetailedRestaurantViewCubit extends Cubit<DetailedRestaurantViewState> {
   YelpRepo restaurantRepository = YelpRepo();
-  final String? alias;
+  final String alias;
 
   DetailedRestaurantViewCubit({required this.alias})
       : super(DetailedRestaurantViewLoadingState()) {
-    load(alias);
+    load(alias: alias);
   }
 
-  void load(String? alias) async {
+  void load({required String alias}) async {
+    if (alias.isEmpty) {
+      emit(DetailedRestaurantViewErrorState());
+      return;
+    }
     try {
-      final restaurant = await restaurantRepository.fetchRestaurant(alias!);
+      final restaurant = await restaurantRepository.fetchRestaurant(alias);
       final reviews = await restaurantRepository.fetchReview(alias);
-      if (restaurant == null || reviews == null || alias == null) {
+      if (restaurant.name == null || reviews.individualUserReviews.isNotEmpty) {
         emit(DetailedRestaurantViewErrorState());
       } else {
         emit(DetailedRestaurantViewLoadedState(

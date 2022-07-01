@@ -13,13 +13,10 @@ class Restaurant {
   final String? apiAlias;
   final List<String>? photos;
 
-  bool get nameIsValid => (name != null && name!.isNotEmpty);
-  bool get photosAreValid => (photos != null && photos!.isNotEmpty);
-  bool get hoursAreValid => (hours != null && hours!.isNotEmpty);
-  bool get categoriesIsValid => (categories != null && categories!.isNotEmpty);
+  bool get _categoriesIsValid => (categories != null && categories!.isNotEmpty);
   bool get priceAndTypeAreValid => (price != null &&
       price!.isNotEmpty &&
-      categoriesIsValid &&
+      _categoriesIsValid &&
       categories!.first.typeIsValid);
 
   Restaurant({

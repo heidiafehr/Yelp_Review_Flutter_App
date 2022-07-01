@@ -8,14 +8,16 @@ class CardRestaurantInfo extends StatelessWidget {
   final Restaurant singleRestaurant;
   final double _cardIndent = 15.0;
 
-  const CardRestaurantInfo({required this.singleRestaurant, Key? key,})
-      : super(key: key);
+  const CardRestaurantInfo({
+    required this.singleRestaurant,
+    Key? key,
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.only(
-          top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
+      margin:
+          const EdgeInsets.only(top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           bottomRight: Radius.circular(_cardIndent),
@@ -26,8 +28,7 @@ class CardRestaurantInfo extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          Navigator.pushNamed(
-              context, '/detailed_restaurant_view_screen',
+          Navigator.pushNamed(context, '/detailed_restaurant_view_screen',
               arguments: singleRestaurant.apiAlias);
         },
         child: Padding(
@@ -35,74 +36,49 @@ class CardRestaurantInfo extends StatelessWidget {
           child: Row(
             children: [
               SizedBox(
-                width: MediaQuery.of(context).size.width *
-                    .3,
-                height:
-                MediaQuery.of(context).size.width *
-                    .3,
+                width: MediaQuery.of(context).size.width * .3,
+                height: MediaQuery.of(context).size.width * .3,
                 child: ClipRRect(
-                  borderRadius:
-                  BorderRadius.circular(10.0),
-                  child: Image.network(
-                      fit: BoxFit.cover,
-                      singleRestaurant
-                          .image!),
+                  borderRadius: BorderRadius.circular(10.0),
+                  child:
+                      Image.network(fit: BoxFit.cover, singleRestaurant.image!),
                 ),
               ),
               SizedBox(
-                height:
-                MediaQuery.of(context).size.width *
-                    .3,
+                height: MediaQuery.of(context).size.width * .3,
                 child: Padding(
-                  padding:
-                  const EdgeInsets.only(left: 8.0),
+                  padding: const EdgeInsets.only(left: 8.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: MediaQuery.of(context)
-                            .size
-                            .width *
-                            .51,
+                        width: MediaQuery.of(context).size.width * .51,
                         child: Text(
-                          singleRestaurant
-                              .name!,
+                          singleRestaurant.name!,
                           style: const TextStyle(
-                              fontSize: 17.5,
-                              fontFamily: 'LoraRegular'),
+                              fontSize: 17.5, fontFamily: 'LoraRegular'),
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       const Spacer(),
-                      singleRestaurant.priceAndTypeAreValid ?
-                      Row(
-                        children: [
-                          Text(singleRestaurant
-                              .price!),
-                          Padding(
-                            padding:
-                            const EdgeInsets.only(
-                                left: 8.0),
-                            child: Text(singleRestaurant
-                                .categories!
-                                .first
-                                .restaurantType!),
-                          ),
-                        ],
-                      )
-                      : const SizedBox.shrink(),
+                      singleRestaurant.priceAndTypeAreValid
+                          ? Row(
+                              children: [
+                                Text(singleRestaurant.price!),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Text(singleRestaurant
+                                      .categories!.first.restaurantType!),
+                                ),
+                              ],
+                            )
+                          : const SizedBox.shrink(),
                       RatingBarIndicator(
-                        rating: singleRestaurant
-                            .rating!
-                            .toDouble(),
-                        itemBuilder: (context, index) =>
-                        const YelpStarIcon(),
-                        itemCount: singleRestaurant
-                            .rating!
-                            .toInt(),
+                        rating: singleRestaurant.rating!.toDouble(),
+                        itemBuilder: (context, index) => const YelpStarIcon(),
+                        itemCount: singleRestaurant.rating!.toInt(),
                         itemSize: 20.0,
                         direction: Axis.horizontal,
                       ),

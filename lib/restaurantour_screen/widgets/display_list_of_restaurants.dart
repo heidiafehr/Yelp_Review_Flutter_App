@@ -15,7 +15,7 @@ class DisplayListOfRestaurants extends StatelessWidget {
       physics: const ClampingScrollPhysics(),
       itemCount: restaurants.length,
       itemBuilder: (_, index) {
-        return CardRestaurantInfo(singleRestaurant: restaurants[index]);
+        return CardRestaurantInfo(singleRestaurant: restaurants[index],);
       },
     );
   }
