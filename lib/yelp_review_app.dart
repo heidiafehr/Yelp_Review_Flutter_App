@@ -37,7 +37,8 @@ class _YelpReviewAppState extends State<YelpReviewApp> {
       routes: {
         '/restaurantour_screen': (context) => const RestauranTourScreen(),
         '/detailed_restaurant_view_screen': (context) =>
-            const DetailedRestaurantViewScreen(),
+            DetailedRestaurantViewScreen(
+                alias: ModalRoute.of(context)!.settings.arguments as String),
       },
     );
   }

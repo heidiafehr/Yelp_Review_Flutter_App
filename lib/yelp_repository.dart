@@ -69,7 +69,6 @@ class YelpRepo {
         throw Exception('Failed to get permission');
       }
     }
-    print('criessssss');
     locationData = await location.getLocation();
 
     final response = await http.get(
@@ -80,7 +79,6 @@ class YelpRepo {
           'Bearer wigdsJl9SwNA3dZ3S0hjTtXyUZy6iLmQPFcPEkN2J_nVGcQOoPT5g1JCmF4IEjvAmArwWSCFR6Y-0nk_drkVefLFrrKpDA3LsLsP39U13rf3eCqMSffpH-fIu22mYnYx',
         });
 
-    print('hereeeee');
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.

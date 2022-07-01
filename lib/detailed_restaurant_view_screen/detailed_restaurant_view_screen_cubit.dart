@@ -1,36 +1,43 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yelp_app/yelp_repository.dart';
 
-import '../list_of_restaurants.dart';
-import '../yelp_repository.dart';
+import '../restaurant_class.dart';
+import '../review_class.dart';
 
 abstract class DetailedRestaurantViewState {}
 
-class DetailedRestaurantViewLoadingState extends DetailedRestaurantViewState {}
-
 class DetailedRestaurantViewErrorState extends DetailedRestaurantViewState {}
 
+class DetailedRestaurantViewLoadingState extends DetailedRestaurantViewState {}
+
 class DetailedRestaurantViewLoadedState extends DetailedRestaurantViewState {
-  ListOfRestaurants restaurants;
+  Restaurant restaurant;
+  Reviews reviews;
 
   DetailedRestaurantViewLoadedState({
-    required this.restaurants,
+    required this.restaurant,
+    required this.reviews,
   });
 }
 
 class DetailedRestaurantViewCubit extends Cubit<DetailedRestaurantViewState> {
-  YelpRepo api = YelpRepo();
+  YelpRepo restaurantRepository = YelpRepo();
+  final String? alias;
 
-  DetailedRestaurantViewCubit() : super(DetailedRestaurantViewLoadingState()) {
-    load();
+  DetailedRestaurantViewCubit({required this.alias})
+      : super(DetailedRestaurantViewLoadingState()) {
+    load(alias);
   }
 
-  void load() async {
+  void load(String? alias) async {
     try {
-      final restaurants = await api.fetchListOfRestaurants();
-      if (restaurants.listOfRestaurants.isEmpty) {
+      final restaurant = await restaurantRepository.fetchRestaurant(alias!);
+      final reviews = await restaurantRepository.fetchReview(alias);
+      if (restaurant == null || reviews == null || alias == null) {
         emit(DetailedRestaurantViewErrorState());
       } else {
-        emit(DetailedRestaurantViewLoadedState(restaurants: restaurants));
+        emit(DetailedRestaurantViewLoadedState(
+            restaurant: restaurant, reviews: reviews));
       }
     } catch (e) {
       emit(DetailedRestaurantViewErrorState());
