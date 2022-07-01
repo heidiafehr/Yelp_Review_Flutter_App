@@ -50,11 +50,7 @@ class DetailedRestaurantViewLoadedState extends DetailedRestaurantViewState {
       restaurant.hours!.first.openHoursListIsValid &&
       restaurant.hours!.first.isOpenNow != null;
 
-  bool get canDisplayPriceOrOpen =>
-      priceAndTypeAreValid ||
-      restaurant.hours!.first.isOpenNow != null;
-
-  bool get displayedExpandedOrPrice => hasHours || canDisplayPriceOrOpen;
+  bool get hasHeaderData => hasHours || priceAndTypeAreValid;
 }
 
 class DetailedRestaurantViewCubit extends Cubit<DetailedRestaurantViewState> {
@@ -74,7 +70,7 @@ class DetailedRestaurantViewCubit extends Cubit<DetailedRestaurantViewState> {
     try {
       final restaurant = await restaurantRepository.fetchRestaurant(alias);
       final reviews = await restaurantRepository.fetchReview(alias);
-      if (restaurant.name == null || reviews.individualUserReviews.isNotEmpty) {
+      if (restaurant.name == null || reviews.individualUserReviews.isEmpty) {
         emit(DetailedRestaurantViewErrorState());
       } else {
         emit(DetailedRestaurantViewLoadedState(
