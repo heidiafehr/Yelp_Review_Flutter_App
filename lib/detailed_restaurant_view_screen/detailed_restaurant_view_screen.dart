@@ -32,21 +32,6 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
   YelpRepo api = YelpRepo();
 
   @override
-  void initState() {
-    super.initState();
-    _getRestaurant(null);
-    _getReview(null);
-  }
-
-  Future<Restaurant> _getRestaurant(String? apiAlias) async {
-    return api.fetchRestaurant(apiAlias!);
-  }
-
-  Future<Reviews> _getReview(String? apiAlias) async {
-    return api.fetchReview(apiAlias!);
-  }
-
-  @override
   Widget build(BuildContext context) {
     //final arg = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
@@ -77,30 +62,29 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
                       //if openHoursList is valid display with expanded tile
                       //else if open status or priceAndType are valid display
                       //those instead w/out expanded tile
-                      if (state.hasHours && state.displayedExpandedOrPrice)
-                        DisplayExpandedHoursWithHeader(
-                          price: state.restaurant.price!,
-                          restaurantType:
-                              state.restaurant.categories!.first.restaurantType,
-                          isOpenNow: state.restaurant.hours!.first.isOpenNow,
-                          openHours: state.restaurant.hours!.first.openHours!,
-                          priceAndTypeAreValid:
-                              state.priceAndTypeAreValid,
-                          openHoursListIsValid: state
-                              .restaurant.hours!.first.openHoursListIsValid,
-                        ),
-
-                      /*if (state.canDisplayPriceOrOpen)
-                        DisplayPriceAliasAndOpenStatus(
-                          priceAndTypeAreValid:
-                              state.priceAndTypeAreValid,
-                          price: state.restaurant.price!,
-                          restaurantType:
-                              state.restaurant.categories!.first.restaurantType,
-                          isOpenNow: state.restaurant.hours!.first.isOpenNow,
-                          hoursAreValid: state.hoursAreValid,
-                        ),*/
-                      if (state.displayedExpandedOrPrice) const YelpDivider(),
+                      if (state.hasHeaderData)
+                        state.hasHours
+                            ? DisplayHeaderWithExpandedHours(
+                                price: state.restaurant.price!,
+                                restaurantType: state.restaurant.categories!
+                                    .first.restaurantType,
+                                isOpenNow:
+                                    state.restaurant.hours!.first.isOpenNow,
+                                openHours:
+                                    state.restaurant.hours!.first.openHours!,
+                                priceAndTypeAreValid:
+                                    state.priceAndTypeAreValid,
+                              )
+                            : DisplayHeader(
+                                price: state.restaurant.price!,
+                                restaurantType: state.restaurant.categories!
+                                    .first.restaurantType,
+                                isOpenNow:
+                                    state.restaurant.hours!.first.isOpenNow,
+                                priceAndTypeAreValid:
+                                    state.priceAndTypeAreValid,
+                              ),
+                      if (state.hasHeaderData) const YelpDivider(),
 
                       DisplayRestaurantAddress(
                         addressLineOne:

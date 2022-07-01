@@ -6,23 +6,21 @@ import '../../hours.dart';
 import '../../yelp_review_app.dart';
 import 'display_restaurant_hours.dart';
 
-class DisplayExpandedHoursWithHeader extends StatelessWidget {
+class DisplayHeaderWithExpandedHours extends StatelessWidget {
   final String? price;
   final String? restaurantType;
   final bool? isOpenNow;
   final List<OpenHours> openHours;
   final bool priceAndTypeAreValid;
-  final bool openHoursListIsValid;
 
-  const DisplayExpandedHoursWithHeader(
-      {Key? key,
-      this.price,
-      this.restaurantType,
-      this.isOpenNow,
-      required this.openHours,
-      required this.priceAndTypeAreValid,
-      required this.openHoursListIsValid})
-      : super(key: key);
+  const DisplayHeaderWithExpandedHours({
+    Key? key,
+    this.price,
+    this.restaurantType,
+    this.isOpenNow,
+    required this.openHours,
+    required this.priceAndTypeAreValid,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +51,43 @@ class DisplayExpandedHoursWithHeader extends StatelessWidget {
                   const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
               child: DisplayRestaurantHours(openHours),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class DisplayHeader extends StatelessWidget {
+  final String? price;
+  final String? restaurantType;
+  final bool? isOpenNow;
+  final bool priceAndTypeAreValid;
+
+  const DisplayHeader({
+    Key? key,
+    this.price,
+    this.restaurantType,
+    this.isOpenNow,
+    required this.priceAndTypeAreValid,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(30.0),
+      child: Row(
+        children: [
+          if (priceAndTypeAreValid)
+            PriceAndAlias(
+              price: price!,
+              restaurantType: restaurantType!,
+            ),
+          if (priceAndTypeAreValid) const Spacer(),
+          Row(
+            children: [
+              if (isOpenNow != null) OpenStatus(isOpenNow: isOpenNow!),
+            ],
           ),
         ],
       ),
