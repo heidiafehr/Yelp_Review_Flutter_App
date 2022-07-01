@@ -58,7 +58,6 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
                       if (state.photosAreValid)
                         RestaurantImageCarousel(
                             photos: state.restaurant.photos),
-
                       //if openHoursList is valid display with expanded tile
                       //else if open status or priceAndType are valid display
                       //those instead w/out expanded tile
