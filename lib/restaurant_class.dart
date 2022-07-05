@@ -13,6 +13,10 @@ class Restaurant {
   final String? apiAlias;
   final List<String>? photos;
 
+  bool get nameIsValid =>
+      (name != null && name!.isNotEmpty);
+  bool get imageIsValid => (image != null && image!.isNotEmpty);
+
   bool get _categoriesIsValid => (categories != null && categories!.isNotEmpty);
   bool get priceAndTypeAreValid => (price != null &&
       price!.isNotEmpty &&

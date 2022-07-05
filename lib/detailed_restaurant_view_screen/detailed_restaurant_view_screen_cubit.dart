@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yelp_app/yelp_repository.dart';
-
 import '../restaurant_class.dart';
 import '../review_class.dart';
 
@@ -19,18 +18,9 @@ class DetailedRestaurantViewLoadedState extends DetailedRestaurantViewState {
     required this.reviews,
   });
 
-  //display expanded tile
-  //hours is valid
-  //has a list of restaurant hours
-  //optional - price and type (will check later?)
-
-  //displaying without expanded tile
-  //price and type are valid
-  //OR
-  //is open now is valid :)
-  bool get nameIsValid =>
+  /*bool get nameIsValid =>
       (restaurant.name != null && restaurant.name!.isNotEmpty);
-
+*/
   bool get photosAreValid =>
       (restaurant.photos != null && restaurant.photos!.isNotEmpty);
 

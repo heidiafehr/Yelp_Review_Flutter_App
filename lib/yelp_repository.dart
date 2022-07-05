@@ -3,7 +3,6 @@ import 'package:yelp_app/restaurant_class.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:location/location.dart';
-
 import 'package:yelp_app/review_class.dart';
 
 class YelpRepo {

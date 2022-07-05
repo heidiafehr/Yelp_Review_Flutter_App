@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/detailed_restaurant_view_screen_cubit.dart';
-import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_price_alias_and_open_status.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/restaurant_image_carousel.dart';
 import 'package:yelp_app/yelp_repository.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_overall_rating.dart';
@@ -46,7 +45,7 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      (state.nameIsValid)
+                      (state.restaurant.nameIsValid)
                           ? CustomYelpAppBar(
                               title: state.restaurant.name!,
                               addNavigateBack: true,

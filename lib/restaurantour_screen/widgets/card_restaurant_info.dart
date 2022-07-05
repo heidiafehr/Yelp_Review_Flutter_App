@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_initicon/flutter_initicon.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../restaurant_class.dart';
@@ -35,13 +36,24 @@ class CardRestaurantInfo extends StatelessWidget {
           padding: const EdgeInsets.all(12.0),
           child: Row(
             children: [
-              SizedBox(
+              singleRestaurant.imageIsValid
+              ? SizedBox(
                 width: MediaQuery.of(context).size.width * .3,
                 height: MediaQuery.of(context).size.width * .3,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10.0),
                   child:
                       Image.network(fit: BoxFit.cover, singleRestaurant.image!),
+                ),
+              )
+              : SizedBox(
+                width: MediaQuery.of(context).size.width * .3,
+                height: MediaQuery.of(context).size.width * .3,
+                child: Initicon(
+                  borderRadius: BorderRadius.circular(10.0),
+                  text: (singleRestaurant.nameIsValid
+                      ? singleRestaurant.name
+                      : 'R T'),
                 ),
               ),
               SizedBox(
