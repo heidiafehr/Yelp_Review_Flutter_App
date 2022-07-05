@@ -9,8 +9,10 @@ import '../../restaurant_class.dart';
 class DisplayListOfRestaurants extends StatelessWidget {
   final List<Restaurant> restaurants;
 
-  const DisplayListOfRestaurants({required this.restaurants, Key? key,})
-      : super(key: key);
+  const DisplayListOfRestaurants({
+    required this.restaurants,
+    Key? key,
+  }) : super(key: key);
 
   //assuming restaurants is not empty (checked in cubit)
   @override
@@ -20,7 +22,12 @@ class DisplayListOfRestaurants extends StatelessWidget {
       physics: const ClampingScrollPhysics(),
       itemCount: restaurants.length,
       itemBuilder: (_, index) {
-        return CardRestaurantInfo(singleRestaurant: restaurants[index],);
+        //if name of the restaurant is not provided, do not display that card
+        return restaurants[index].nameIsValid
+            ? CardRestaurantInfo(
+                singleRestaurant: restaurants[index],
+              )
+            : const SizedBox.shrink();
       },
     );
   }

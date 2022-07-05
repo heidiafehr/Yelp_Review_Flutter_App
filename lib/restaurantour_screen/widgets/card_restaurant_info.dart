@@ -51,9 +51,7 @@ class CardRestaurantInfo extends StatelessWidget {
                 height: MediaQuery.of(context).size.width * .3,
                 child: Initicon(
                   borderRadius: BorderRadius.circular(10.0),
-                  text: (singleRestaurant.nameIsValid
-                      ? singleRestaurant.name
-                      : 'R T'),
+                  text: (singleRestaurant.name),
                 ),
               ),
               SizedBox(
