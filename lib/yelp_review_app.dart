@@ -6,10 +6,10 @@ class YelpReviewApp extends StatefulWidget {
   const YelpReviewApp({Key? key}) : super(key: key);
 
   @override
-  _YelpReviewAppState createState() => _YelpReviewAppState();
+  YelpReviewAppState createState() => YelpReviewAppState();
 }
 
-class _YelpReviewAppState extends State<YelpReviewApp> {
+class YelpReviewAppState extends State<YelpReviewApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

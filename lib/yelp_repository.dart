@@ -4,16 +4,16 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:location/location.dart';
 import 'package:yelp_app/review_class.dart';
+import 'package:yelp_app/secrets.dart';
 
 class YelpRepo {
   Future<Restaurant> fetchRestaurant(String apiAlias) async {
     final response = await http.get(
-        Uri.parse(
-            'https://api.yelp.com/v3/businesses/$apiAlias'),
-        headers: {
-          'Authorization':
-              'Bearer wigdsJl9SwNA3dZ3S0hjTtXyUZy6iLmQPFcPEkN2J_nVGcQOoPT5g1JCmF4IEjvAmArwWSCFR6Y-0nk_drkVefLFrrKpDA3LsLsP39U13rf3eCqMSffpH-fIu22mYnYx',
-        });
+      Uri.parse('https://api.yelp.com/v3/businesses/$apiAlias'),
+      headers: {
+        'Authorization': apiKey,
+      },
+    );
 
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
@@ -27,14 +27,12 @@ class YelpRepo {
   }
 
   Future<Reviews> fetchReview(String apiAlias) async {
-
     final responseReview = await http.get(
-        Uri.parse(
-            'https://api.yelp.com/v3/businesses/$apiAlias/reviews'),
-        headers: {
-          'Authorization':
-              'Bearer wigdsJl9SwNA3dZ3S0hjTtXyUZy6iLmQPFcPEkN2J_nVGcQOoPT5g1JCmF4IEjvAmArwWSCFR6Y-0nk_drkVefLFrrKpDA3LsLsP39U13rf3eCqMSffpH-fIu22mYnYx',
-        });
+      Uri.parse('https://api.yelp.com/v3/businesses/$apiAlias/reviews'),
+      headers: {
+        'Authorization': apiKey,
+      },
+    );
 
     if (responseReview.statusCode == 200) {
       // If the server did return a 200 OK response,
@@ -54,17 +52,17 @@ class YelpRepo {
     LocationData locationData;
 
     serviceEnabled = await location.serviceEnabled();
-    if(!serviceEnabled) {
+    if (!serviceEnabled) {
       serviceEnabled = await location.requestService();
-      if(!serviceEnabled){
+      if (!serviceEnabled) {
         throw Exception('Failed to enable service');
       }
     }
 
     permissionGranted = await location.hasPermission();
-    if(permissionGranted == PermissionStatus.denied){
+    if (permissionGranted == PermissionStatus.denied) {
       permissionGranted = await location.requestPermission();
-      if(permissionGranted != PermissionStatus.granted) {
+      if (permissionGranted != PermissionStatus.granted) {
         throw Exception('Failed to get permission');
       }
     }
@@ -75,7 +73,7 @@ class YelpRepo {
             'https://api.yelp.com/v3/businesses/search?latitude=${locationData.latitude}&longitude=${locationData.longitude}'),
         headers: {
           'Authorization':
-          'Bearer wigdsJl9SwNA3dZ3S0hjTtXyUZy6iLmQPFcPEkN2J_nVGcQOoPT5g1JCmF4IEjvAmArwWSCFR6Y-0nk_drkVefLFrrKpDA3LsLsP39U13rf3eCqMSffpH-fIu22mYnYx',
+              'Bearer wigdsJl9SwNA3dZ3S0hjTtXyUZy6iLmQPFcPEkN2J_nVGcQOoPT5g1JCmF4IEjvAmArwWSCFR6Y-0nk_drkVefLFrrKpDA3LsLsP39U13rf3eCqMSffpH-fIu22mYnYx',
         });
 
     if (response.statusCode == 200) {
