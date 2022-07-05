@@ -1,46 +1,76 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-class RestaurantImageCarousel extends StatelessWidget {
-  final List<String>? photos;
+class RestaurantImageCarousel extends StatefulWidget {
+  final List<String> photos;
 
   const RestaurantImageCarousel({Key? key, required this.photos})
       : super(key: key);
 
   @override
+  State<RestaurantImageCarousel> createState() =>
+      _ImageCarousel(photos: photos);
+}
+
+class _ImageCarousel extends State<RestaurantImageCarousel> {
+  int activePage = 1;
+  final List<String> photos;
+
+  _ImageCarousel({Key? key, required this.photos});
+
+  @override
   Widget build(BuildContext context) {
-    if (photos != null && photos!.isNotEmpty) {
-      return Stack(
-        children: [
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
+    return Column(
+      children: [
+        CarouselSlider(
+          options: CarouselOptions(
             height: MediaQuery.of(context).size.width * 0.7,
-            child: PageView(
-                children: photos!
-                    .map((photo) => Image.network(
-                          photo,
-                          fit: BoxFit.cover,
-                        ))
-                    .toList()),
+            enlargeCenterPage: true,
+            enableInfiniteScroll: true,
+            onPageChanged: (position, _) {
+              setState((){
+                activePage = position;
+              },);
+            },
           ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.width * 0.7,
-            child: Align(
-              alignment: Alignment.bottomRight,
-              child: Container(
-                color: Colors.grey.withOpacity(0.3),
-                child: const Icon(
-                  Icons.more_horiz,
-                  size: 30.0,
-                  color: Colors.white,
-                ),
-              ),
-            ),
+          items: photos.map<Widget>(
+            (i) {
+              return Builder(
+                builder: (BuildContext context) {
+                  return SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.width * 0.7,
+                    child: Image.network(
+                      i,
+                      fit: BoxFit.cover,
+                    ),
+                  );
+                },
+              );
+            },
+          ).toList(),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: indicators(photos.length, activePage),
           ),
-        ],
-      );
-    } else {
-      return const SizedBox.shrink();
-    }
+        ),
+      ],
+    );
   }
+}
+
+List<Widget> indicators(imagesLength, currentIndex) {
+  return List<Widget>.generate(imagesLength, (index) {
+    return Container(
+      margin: const EdgeInsets.all(3),
+      width: 10,
+      height: 10,
+      decoration: BoxDecoration(
+          color: currentIndex == index ? Colors.black : Colors.black26,
+          shape: BoxShape.circle),
+    );
+  });
 }
