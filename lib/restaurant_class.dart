@@ -16,7 +16,7 @@ class Restaurant {
   bool get nameIsValid =>
       (name != null && name!.isNotEmpty);
   bool get imageIsValid => (image != null && image!.isNotEmpty);
-
+  bool get ratingIsValid => (rating != null && !rating!.isNegative);
   bool get _categoriesIsValid => (categories != null && categories!.isNotEmpty);
   bool get priceAndTypeAreValid => (price != null &&
       price!.isNotEmpty &&

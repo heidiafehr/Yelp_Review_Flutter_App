@@ -18,9 +18,6 @@ class DetailedRestaurantViewLoadedState extends DetailedRestaurantViewState {
     required this.reviews,
   });
 
-  /*bool get nameIsValid =>
-      (restaurant.name != null && restaurant.name!.isNotEmpty);
-*/
   bool get photosAreValid =>
       (restaurant.photos != null && restaurant.photos!.isNotEmpty);
 

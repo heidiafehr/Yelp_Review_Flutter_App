@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_initicon/flutter_initicon.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
 import '../../restaurant_class.dart';
 import '../../yelp_review_app.dart';
+
+///Displays the info for each of each of the restaurants
+///assumes restaurant name is valid
 
 class CardRestaurantInfo extends StatelessWidget {
   final Restaurant singleRestaurant;
@@ -37,23 +39,23 @@ class CardRestaurantInfo extends StatelessWidget {
           child: Row(
             children: [
               singleRestaurant.imageIsValid
-              ? SizedBox(
-                width: MediaQuery.of(context).size.width * .3,
-                height: MediaQuery.of(context).size.width * .3,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child:
-                      Image.network(fit: BoxFit.cover, singleRestaurant.image!),
-                ),
-              )
-              : SizedBox(
-                width: MediaQuery.of(context).size.width * .3,
-                height: MediaQuery.of(context).size.width * .3,
-                child: Initicon(
-                  borderRadius: BorderRadius.circular(10.0),
-                  text: (singleRestaurant.name),
-                ),
-              ),
+                  ? SizedBox(
+                      width: MediaQuery.of(context).size.width * .3,
+                      height: MediaQuery.of(context).size.width * .3,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: Image.network(
+                            fit: BoxFit.cover, singleRestaurant.image!),
+                      ),
+                    )
+                  : SizedBox(
+                      width: MediaQuery.of(context).size.width * .3,
+                      height: MediaQuery.of(context).size.width * .3,
+                      child: Initicon(
+                        borderRadius: BorderRadius.circular(10.0),
+                        text: (singleRestaurant.name),
+                      ),
+                    ),
               SizedBox(
                 height: MediaQuery.of(context).size.width * .3,
                 child: Padding(
@@ -73,25 +75,25 @@ class CardRestaurantInfo extends StatelessWidget {
                         ),
                       ),
                       const Spacer(),
-                      singleRestaurant.priceAndTypeAreValid
-                          ? Row(
-                              children: [
-                                Text(singleRestaurant.price!),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: Text(singleRestaurant
-                                      .categories!.first.restaurantType!),
-                                ),
-                              ],
-                            )
-                          : const SizedBox.shrink(),
-                      RatingBarIndicator(
-                        rating: singleRestaurant.rating!.toDouble(),
-                        itemBuilder: (context, index) => const YelpStarIcon(),
-                        itemCount: singleRestaurant.rating!.toInt(),
-                        itemSize: 20.0,
-                        direction: Axis.horizontal,
-                      ),
+                      if (singleRestaurant.priceAndTypeAreValid)
+                        Row(
+                          children: [
+                            Text(singleRestaurant.price!),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Text(singleRestaurant
+                                  .categories!.first.restaurantType!),
+                            ),
+                          ],
+                        ),
+                      if (singleRestaurant.ratingIsValid)
+                        RatingBarIndicator(
+                          rating: singleRestaurant.rating!.toDouble(),
+                          itemBuilder: (context, index) => const YelpStarIcon(),
+                          itemCount: singleRestaurant.rating!.toInt(),
+                          itemSize: 20.0,
+                          direction: Axis.horizontal,
+                        ),
                     ],
                   ),
                 ),
