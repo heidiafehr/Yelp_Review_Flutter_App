@@ -1,13 +1,16 @@
 class IndividualUserReviews {
-  final String text;
-  final num ratingNumber;
+  final String? text;
+  final num? ratingNumber;
   final UserInfo user;
 
   IndividualUserReviews({
-    required this.text,
-    required this.ratingNumber,
+    this.text,
+    this.ratingNumber,
     required this.user,
   });
+
+  bool get textIsValid => text != null && text!.isNotEmpty;
+  bool get reviewNameIsValid => user.name != null && user.name!.isNotEmpty;
 
   factory IndividualUserReviews.fromJson(Map<String, dynamic> json) {
     return IndividualUserReviews(
@@ -20,11 +23,11 @@ class IndividualUserReviews {
 
 class UserInfo {
   final String? imageURL;
-  final String name;
+  final String? name;
 
   UserInfo({
     this.imageURL,
-    required this.name,
+    this.name,
   });
 
   factory UserInfo.fromJson(Map<String, dynamic> json) {

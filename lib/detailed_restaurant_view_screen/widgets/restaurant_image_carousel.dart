@@ -22,14 +22,18 @@ class RestaurantImageCarousel extends StatelessWidget {
                         ))
                     .toList()),
           ),
-          Positioned(
-            left: MediaQuery.of(context).size.width - 30.0,
-            child: Container(
-              color: Colors.grey.withOpacity(0.3),
-              child: const Icon(
-                Icons.more_horiz,
-                size: 30.0,
-                color: Colors.white,
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.width * 0.7,
+            child: Align(
+              alignment: Alignment.bottomRight,
+              child: Container(
+                color: Colors.grey.withOpacity(0.3),
+                child: const Icon(
+                  Icons.more_horiz,
+                  size: 30.0,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),

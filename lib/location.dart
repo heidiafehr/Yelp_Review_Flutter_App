@@ -1,15 +1,15 @@
 
 class Location {
-  final String addressLineOne;
-  final String city;
-  final String state;
-  final String zipcode;
+  final String? addressLineOne;
+  final String? city;
+  final String? state;
+  final String? zipcode;
 
   Location({
-    required this.addressLineOne,
-    required this.city,
-    required this.state,
-    required this.zipcode,
+    this.addressLineOne,
+    this.city,
+    this.state,
+    this.zipcode,
   });
 
   factory Location.fromJson(Map<String, dynamic> json) {

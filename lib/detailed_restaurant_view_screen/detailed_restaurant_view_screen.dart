@@ -32,7 +32,6 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //final arg = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
       body: BlocProvider(
         create: (_) => DetailedRestaurantViewCubit(alias: widget.alias),
@@ -85,24 +84,31 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
                               ),
                       if (state.hasHeaderData) const YelpDivider(),
 
-                      DisplayRestaurantAddress(
-                        addressLineOne:
-                            state.restaurant.location!.addressLineOne,
-                        city: state.restaurant.location!.city,
-                        state: state.restaurant.location!.state,
-                        zipcode: state.restaurant.location!.zipcode,
-                      ),
-                      const YelpDivider(),
-                      DisplayOverallRating(
-                        rating: state.restaurant.rating!.toString(),
-                      ),
-                      if (state.restaurant.rating != null) const YelpDivider(),
-                      DisplayUserReviews(
-                        totalNumberOfReviews:
-                            state.reviews.totalNumberOfReviews,
-                        individualUserReviews:
-                            state.reviews.individualUserReviews,
-                      ),
+                      if (state.addressIsValid)
+                        DisplayRestaurantAddress(
+                          addressLineOne:
+                              state.restaurant.location!.addressLineOne,
+                          city: state.restaurant.location!.city,
+                          state: state.restaurant.location!.state,
+                          zipcode: state.restaurant.location!.zipcode,
+                        ),
+                      if (state.addressIsValid) const YelpDivider(),
+
+                      if (state.overallRatingIsValid)
+                        DisplayOverallRating(
+                          rating: state.restaurant.rating!.toString(),
+                        ),
+                      if (state.overallRatingIsValid) const YelpDivider(),
+
+                      //if there is no review text (aka review) to display don't
+                      //display anything
+                      if (state.individualReviewsAreValid)
+                        DisplayUserReviews(
+                          totalNumberOfReviews:
+                              state.reviews.totalNumberOfReviews,
+                          individualUserReviews:
+                              state.reviews.individualUserReviews,
+                        ),
                     ],
                   ),
                 ],

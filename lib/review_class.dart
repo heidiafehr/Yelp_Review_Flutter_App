@@ -1,11 +1,11 @@
 import 'package:yelp_app/individual_user_reviews.dart';
 
 class Reviews {
-  final int totalNumberOfReviews;
+  final int? totalNumberOfReviews;
   final List<IndividualUserReviews> individualUserReviews;
 
   Reviews({
-    required this.totalNumberOfReviews,
+    this.totalNumberOfReviews,
     required this.individualUserReviews,
   });
 

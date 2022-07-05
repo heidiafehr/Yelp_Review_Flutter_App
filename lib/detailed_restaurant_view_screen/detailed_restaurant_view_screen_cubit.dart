@@ -38,6 +38,31 @@ class DetailedRestaurantViewLoadedState extends DetailedRestaurantViewState {
       restaurant.hours!.first.isOpenNow != null;
 
   bool get hasHeaderData => hasHours || priceAndTypeAreValid;
+
+  bool get _locationIsValid => restaurant.location != null;
+
+  bool get addressIsValid =>
+      _locationIsValid &&
+      restaurant.location!.addressLineOne != null &&
+      restaurant.location!.city != null &&
+      restaurant.location!.state != null &&
+      restaurant.location!.zipcode != null &&
+      restaurant.location!.addressLineOne!.isNotEmpty &&
+      restaurant.location!.city!.isNotEmpty &&
+      restaurant.location!.state!.isNotEmpty &&
+      restaurant.location!.zipcode!.isNotEmpty;
+
+  bool get overallRatingIsValid =>
+      reviews.totalNumberOfReviews != null &&
+      !reviews.totalNumberOfReviews!.isNegative;
+
+  bool get individualReviewsAreValid =>
+      reviews.individualUserReviews.isNotEmpty;
+
+  bool get reviewTextIsValid =>
+      individualReviewsAreValid &&
+      reviews.individualUserReviews.first.text != null &&
+      reviews.individualUserReviews.first.text!.isNotEmpty;
 }
 
 class DetailedRestaurantViewCubit extends Cubit<DetailedRestaurantViewState> {
