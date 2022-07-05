@@ -34,64 +34,61 @@ class DisplayUserReviews extends StatelessWidget {
           physics: const ClampingScrollPhysics(),
           itemBuilder: (_, index) {
             final review = individualUserReviews![index];
-            return review.textIsValid
-                ? Card(
-                    color: Colors.grey[50],
-                    elevation: 0.0,
-                    margin: EdgeInsets.symmetric(horizontal: _indent),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        if (review.ratingNumber != null)
-                          RatingBarIndicator(
-                            rating: review.ratingNumber!.toDouble(),
-                            itemBuilder: (context, index) =>
-                                const YelpStarIcon(),
-                            itemCount: review.ratingNumber!.toInt(),
-                            itemSize: 20.0,
-                            direction: Axis.horizontal,
-                          ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10.0),
-                          child: Text(
-                            review.text!,
-                            style:
-                                const TextStyle(fontSize: 18.0, height: 1.32),
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            (review.user.imageURL != null)
-                                ? CircleAvatar(
-                                    radius: 25.0,
-                                    backgroundColor: Colors.transparent,
-                                    backgroundImage: NetworkImage(
-                                      review.user.imageURL!,
-                                    ),
-                                  )
-                                : Initicon(
-                                    text: (review.reviewNameIsValid)
-                                        ? review.user.name
-                                        : 'N A',
-                                  ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: Text((review.reviewNameIsValid)
-                                  ? review.user.name!
-                                  : 'Yelp User'),
-                            ),
-                          ],
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20.0),
-                          child: YelpDivider(
-                            indents: 0.0,
-                          ),
-                        ),
-                      ],
+            if (!review.textIsValid) return const SizedBox.shrink();
+            return Card(
+              color: Colors.grey[50],
+              elevation: 0.0,
+              margin: EdgeInsets.symmetric(horizontal: _indent),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (review.ratingNumber != null)
+                    RatingBarIndicator(
+                      rating: review.ratingNumber!.toDouble(),
+                      itemBuilder: (context, index) => const YelpStarIcon(),
+                      itemCount: review.ratingNumber!.toInt(),
+                      itemSize: 20.0,
+                      direction: Axis.horizontal,
                     ),
-                  )
-                : const SizedBox.shrink();
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: Text(
+                      review.text!,
+                      style: const TextStyle(fontSize: 18.0, height: 1.32),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      (review.user.imageURL != null)
+                          ? CircleAvatar(
+                              radius: 25.0,
+                              backgroundColor: Colors.transparent,
+                              backgroundImage: NetworkImage(
+                                review.user.imageURL!,
+                              ),
+                            )
+                          : Initicon(
+                              text: (review.reviewNameIsValid)
+                                  ? review.user.name
+                                  : 'N A',
+                            ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text((review.reviewNameIsValid)
+                            ? review.user.name!
+                            : 'Yelp User'),
+                      ),
+                    ],
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20.0),
+                    child: YelpDivider(
+                      indents: 0.0,
+                    ),
+                  ),
+                ],
+              ),
+            );
           },
         )
       ],

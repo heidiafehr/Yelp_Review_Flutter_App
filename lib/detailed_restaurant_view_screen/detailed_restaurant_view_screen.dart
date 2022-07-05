@@ -119,7 +119,7 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
               return SizedBox(
                 height: MediaQuery.of(context).size.height / 1.3,
                 child: const Center(
-                  child: Text('Ooops something went wrong!'
+                  child: Text('Oops something went wrong!'
                       '\nAre you connected to the internet?'),
                 ),
               );
