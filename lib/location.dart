@@ -17,7 +17,7 @@ class Location {
         addressLineOne: json['address1'],
         city: json['city'],
         state: json['state'],
-        zipcode: json['zip_code'],
+        zipcode: json['postal_code'],
     );
   }
 }

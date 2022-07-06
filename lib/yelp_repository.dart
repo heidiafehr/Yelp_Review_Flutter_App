@@ -7,6 +7,7 @@ import 'package:yelp_app/review_class.dart';
 import 'package:yelp_app/secrets.dart';
 
 class YelpRepo {
+
   Future<Restaurant> fetchRestaurant(String apiAlias) async {
     final response = await http.get(
       Uri.parse('https://api.yelp.com/v3/businesses/$apiAlias'),

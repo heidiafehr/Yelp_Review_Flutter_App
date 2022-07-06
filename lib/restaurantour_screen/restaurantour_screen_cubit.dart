@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yelp_app/list_of_restaurants.dart';
+import 'package:yelp_app/graphql_instance_call.dart';
 import '../yelp_repository.dart';
 
 abstract class RestauranTourState {}
@@ -17,7 +18,10 @@ class RestauranTourLoadedState extends RestauranTourState {
 }
 
 class RestauranTourCubit extends Cubit<RestauranTourState> {
-  YelpRepo api = YelpRepo();
+
+  GraphQLInstCall api = GraphQLInstCall();
+  //used to call RestQL
+  //YelpRepo api = YelpRepo();
 
   RestauranTourCubit() : super(RestauranTourLoadingState()) {
     load();

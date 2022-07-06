@@ -38,7 +38,7 @@ class Restaurant {
   factory Restaurant.fromJson(Map<String, dynamic> json) {
     return Restaurant(
       name: json['name'],
-      image: json['image_url'],
+      image: (json['photos'] as List).first,
       price: json['price'],
       categories: (json['categories'] as List)
           .map((categoryJson) => Category.fromJson(categoryJson))
