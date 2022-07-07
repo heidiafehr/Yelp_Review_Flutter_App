@@ -1,16 +1,8 @@
 # yelp_app
 
-A new Flutter project.
+The Yelp GraphQL API is used as the API for this Application. We have provided the boilerplate of the API requests and backing data models to save you some time. To successfully make a request to the Yelp GraphQL API, please follow these steps:
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+    Please go to https://www.yelp.com/signup and sign up for a developer account.
+    Once signed up, navigate to https://www.yelp.com/developers/v3/manage_app.
+    Create a new app by filling out the required information.
+    Create a file to host the API key and name it apiKey (include 'Bearer ' at the beginning of the value).
