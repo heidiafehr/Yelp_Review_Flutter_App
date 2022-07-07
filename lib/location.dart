@@ -1,4 +1,3 @@
-
 class Location {
   final String? addressLineOne;
   final String? city;
@@ -14,10 +13,10 @@ class Location {
 
   factory Location.fromJson(Map<String, dynamic> json) {
     return Location(
-        addressLineOne: json['address1'],
-        city: json['city'],
-        state: json['state'],
-        zipcode: json['postal_code'],
+      addressLineOne: json['address1'],
+      city: json['city'],
+      state: json['state'],
+      zipcode: json.containsKey('postal_code') ? json['postal_code'] : null,
     );
   }
 }

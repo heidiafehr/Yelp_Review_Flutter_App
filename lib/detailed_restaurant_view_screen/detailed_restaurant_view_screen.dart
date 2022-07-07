@@ -53,7 +53,9 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
                               title: 'N/A Restaurant Name',
                               addNavigateBack: true,
                             ),
-                      if (state.photosAreValid)
+                      if (state.photosAreValid &&
+                          MediaQuery.of(context).orientation ==
+                              Orientation.portrait)
                         RestaurantImageCarousel(
                             photos: state.restaurant.photos!),
 

@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yelp_app/graphql_instance_call.dart';
 import 'package:yelp_app/yelp_repository.dart';
 import '../restaurant_class.dart';
 import '../review_class.dart';
@@ -66,7 +67,8 @@ class DetailedRestaurantViewLoadedState extends DetailedRestaurantViewState {
 }
 
 class DetailedRestaurantViewCubit extends Cubit<DetailedRestaurantViewState> {
-  YelpRepo restaurantRepository = YelpRepo();
+  GraphQLInstCall restaurantRepository = GraphQLInstCall();
+  //YelpRepo restaurantRepository = YelpRepo();
   final String alias;
 
   DetailedRestaurantViewCubit({required this.alias})
