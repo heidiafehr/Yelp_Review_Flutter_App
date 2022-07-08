@@ -35,7 +35,7 @@ class Restaurant {
     this.photos,
   });
 
-  factory Restaurant.fromJson(Map<String, dynamic> json) {
+  factory Restaurant.fromGQLJson(Map<String, dynamic> json) {
     return Restaurant(
       name: json['name'],
       image: (json['photos'] as List).first,
@@ -51,9 +51,26 @@ class Restaurant {
       location: Location.fromJson(json['location']),
       rating: json['rating'],
       apiAlias: json['alias'],
-      photos: json.containsKey('photos')
-          ? (json['photos'] as List).map((photo) => photo.toString()).toList()
+    );
+  }
+
+  factory Restaurant.fromRestJson(Map<String, dynamic> json) {
+    return Restaurant(
+      name: json['name'],
+      //image: json['image_url'] ,
+      price: json['price'],
+      categories: (json['categories'] as List)
+          .map((categoryJson) => Category.fromJson(categoryJson))
+          .toList(),
+      hours: json.containsKey('hours')
+          ? (json['hours'] as List)
+          .map((hoursJson) => Hours.fromJson(hoursJson))
+          .toList()
           : null,
+      location: Location.fromJson(json['location']),
+      rating: json['rating'],
+      apiAlias: json['alias'],
+      photos: (json['photos'] as List).map((photo) => photo.toString()).toList(),
     );
   }
 }

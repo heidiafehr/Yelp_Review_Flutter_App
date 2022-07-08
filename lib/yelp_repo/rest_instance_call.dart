@@ -1,25 +1,23 @@
-import 'package:yelp_app/list_of_restaurants.dart';
 import 'package:yelp_app/restaurant_class.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:location/location.dart';
 import 'package:yelp_app/review_class.dart';
 import 'package:yelp_app/secrets.dart';
 
-class YelpRepo {
+class RestInstCall {
 
   Future<Restaurant> fetchRestaurant(String apiAlias) async {
     final response = await http.get(
       Uri.parse('https://api.yelp.com/v3/businesses/$apiAlias'),
       headers: {
-        'Authorization': apiKey,
+        'Authorization': 'Bearer $apiKey',
       },
     );
 
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
-      return Restaurant.fromJson(jsonDecode(response.body));
+      return Restaurant.fromRestJson(jsonDecode(response.body));
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
@@ -31,7 +29,7 @@ class YelpRepo {
     final responseReview = await http.get(
       Uri.parse('https://api.yelp.com/v3/businesses/$apiAlias/reviews'),
       headers: {
-        'Authorization': apiKey,
+        'Authorization': 'Bearer $apiKey',
       },
     );
 
@@ -46,7 +44,7 @@ class YelpRepo {
     }
   }
 
-  Future<ListOfRestaurants> fetchListOfRestaurants() async {
+  /*Future<ListOfRestaurants> fetchListOfRestaurants() async {
     Location location = Location();
     bool serviceEnabled;
     PermissionStatus permissionGranted;
@@ -86,5 +84,5 @@ class YelpRepo {
       // then throw an exception.
       throw Exception('Failed to load album');
     }
-  }
+  }*/
 }

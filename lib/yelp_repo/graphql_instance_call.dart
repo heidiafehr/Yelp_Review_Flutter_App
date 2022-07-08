@@ -1,11 +1,7 @@
 import 'package:graphql/client.dart';
 import 'package:location/location.dart';
-import 'package:yelp_app/restaurant_class.dart';
-import 'package:yelp_app/review_class.dart';
 import 'package:yelp_app/secrets.dart';
-import 'list_of_restaurants.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import '../list_of_restaurants.dart';
 
 class GraphQLInstCall {
   late GraphQLClient client;
@@ -105,7 +101,7 @@ class GraphQLInstCall {
     return ListOfRestaurants.fromJson(result.data!['search']);
   }
 
-  Future<Restaurant> fetchRestaurant(String alias) async {
+  /*Future<Restaurant> fetchRestaurant(String alias) async {
     const String yelpQuery = r'''
     query fetchYelpQuery($alias : String!) {
       business (id: $alias) {
@@ -170,5 +166,5 @@ class GraphQLInstCall {
       // then throw an exception.
       throw Exception('Failed to load album');
     }
-  }
+  }*/
 }

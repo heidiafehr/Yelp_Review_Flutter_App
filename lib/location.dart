@@ -16,7 +16,7 @@ class Location {
       addressLineOne: json['address1'],
       city: json['city'],
       state: json['state'],
-      zipcode: json.containsKey('postal_code') ? json['postal_code'] : null,
+      zipcode: json['zip_code'],
     );
   }
 }

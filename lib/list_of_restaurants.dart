@@ -8,7 +8,7 @@ class ListOfRestaurants {
   factory ListOfRestaurants.fromJson(Map<String, dynamic> json) {
     return ListOfRestaurants(
       listOfRestaurants: (json['business'] as List)
-          .map((restaurantJson) => Restaurant.fromJson(restaurantJson))
+          .map((restaurantJson) => Restaurant.fromGQLJson(restaurantJson))
           .toList(),
     );
   }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/detailed_restaurant_view_screen_cubit.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/restaurant_image_carousel.dart';
-import 'package:yelp_app/yelp_repository.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_overall_rating.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_expanded_hours_with_header.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_user_reviews.dart';
@@ -11,6 +10,8 @@ import 'package:yelp_app/restaurant_class.dart';
 import 'package:yelp_app/review_class.dart';
 import 'package:yelp_app/yelp_appbar.dart';
 import 'package:yelp_app/yelp_review_app.dart';
+
+import '../yelp_repo/yelp_repo.dart';
 
 class DetailedRestaurantViewScreen extends StatefulWidget {
   final String? appBarTitle;
