@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yelp_app/restaurantour_screen/restaurantour_screen_cubit.dart';
+import 'package:yelp_app/restaurantour_screen/restaurantour_cubit.dart';
 import 'package:yelp_app/restaurantour_screen/widgets/display_restaurant_catalog.dart';
 import 'package:yelp_app/yelp_appbar.dart';
 
