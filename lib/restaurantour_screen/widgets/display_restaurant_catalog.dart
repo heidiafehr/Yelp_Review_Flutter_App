@@ -6,10 +6,10 @@ import '../../restaurant_class.dart';
 ///element one by one into that widget
 ///assumes restaurants list is not empty
 
-class DisplayListOfRestaurants extends StatelessWidget {
+class DisplayRestaurantCatalog extends StatelessWidget {
   final List<Restaurant> restaurants;
 
-  const DisplayListOfRestaurants({
+  const DisplayRestaurantCatalog({
     required this.restaurants,
     Key? key,
   }) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:yelp_app/yelp_repo/graphql_instance_call.dart';
 import 'package:yelp_app/yelp_repo/rest_instance_call.dart';
-import '../list_of_restaurants.dart';
+import '../restaurant_catalog.dart';
 import '../restaurant_class.dart';
 import '../review_class.dart';
 
@@ -16,8 +16,8 @@ class YelpRepo {
     return _singleton;
   }
 
-  Future<ListOfRestaurants> fetchListOfRestaurants() async {
-    return restaurantCatalog.fetchListOfRestaurants();
+  Future<RestaurantCatalog> fetchRestaurantCatalog() async {
+    return restaurantCatalog.fetchRestaurantCatalog();
   }
 
   Future<Restaurant> fetchRestaurant(String alias) async {

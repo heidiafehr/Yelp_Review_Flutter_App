@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yelp_app/list_of_restaurants.dart';
+import '../restaurant_catalog.dart';
 import '../yelp_repo/yelp_repo.dart';
 
 abstract class RestauranTourState {}
@@ -9,7 +9,7 @@ class RestauranTourLoadingState extends RestauranTourState {}
 class RestauranTourErrorState extends RestauranTourState {}
 
 class RestauranTourLoadedState extends RestauranTourState {
-  ListOfRestaurants restaurants;
+  RestaurantCatalog restaurants;
 
   RestauranTourLoadedState({
     required this.restaurants,
@@ -28,8 +28,8 @@ class RestauranTourCubit extends Cubit<RestauranTourState> {
   void load() async {
     emit(RestauranTourLoadingState());
     try {
-      final restaurants = await api.fetchListOfRestaurants();
-      if (restaurants.listOfRestaurants.isEmpty) {
+      final restaurants = await api.fetchRestaurantCatalog();
+      if (restaurants.restaurantCatalog.isEmpty) {
         emit(RestauranTourErrorState());
       } else {
         emit(RestauranTourLoadedState(restaurants: restaurants));

@@ -1,7 +1,7 @@
 import 'package:graphql/client.dart';
 import 'package:location/location.dart';
 import 'package:yelp_app/secrets.dart';
-import '../list_of_restaurants.dart';
+import '../restaurant_catalog.dart';
 
 class GraphQLInstCall {
   late GraphQLClient client;
@@ -27,7 +27,7 @@ class GraphQLInstCall {
     );
   }
 
-  Future<ListOfRestaurants> fetchListOfRestaurants() async {
+  Future<RestaurantCatalog> fetchRestaurantCatalog() async {
     Location location = Location();
     bool serviceEnabled;
     PermissionStatus permissionGranted;
@@ -98,73 +98,6 @@ class GraphQLInstCall {
       //print(result.exception.toString());
       throw Exception('Failed to load album');
     }
-    return ListOfRestaurants.fromJson(result.data!['search']);
+    return RestaurantCatalog.fromJson(result.data!['search']);
   }
-
-  /*Future<Restaurant> fetchRestaurant(String alias) async {
-    const String yelpQuery = r'''
-    query fetchYelpQuery($alias : String!) {
-      business (id: $alias) {
-        name
-        photos
-        price
-        categories {
-          alias
-          title
-        }
-        hours {
-          is_open_now
-          open {
-            is_overnight
-            start
-            end
-            day
-          }
-        }
-        location {
-          address1
-          city
-          state
-          postal_code
-        }
-        rating
-        alias
-      }
-    }
-    ''';
-
-    final QueryOptions options = QueryOptions(
-      document: gql(yelpQuery),
-      variables: <String, dynamic>{
-        'alias' : alias,
-      },
-    );
-
-    final QueryResult result = await client.query(options);
-
-    if (result.hasException) {
-      //print(result.exception.toString());
-      throw Exception('Failed to load album');
-    }
-    return Restaurant.fromJson(result.data!['business']);
-  }
-
-  Future<Reviews> fetchReview(String apiAlias) async {
-    final responseReview = await http.get(
-      Uri.parse('https://api.yelp.com/v3/businesses/$apiAlias/reviews'),
-      headers: {
-        'Authorization': 'Bearer $apiKey',
-      },
-    );
-
-    if (responseReview.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      return Reviews.fromJson(jsonDecode(responseReview.body));
-    } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      throw Exception('Failed to load album');
-    }
-  }*/
 }
