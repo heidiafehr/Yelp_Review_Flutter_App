@@ -63,6 +63,11 @@ class DetailedRestaurantViewLoadedState extends DetailedRestaurantViewState {
       individualReviewsAreValid &&
       reviews.individualUserReviews.first.text != null &&
       reviews.individualUserReviews.first.text!.isNotEmpty;
+
+  bool get coordinatesAreValid =>
+      restaurant.coordinates != null &&
+      restaurant.coordinates!.latitude != null &&
+      restaurant.coordinates!.longitude != null;
 }
 
 class DetailedRestaurantViewCubit extends Cubit<DetailedRestaurantViewState> {

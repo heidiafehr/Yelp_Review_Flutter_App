@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/detailed_restaurant_view_screen_cubit.dart';
+import 'package:yelp_app/detailed_restaurant_view_screen/widgets/google_map_window.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/restaurant_image_carousel.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_overall_rating.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_expanded_hours_with_header.dart';
@@ -59,6 +60,10 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
                               Orientation.portrait)
                         RestaurantImageCarousel(
                             photos: state.restaurant.photos!),
+                      const Padding(
+                        padding: EdgeInsets.only(top: 15.0),
+                        child: YelpDivider(),
+                      ),
 
                       //if openHoursList is valid display with expanded tile
                       //else if open status or priceAndType are valid display
@@ -87,7 +92,7 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
                               ),
                       if (state.hasHeaderData) const YelpDivider(),
 
-                      if (state.addressIsValid)
+                      if (state.addressIsValid) ...[
                         DisplayRestaurantAddress(
                           addressLineOne:
                               state.restaurant.location!.addressLineOne,
@@ -95,7 +100,18 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
                           state: state.restaurant.location!.state,
                           zipcode: state.restaurant.location!.zipcode,
                         ),
-                      if (state.addressIsValid) const YelpDivider(),
+                        if (state.coordinatesAreValid)
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                            child: GoogleMapWindow(
+                                restaurantName: state.restaurant.name!,
+                                coordinates: state.restaurant.coordinates!),
+                          ),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 30.0),
+                          child: YelpDivider(),
+                        ),
+                      ],
 
                       if (state.overallRatingIsValid)
                         DisplayOverallRating(

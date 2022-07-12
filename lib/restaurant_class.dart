@@ -1,6 +1,7 @@
 import 'package:yelp_app/hours.dart';
 import 'category.dart';
 import 'package:yelp_app/location.dart';
+import 'coordinates.dart';
 
 class Restaurant {
   final String? name;
@@ -12,6 +13,7 @@ class Restaurant {
   final num? rating;
   final String? apiAlias;
   final List<String>? photos;
+  final Coordinates? coordinates;
 
   bool get nameIsValid =>
       (name != null && name!.isNotEmpty);
@@ -33,6 +35,7 @@ class Restaurant {
     this.rating,
     this.apiAlias,
     this.photos,
+    this.coordinates,
   });
 
   factory Restaurant.fromGQLJson(Map<String, dynamic> json) {
@@ -71,6 +74,7 @@ class Restaurant {
       rating: json['rating'],
       apiAlias: json['alias'],
       photos: (json['photos'] as List).map((photo) => photo.toString()).toList(),
+      coordinates: Coordinates.fromJson(json['coordinates']),
     );
   }
 }

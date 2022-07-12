@@ -17,7 +17,7 @@ class DisplayRestaurantAddress extends StatelessWidget {
       required this.addressLineOne,
       required this.city,
       this.state,
-      this.zipcode})
+      this.zipcode,})
       : super(key: key);
 
   @override
