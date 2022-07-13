@@ -19,11 +19,10 @@ class RestauranTourLoadedState extends RestauranTourState {
 class RestauranTourCubit extends Cubit<RestauranTourState> {
 
   //used to call RestQL
-  YelpRepo api = YelpRepo();
+  late YelpRepo api;
 
-  RestauranTourCubit() : super(RestauranTourLoadingState()) {
-    load();
-  }
+  RestauranTourCubit({YelpRepo? api}) : super(RestauranTourLoadingState()) {
+    this.api = api ?? YelpRepo(); }
 
   void load() async {
     emit(RestauranTourLoadingState());

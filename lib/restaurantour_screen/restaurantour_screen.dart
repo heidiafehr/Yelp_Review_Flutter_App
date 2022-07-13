@@ -16,7 +16,7 @@ class _RestauranTourScreen extends State<RestauranTourScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (_) => RestauranTourCubit(),
+        create: (_) => RestauranTourCubit()..load(),
         child: Column(
           children: [
             const CustomYelpAppBar(
