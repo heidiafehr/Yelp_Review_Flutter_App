@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yelp_app/detailed_restaurant_view_screen/detailed_restaurant_view_screen_cubit.dart';
+import 'package:yelp_app/detailed_restaurant_view_screen/detailed_restaurant_view_cubit.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/google_map_window.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/restaurant_image_carousel.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_overall_rating.dart';
@@ -36,7 +36,7 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (_) => DetailedRestaurantViewCubit(alias: widget.alias),
+        create: (_) => DetailedRestaurantViewCubit(alias: widget.alias)..load(),
         child: BlocBuilder<DetailedRestaurantViewCubit,
             DetailedRestaurantViewState>(
           builder: (context, state) {

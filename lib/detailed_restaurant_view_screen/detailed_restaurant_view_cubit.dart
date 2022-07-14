@@ -71,16 +71,22 @@ class DetailedRestaurantViewLoadedState extends DetailedRestaurantViewState {
 }
 
 class DetailedRestaurantViewCubit extends Cubit<DetailedRestaurantViewState> {
-  //GraphQLInstCall restaurantRepository = GraphQLInstCall();
-  YelpRepo restaurantRepository = YelpRepo();
-  final String alias;
+  //YelpRepo restaurantRepository = YelpRepo();
+  late String alias;
+  late YelpRepo restaurantRepository;
 
-  DetailedRestaurantViewCubit({required this.alias})
+  /*DetailedRestaurantViewCubit({required this.alias})
       : super(DetailedRestaurantViewLoadingState()) {
     load(alias: alias);
+  }*/
+
+  DetailedRestaurantViewCubit({required this.alias, YelpRepo? yelpRepo})
+      : super(DetailedRestaurantViewLoadingState()) {
+    restaurantRepository = yelpRepo ?? YelpRepo();
   }
 
-  void load({required String alias}) async {
+  void load() async {
+    emit(DetailedRestaurantViewLoadingState());
     if (alias.isEmpty) {
       emit(DetailedRestaurantViewErrorState());
       return;
