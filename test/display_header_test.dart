@@ -4,6 +4,13 @@ import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_header.
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/open_status.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/price_and_alias.dart';
 
+///if price and type are/are not valid
+  ///are - PriceAndAlias is found
+  ///are not - PriceAndAlias is not found
+///if openStatus is/is not valid
+  ///is - OpenStatus is found
+  ///is not - OpenStatus is not found
+
 void main() {
   Widget allDataIsValid = const MaterialApp(
     home: Scaffold(

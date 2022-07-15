@@ -4,6 +4,12 @@ import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_expande
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/price_and_alias.dart';
 import 'package:yelp_app/hours.dart';
 
+///if all hours data is present
+  ///should display the correct Text<Widget>
+///if price and type are/are not valid
+  ///are - PriceAndAlias is found
+  ///are not - PirceAndAlias is not found
+
 void main() {
   Widget allDataPresent = MaterialApp(
     home: Scaffold(
