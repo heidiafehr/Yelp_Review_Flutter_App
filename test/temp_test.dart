@@ -3,11 +3,6 @@
     //if price and type are/are not valid
       //are - displays what it needs to display
       //are not - Text widget is not there?
-    //if hours are/are not valid
-      //are - displays restaurant hours (widget is there)
-      //are not - displays restaurant hours is not there??
-        //but would this be necessary if we guarantee that hours should be valid
-        //in order to call this widget?
   //display restaurant hours
     //what eliza did?
   //display overall rating
