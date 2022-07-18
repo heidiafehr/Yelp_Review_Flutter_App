@@ -52,8 +52,6 @@ void main() {
   testWidgets('When all data is present', (tester) async {
     final tile = allDataIsValid;
     await tester.pumpWidget(tile);
-    /*await tester.tap(find.byType(DisplayHeader));
-    await tester.pumpAndSettle();*/
     expect(find.byType(PriceAndAlias), findsOneWidget);
     expect(find.byType(Spacer), findsOneWidget);
     expect(find.byType(OpenStatus), findsOneWidget);
@@ -62,8 +60,6 @@ void main() {
   testWidgets('When only priceAndType are NOT valid', (tester) async {
     final tile = priceAndTypeAreNotValid;
     await tester.pumpWidget(tile);
-    /*await tester.tap(find.byType(DisplayHeader));
-    await tester.pumpAndSettle();*/
     expect(find.byType(PriceAndAlias), findsNothing);
     expect(find.byType(Spacer), findsNothing);
     expect(find.byType(OpenStatus), findsOneWidget);
@@ -72,8 +68,6 @@ void main() {
   testWidgets('When only OpenStatus is NOT valid', (tester) async {
     final tile = openStatusIsNotValid;
     await tester.pumpWidget(tile);
-    /*await tester.tap(find.byType(DisplayHeader));
-    await tester.pumpAndSettle();*/
     expect(find.byType(PriceAndAlias), findsOneWidget);
     expect(find.byType(Spacer), findsOneWidget);
     expect(find.byType(OpenStatus), findsNothing);

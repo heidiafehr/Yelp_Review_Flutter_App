@@ -20,6 +20,9 @@ class DisplayUserReviews extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if(individualUserReviews == null) {
+      return const SizedBox.shrink();
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

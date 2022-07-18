@@ -49,6 +49,7 @@ dependencies:
   google_maps_flutter: ^2.1.8
   mocktail: ^0.3.0
   bloc_test: ^9.0.3
+  network_image_mock: ^2.1.1
 
 dev_dependencies:
   flutter_test:
