@@ -46,12 +46,6 @@ class Restaurant {
       categories: (json['categories'] as List)
           .map((categoryJson) => Category.fromJson(categoryJson))
           .toList(),
-      hours: json.containsKey('hours')
-          ? (json['hours'] as List)
-              .map((hoursJson) => Hours.fromJson(hoursJson))
-              .toList()
-          : null,
-      location: Location.fromJson(json['location']),
       rating: json['rating'],
       apiAlias: json['alias'],
     );

@@ -10,7 +10,7 @@ import 'package:yelp_app/restaurant_class.dart';
 import 'package:yelp_app/location.dart';
 import 'package:yelp_app/review_class.dart';
 
-import 'mock_yelp_repo.dart';
+import '../mock_yelp_repo.dart';
 
 void main() {
   group('DetailedRestaurantView test', () {

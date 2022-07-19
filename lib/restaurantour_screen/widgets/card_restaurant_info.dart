@@ -1,8 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_initicon/flutter_initicon.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../../restaurant_class.dart';
 import '../../yelp_review_app.dart';
+
+var imageError = false;
 
 ///Displays the info for each of each of the restaurants
 ///assumes restaurant name is valid
@@ -43,10 +46,24 @@ class CardRestaurantInfo extends StatelessWidget {
                       width: MediaQuery.of(context).size.width * .3,
                       height: MediaQuery.of(context).size.width * .3,
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: Image.network(
-                            fit: BoxFit.cover, singleRestaurant.image!),
-                      ),
+                          borderRadius: BorderRadius.circular(10.0),
+                          child: !imageError
+                              ? CachedNetworkImage(
+                                  imageUrl: singleRestaurant.image!,
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(
+                                    Icons.error,
+                                    color: Colors.pinkAccent,
+                                  ),
+                                  fit: BoxFit.cover,
+                                )
+                              : Icon(Icons.error),
+                          //const SizedBox(width: 10.0, height: 10.0,),
+                          /*imageUrl: singleRestaurant.image!,
+                          */
+                          /*Image.network(
+                            fit: BoxFit.cover, singleRestaurant.image!),*/
+                          ),
                     )
                   : SizedBox(
                       width: MediaQuery.of(context).size.width * .3,

@@ -37,7 +37,7 @@ class DisplayUserReviews extends StatelessWidget {
           physics: const ClampingScrollPhysics(),
           itemBuilder: (_, index) {
             final review = individualUserReviews![index];
-            if (!review.textIsValid) return const SizedBox.shrink();
+            if (review.textIsValid != true) return const SizedBox.shrink();
             return Card(
               color: Colors.grey[50],
               elevation: 0.0,

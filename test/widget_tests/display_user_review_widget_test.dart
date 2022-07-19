@@ -9,8 +9,8 @@ import 'package:yelp_app/individual_user_reviews.dart';
 ///individualUserReviews is/is not empty
 /// is - expected to find sizedBox widget
 /// is not - find ListView (continue checks for widgets inside of listView)
-///indivualUserReviews TEXT is/is not null
-/// is - expected a SizedBox
+///individualUserReviews TEXT is/is not null
+/// is - expected a not to find a Card widget
 /// is not - expected a Card widget
 ///ratingNumber is/is not null
 /// is - expected to find nothing
@@ -18,8 +18,7 @@ import 'package:yelp_app/individual_user_reviews.dart';
 ///user.imageURL is/is not null
 /// is - expected Initicon widget
 /// is not - expected CircleAvatar
-///*will check name in goldens*
-
+///*will check name in golden*
 
 void main() {
   Widget individualReviewsIsNull = const MaterialApp(
@@ -90,7 +89,7 @@ void main() {
     ),
   );
 
-  testWidgets('inidividualUserReviews list is empty/null', (tester) async {
+  testWidgets('individualUserReviews list is empty/null', (tester) async {
     final tile = individualReviewsIsNull;
     await tester.pumpWidget(tile);
     expect(find.byType(SizedBox), findsOneWidget);
@@ -111,12 +110,10 @@ void main() {
   //Doesn't work tbh Idk, but I am not spending any more time on this
   //look at display_user_reviews line 39
   //it should work >:(
-  //ask Travis and/or Matt
   testWidgets('text is NOT valid', (tester) async{
     final tile = textIsNotValid;
     await mockNetworkImagesFor(() => tester.pumpWidget(tile));
-    //expect(find.byType(SizedBox), findsOneWidget);
-    expect(find.byType(SizedBox), findsNothing);
+    await tester.pumpAndSettle();
     expect(find.byType(Card), findsNothing);
   });
 

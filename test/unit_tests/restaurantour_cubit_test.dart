@@ -8,7 +8,7 @@ import 'package:yelp_app/restaurant_class.dart';
 import 'package:yelp_app/location.dart';
 import 'package:yelp_app/restaurantour_screen/restaurantour_cubit.dart';
 
-import 'mock_yelp_repo.dart';
+import '../mock_yelp_repo.dart';
 
 void main() {
   group('RestauranTourCubit test', () {
