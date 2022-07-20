@@ -59,6 +59,40 @@ void main() {
   });
 
   testGoldens(
+    'RestauranTour Loading Screen',
+        (tester) async {
+      MockRestauranTourCubit mockRestauranTour = MockRestauranTourCubit();
+
+      imageError = true;
+      when(() => mockRestauranTour.load())
+          .thenAnswer((_) async {});
+      final builder = DeviceBuilder()..overrideDevicesForAllScenarios(devices: [
+        Device.phone,
+        Device.iphone11,
+      ]);
+
+      whenListen(
+        mockRestauranTour,
+        Stream.fromIterable(
+          [
+            RestauranTourLoadingState(),
+          ],
+        ),
+        initialState: RestauranTourLoadingState(),
+      );
+
+      builder.addScenario(
+        name: 'Loading',
+        widget: RestauranTourScreen(cubit: mockRestauranTour),
+      );
+
+      await tester.pumpDeviceBuilder(builder);
+
+      await screenMatchesGolden(tester, 'restaurantour_loading_screen');
+    },
+  );
+
+  testGoldens(
     'RestauranTour Loaded Screen',
     (tester) async {
       MockRestauranTourCubit mockRestauranTour = MockRestauranTourCubit();

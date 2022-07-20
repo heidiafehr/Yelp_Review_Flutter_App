@@ -51,6 +51,7 @@ dependencies:
   bloc_test: ^9.0.3
   network_image_mock: ^2.1.1
   cached_network_image: ^3.2.1
+  get_it: ^7.2.0
 
 dev_dependencies:
   flutter_test:
