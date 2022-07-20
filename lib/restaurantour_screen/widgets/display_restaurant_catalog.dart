@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yelp_app/restaurantour_screen/widgets/card_restaurant_info.dart';
-import '../../restaurant_class.dart';
+import '../../yelp_repo/restaurant_class.dart';
 
 ///displays list of restaurants by calling card info widget and passes each
 ///element one by one into that widget

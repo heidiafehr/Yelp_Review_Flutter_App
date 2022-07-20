@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../restaurant_class.dart';
-import '../review_class.dart';
+import '../yelp_repo/restaurant_class.dart';
+import '../yelp_repo/review_class.dart';
 import '../yelp_repo/yelp_repo.dart';
 
 abstract class DetailedRestaurantViewState {}

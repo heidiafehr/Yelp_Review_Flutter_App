@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_expanded_hours_with_header.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/price_and_alias.dart';
-import 'package:yelp_app/hours.dart';
+import 'package:yelp_app/yelp_repo/hours.dart';
 
 ///if all hours data is present
   ///should display the correct Text<Widget>

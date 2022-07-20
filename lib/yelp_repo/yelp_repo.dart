@@ -1,8 +1,8 @@
 import 'package:yelp_app/yelp_repo/graphql_instance_call.dart';
 import 'package:yelp_app/yelp_repo/rest_instance_call.dart';
-import '../restaurant_catalog.dart';
-import '../restaurant_class.dart';
-import '../review_class.dart';
+import 'restaurant_catalog.dart';
+import 'restaurant_class.dart';
+import 'review_class.dart';
 
 class YelpRepo {
   final restaurantCatalog = GraphQLInstCall();

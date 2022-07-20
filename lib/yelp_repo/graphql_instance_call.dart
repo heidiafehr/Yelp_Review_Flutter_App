@@ -1,7 +1,7 @@
 import 'package:graphql/client.dart';
 import 'package:location/location.dart';
 import 'package:yelp_app/secrets.dart';
-import '../restaurant_catalog.dart';
+import 'restaurant_catalog.dart';
 
 class GraphQLInstCall {
   late GraphQLClient client;

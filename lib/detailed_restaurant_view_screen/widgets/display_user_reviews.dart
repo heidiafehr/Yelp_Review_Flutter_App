@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:yelp_app/individual_user_reviews.dart';
+import 'package:yelp_app/detailed_restaurant_view_screen/detailed_restaurant_view_screen.dart';
+import 'package:yelp_app/yelp_repo/individual_user_reviews.dart';
 import 'package:flutter_initicon/flutter_initicon.dart';
 import '../../yelp_review_app.dart';
 
@@ -62,7 +63,7 @@ class DisplayUserReviews extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      (review.user.imageURL != null)
+                      (review.user.imageURL != null && !imageError)
                           ? CircleAvatar(
                               radius: 25.0,
                               backgroundColor: Colors.transparent,

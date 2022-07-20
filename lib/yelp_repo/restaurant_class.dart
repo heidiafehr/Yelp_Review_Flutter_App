@@ -1,6 +1,6 @@
-import 'package:yelp_app/hours.dart';
+import 'package:yelp_app/yelp_repo/hours.dart';
 import 'category.dart';
-import 'package:yelp_app/location.dart';
+import 'package:yelp_app/yelp_repo/location.dart';
 import 'coordinates.dart';
 
 class Restaurant {

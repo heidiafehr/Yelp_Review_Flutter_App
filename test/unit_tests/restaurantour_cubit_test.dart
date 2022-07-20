@@ -1,11 +1,11 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:yelp_app/category.dart';
-import 'package:yelp_app/hours.dart';
-import 'package:yelp_app/restaurant_catalog.dart';
-import 'package:yelp_app/restaurant_class.dart';
-import 'package:yelp_app/location.dart';
+import 'package:yelp_app/yelp_repo/category.dart';
+import 'package:yelp_app/yelp_repo/hours.dart';
+import 'package:yelp_app/yelp_repo/restaurant_catalog.dart';
+import 'package:yelp_app/yelp_repo/restaurant_class.dart';
+import 'package:yelp_app/yelp_repo/location.dart';
 import 'package:yelp_app/restaurantour_screen/restaurantour_cubit.dart';
 
 import '../mock_yelp_repo.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../restaurant_catalog.dart';
+import '../yelp_repo/restaurant_catalog.dart';
 import '../yelp_repo/yelp_repo.dart';
 
 abstract class RestauranTourState {}

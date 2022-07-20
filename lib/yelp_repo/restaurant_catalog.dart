@@ -1,4 +1,4 @@
-import 'package:yelp_app/restaurant_class.dart';
+import 'package:yelp_app/yelp_repo/restaurant_class.dart';
 
 class RestaurantCatalog {
   final List<Restaurant> restaurantCatalog;

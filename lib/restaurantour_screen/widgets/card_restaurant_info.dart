@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_initicon/flutter_initicon.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import '../../restaurant_class.dart';
+import '../../yelp_repo/restaurant_class.dart';
 import '../../yelp_review_app.dart';
 
 var imageError = false;
@@ -57,12 +57,7 @@ class CardRestaurantInfo extends StatelessWidget {
                                   ),
                                   fit: BoxFit.cover,
                                 )
-                              : Icon(Icons.error),
-                          //const SizedBox(width: 10.0, height: 10.0,),
-                          /*imageUrl: singleRestaurant.image!,
-                          */
-                          /*Image.network(
-                            fit: BoxFit.cover, singleRestaurant.image!),*/
+                              : const Icon(Icons.error),
                           ),
                     )
                   : SizedBox(

@@ -4,7 +4,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_user_reviews.dart';
-import 'package:yelp_app/individual_user_reviews.dart';
+import 'package:yelp_app/yelp_repo/individual_user_reviews.dart';
 
 ///individualUserReviews is/is not empty
 /// is - expected to find sizedBox widget

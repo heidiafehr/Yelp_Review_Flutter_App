@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../hours.dart';
+import '../../yelp_repo/hours.dart';
 
 class DisplayRestaurantHours extends StatelessWidget {
   DisplayRestaurantHours(

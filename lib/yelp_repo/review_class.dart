@@ -1,4 +1,4 @@
-import 'package:yelp_app/individual_user_reviews.dart';
+import 'package:yelp_app/yelp_repo/individual_user_reviews.dart';
 
 class Reviews {
   final int? totalNumberOfReviews;

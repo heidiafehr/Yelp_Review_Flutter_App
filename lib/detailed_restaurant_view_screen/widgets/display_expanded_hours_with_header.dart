@@ -2,7 +2,7 @@ import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/open_status.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/price_and_alias.dart';
-import '../../hours.dart';
+import '../../yelp_repo/hours.dart';
 import '../../yelp_review_app.dart';
 import 'display_restaurant_hours.dart';
 

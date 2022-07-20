@@ -1,7 +1,7 @@
-import 'package:yelp_app/restaurant_class.dart';
+import 'package:yelp_app/yelp_repo/restaurant_class.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:yelp_app/review_class.dart';
+import 'package:yelp_app/yelp_repo/review_class.dart';
 import 'package:yelp_app/secrets.dart';
 
 class RestInstCall {

@@ -8,19 +8,24 @@ import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_overall
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_expanded_hours_with_header.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_user_reviews.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_restaurant_address.dart';
-import 'package:yelp_app/restaurant_class.dart';
-import 'package:yelp_app/review_class.dart';
-import 'package:yelp_app/yelp_appbar.dart';
+import 'package:yelp_app/yelp_repo/restaurant_class.dart';
+import 'package:yelp_app/yelp_repo/review_class.dart';
+import 'package:yelp_app/widgets/yelp_appbar.dart';
 import 'package:yelp_app/yelp_review_app.dart';
-
 import '../yelp_repo/yelp_repo.dart';
+
+var imageError = false;
 
 class DetailedRestaurantViewScreen extends StatefulWidget {
   final String? appBarTitle;
   final String alias;
+  final DetailedRestaurantViewCubit? cubit;
 
   const DetailedRestaurantViewScreen(
-      {@visibleForTesting this.appBarTitle, required this.alias, Key? key})
+      {@visibleForTesting this.appBarTitle,
+      required this.alias,
+      @visibleForTesting this.cubit,
+      Key? key})
       : super(key: key);
 
   @override
@@ -37,7 +42,7 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (_) => DetailedRestaurantViewCubit(alias: widget.alias)..load(),
+        create: (_) => widget.cubit ?? DetailedRestaurantViewCubit(alias: widget.alias)..load(),
         child: BlocBuilder<DetailedRestaurantViewCubit,
             DetailedRestaurantViewState>(
           builder: (context, state) {
@@ -58,7 +63,7 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
                             ),
                       if (state.photosAreValid &&
                           MediaQuery.of(context).orientation ==
-                              Orientation.portrait)
+                              Orientation.portrait && !imageError)
                         RestaurantImageCarousel(
                             photos: state.restaurant.photos!),
                       const Padding(
@@ -101,9 +106,10 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
                           state: state.restaurant.location!.state,
                           zipcode: state.restaurant.location!.zipcode,
                         ),
-                        if (state.coordinatesAreValid)
+                        if (state.coordinatesAreValid && !imageError)
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 30.0),
                             child: GoogleMapWindow(
                                 restaurantName: state.restaurant.name!,
                                 coordinates: state.restaurant.coordinates!),
