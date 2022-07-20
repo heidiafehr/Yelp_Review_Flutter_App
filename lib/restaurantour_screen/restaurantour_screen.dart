@@ -6,11 +6,11 @@ import 'package:yelp_app/widgets/yelp_appbar.dart';
 import 'package:yelp_app/widgets/yelp_refresh_indicator.dart';
 
 import '../detailed_restaurant_view_screen/detailed_restaurant_view_screen.dart';
+import '../service_locator.dart';
 
 class RestauranTourScreen extends StatefulWidget {
-  final RestauranTourCubit? cubit;
 
-  const RestauranTourScreen({Key? key, @visibleForTesting this.cubit})
+  const RestauranTourScreen({Key? key})
       : super(key: key);
 
   @override
@@ -20,11 +20,9 @@ class RestauranTourScreen extends StatefulWidget {
 class _RestauranTourScreen extends State<RestauranTourScreen> {
   @override
   Widget build(BuildContext context) {
-    print(imageError);
     return Scaffold(
       body: BlocProvider(
-        create: (_) => (widget.cubit ?? RestauranTourCubit()
-          ..load()),
+        create: (_) => (getIt<RestauranTourCubit>()..load()),
         child: Column(
           children: [
             const CustomYelpAppBar(

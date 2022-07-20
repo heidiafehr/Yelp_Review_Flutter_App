@@ -134,10 +134,4 @@ void main() {
     await mockNetworkImagesFor(() => tester.pumpWidget(tile));
     expect(find.byType(Initicon), findsOneWidget);
   });
-
-  testWidgets('imageURL is valid', (tester) async {
-    final tile = individualReviewsIsValid;
-    await mockNetworkImagesFor(() => tester.pumpWidget(tile));
-    expect(find.byType(CircleAvatar), findsOneWidget);
-  });
 }

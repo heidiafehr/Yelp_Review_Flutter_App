@@ -2,6 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
+import 'package:yelp_app/service_locator.dart';
 import 'package:yelp_app/yelp_repo/restaurant_catalog.dart';
 import 'package:yelp_app/yelp_repo/restaurant_class.dart';
 import 'package:yelp_app/yelp_repo/category.dart' as cat;
@@ -62,6 +63,7 @@ void main() {
     'RestauranTour Loading Screen',
         (tester) async {
       MockRestauranTourCubit mockRestauranTour = MockRestauranTourCubit();
+      getIt.registerSingleton<RestauranTourCubit>(mockRestauranTour);
 
       imageError = true;
       when(() => mockRestauranTour.load())
@@ -83,7 +85,7 @@ void main() {
 
       builder.addScenario(
         name: 'Loading',
-        widget: RestauranTourScreen(cubit: mockRestauranTour),
+        widget: RestauranTourScreen(),
       );
 
       await tester.pumpDeviceBuilder(builder);
@@ -96,6 +98,7 @@ void main() {
     'RestauranTour Loaded Screen',
     (tester) async {
       MockRestauranTourCubit mockRestauranTour = MockRestauranTourCubit();
+      getIt.registerSingleton<RestauranTourCubit>(mockRestauranTour);
 
       imageError = true;
       when(() => mockRestauranTour.load())
@@ -118,7 +121,7 @@ void main() {
 
       builder.addScenario(
         name: 'Loaded',
-        widget: RestauranTourScreen(cubit: mockRestauranTour),
+        widget: RestauranTourScreen(),
       );
 
       await tester.pumpDeviceBuilder(builder);

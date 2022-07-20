@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yelp_app/service_locator.dart';
 import '../yelp_repo/restaurant_catalog.dart';
 import '../yelp_repo/yelp_repo.dart';
 
@@ -17,10 +18,9 @@ class RestauranTourLoadedState extends RestauranTourState {
 }
 
 class RestauranTourCubit extends Cubit<RestauranTourState> {
-  late YelpRepo api;
+  YelpRepo api = getIt<YelpRepo>();
 
-  RestauranTourCubit({YelpRepo? api}) : super(RestauranTourLoadingState()) {
-    this.api = api ?? YelpRepo(); }
+  RestauranTourCubit() : super(RestauranTourLoadingState());
 
   void load() async {
     emit(RestauranTourLoadingState());
