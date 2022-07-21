@@ -88,6 +88,7 @@ class DetailedRestaurantViewCubit extends Cubit<DetailedRestaurantViewState> {
       emit(DetailedRestaurantViewErrorState());
       return;
     }
+
     try {
       final restaurant = await restaurantRepository.fetchRestaurant(alias);
       final reviews = await restaurantRepository.fetchReview(alias);

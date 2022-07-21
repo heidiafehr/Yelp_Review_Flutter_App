@@ -3,6 +3,7 @@ import 'package:yelp_app/service_locator.dart';
 import '../yelp_repo/restaurant_catalog.dart';
 import '../yelp_repo/yelp_repo.dart';
 
+bool mockLoading = false;
 abstract class RestauranTourState {}
 
 class RestauranTourLoadingState extends RestauranTourState {}
@@ -23,6 +24,10 @@ class RestauranTourCubit extends Cubit<RestauranTourState> {
   RestauranTourCubit() : super(RestauranTourLoadingState());
 
   void load() async {
+    if(mockLoading) {
+      emit(RestauranTourLoadingState());
+      return;
+    }
     emit(RestauranTourLoadingState());
     try {
       final restaurants = await api.fetchRestaurantCatalog();
@@ -32,6 +37,7 @@ class RestauranTourCubit extends Cubit<RestauranTourState> {
         emit(RestauranTourLoadedState(restaurants: restaurants));
       }
     } catch (e) {
+      print(e);
       emit(RestauranTourErrorState());
     }
   }

@@ -29,7 +29,7 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (_) => (getIt<DetailedRestaurantViewCubit>()..load(alias: widget.alias)),
+        create: (_) => DetailedRestaurantViewCubit()..load(alias: widget.alias),
         //widget.cubit ?? DetailedRestaurantViewCubit(alias: widget.alias)..load(),
         child: BlocBuilder<DetailedRestaurantViewCubit,
             DetailedRestaurantViewState>(

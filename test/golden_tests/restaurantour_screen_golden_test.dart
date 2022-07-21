@@ -9,15 +9,20 @@ import 'package:yelp_app/yelp_repo/restaurant_class.dart';
 import 'package:yelp_app/yelp_repo/category.dart' as cat;
 import 'package:yelp_app/restaurantour_screen/restaurantour_cubit.dart';
 import 'package:yelp_app/restaurantour_screen/restaurantour_screen.dart';
+import 'package:yelp_app/yelp_repo/yelp_repo.dart';
+
+import '../mock_yelp_repo.dart';
 
 class MockRestauranTourCubit extends MockCubit<RestauranTourState>
     implements RestauranTourCubit {}
 
 void main() {
   late RestaurantCatalog mockCatalog;
+  late YelpRepo yelpRepo;
 
   setUp(
     () {
+      yelpRepo = MockYelpRepo();//added this
       Restaurant mockRestaurant = Restaurant(
         name: 'Test Restaurant',
         image: 'image link',
@@ -28,24 +33,27 @@ void main() {
       );
 
       mockCatalog = RestaurantCatalog(restaurantCatalog: [mockRestaurant]);
+      getIt.registerSingleton<YelpRepo>(yelpRepo); //added this
     },
   );
 
+  tearDown(() {
+    mockLoading = false;
+  });
+
   testGoldens(
     'RestauranTour Loading Screen',
-        (tester) async {
-      MockRestauranTourCubit mockRestauranTour = MockRestauranTourCubit();
-      getIt.registerSingleton<RestauranTourCubit>(mockRestauranTour);
-
+    (tester) async {
       isTestMode = true;
-      when(() => mockRestauranTour.load())
-          .thenAnswer((_) async {});
-      final builder = DeviceBuilder()..overrideDevicesForAllScenarios(devices: [
-        Device.phone,
-        Device.iphone11,
-      ]);
+      /*when(() => mockRestauranTour.load())
+          .thenAnswer((_) async {});*/
+      final builder = DeviceBuilder()
+        ..overrideDevicesForAllScenarios(devices: [
+          Device.phone,
+          Device.iphone11,
+        ]);
 
-      whenListen(
+      /*whenListen(
         mockRestauranTour,
         Stream.fromIterable(
           [
@@ -53,12 +61,16 @@ void main() {
           ],
         ),
         initialState: RestauranTourLoadingState(),
-      );
+      );*/
 
       builder.addScenario(
         name: 'Loading',
         widget: const RestauranTourScreen(),
       );
+
+      when(() => yelpRepo.fetchRestaurantCatalog())
+          .thenAnswer((_) => Future.value(mockCatalog));
+      mockLoading = true;
 
       await tester.pumpDeviceBuilder(builder);
 
@@ -69,18 +81,20 @@ void main() {
   testGoldens(
     'RestauranTour Loaded Screen',
     (tester) async {
-      MockRestauranTourCubit mockRestauranTour = MockRestauranTourCubit();
-      getIt.registerSingleton<RestauranTourCubit>(mockRestauranTour);
-
       isTestMode = true;
-      when(() => mockRestauranTour.load())
-          .thenAnswer((_) async {});
-      final builder = DeviceBuilder()..overrideDevicesForAllScenarios(devices: [
-        Device.phone,
-        Device.iphone11,
-      ]);
+      //when(() =>
+      //mockRestauranTour.load())
+      //.thenAnswer((_) async {});
+      final builder = DeviceBuilder()
+        ..overrideDevicesForAllScenarios(
+          devices: [
+            Device.phone,
+            Device.iphone11,
+          ],
+        );
+      //]);
 
-      whenListen(
+      /*whenListen(
         mockRestauranTour,
         Stream.fromIterable(
           [
@@ -90,11 +104,14 @@ void main() {
         ),
         initialState: RestauranTourLoadingState(),
       );
-
+*/
       builder.addScenario(
         name: 'Loaded',
         widget: const RestauranTourScreen(),
       );
+
+      when(() => yelpRepo.fetchRestaurantCatalog())
+          .thenAnswer((_) => Future.value(mockCatalog));
 
       await tester.pumpDeviceBuilder(builder);
 
@@ -104,27 +121,26 @@ void main() {
 
   testGoldens(
     'RestauranTour Error Screen',
-        (tester) async {
+    (tester) async {
       MockRestauranTourCubit mockRestauranTour = MockRestauranTourCubit();
       getIt.registerSingleton<RestauranTourCubit>(mockRestauranTour);
 
       isTestMode = true;
-      when(() => mockRestauranTour.load())
-          .thenAnswer((_) async {});
-      final builder = DeviceBuilder()..overrideDevicesForAllScenarios(devices: [
-        Device.phone,
-        Device.iphone11,
-      ]);
+      when(() => mockRestauranTour.load()).thenAnswer((_) async {});
+      final builder = DeviceBuilder()
+        ..overrideDevicesForAllScenarios(devices: [
+          Device.phone,
+          Device.iphone11,
+        ]);
 
       whenListen(
         mockRestauranTour,
         Stream.fromIterable(
           [
-            RestauranTourLoadingState(),
             RestauranTourErrorState(),
           ],
         ),
-        initialState: RestauranTourLoadingState(),
+        initialState: RestauranTourErrorState(),
       );
 
       builder.addScenario(
@@ -138,5 +154,3 @@ void main() {
     },
   );
 }
-
-

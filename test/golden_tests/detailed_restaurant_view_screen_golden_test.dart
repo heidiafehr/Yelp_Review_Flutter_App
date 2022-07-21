@@ -13,15 +13,17 @@ import 'package:yelp_app/yelp_repo/location.dart';
 import 'package:yelp_app/yelp_repo/restaurant_class.dart';
 import 'package:yelp_app/yelp_repo/category.dart' as cat;
 import 'package:yelp_app/yelp_repo/review_class.dart';
+import 'package:yelp_app/yelp_repo/yelp_repo.dart';
 
-class MockDetailedRestaurantViewCubit extends Mock
-    implements DetailedRestaurantViewCubit {}
+import '../mock_yelp_repo.dart';
 
 void main() {
   late Restaurant mockRestaurant;
   late Reviews mockReviews;
+  late YelpRepo yelpRepo;
 
   setUp(() {
+    yelpRepo = MockYelpRepo();
     mockRestaurant = Restaurant(
         name: 'Restaurant Name Goes Here',
         price: '\$\$\$',
@@ -54,26 +56,27 @@ void main() {
         ),
       ],
     );
+    getIt.registerSingleton<YelpRepo>(yelpRepo);
   });
 
   testGoldens(
     'ehh test pt2',
     (tester) async {
-      MockDetailedRestaurantViewCubit mockDetailedRestaurantViewCubit =
-          MockDetailedRestaurantViewCubit();
-      getIt.registerSingleton<DetailedRestaurantViewCubit>(
-          mockDetailedRestaurantViewCubit);
+      /* MockDetailedRestaurantViewCubit mockDetailedRestaurantViewCubit =
+          MockDetailedRestaurantViewCubit();*/
+      /*getIt.registerSingleton<DetailedRestaurantViewCubit>(
+          mockDetailedRestaurantViewCubit);*/
 
       isTestMode = true;
-      when(() => mockDetailedRestaurantViewCubit.load(alias: 'test-alias'))
+      /*when(() => mockDetailedRestaurantViewCubit.load(alias: 'test-alias'))
           .thenAnswer((_) async {});
 
       when(() => mockDetailedRestaurantViewCubit.close())
-          .thenAnswer((_) async {});
+          .thenAnswer((_) async {});*/
 
       final builder = DeviceBuilder();
 
-      whenListen(
+      /*whenListen(
         mockDetailedRestaurantViewCubit,
         Stream.fromIterable(
           [
@@ -83,7 +86,14 @@ void main() {
           ],
         ),
         initialState: DetailedRestaurantViewLoadingState(),
-      );
+      );*/
+
+      when(() => yelpRepo.fetchRestaurant(any()))
+          .thenAnswer((_) => Future.value(mockRestaurant));
+
+      when(() => yelpRepo.fetchReview(any()))
+          .thenAnswer((_) => Future.value(mockReviews));
+
 
       builder.addScenario(
         name: 'loaded',

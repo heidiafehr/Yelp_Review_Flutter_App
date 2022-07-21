@@ -5,7 +5,6 @@ import 'package:yelp_app/restaurantour_screen/widgets/display_restaurant_catalog
 import 'package:yelp_app/widgets/yelp_appbar.dart';
 import 'package:yelp_app/widgets/yelp_refresh_indicator.dart';
 import '../main.dart';
-import '../service_locator.dart';
 
 class RestauranTourScreen extends StatefulWidget {
 
@@ -21,7 +20,7 @@ class _RestauranTourScreen extends State<RestauranTourScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (_) => (getIt<RestauranTourCubit>()..load()),
+        create: (_) => RestauranTourCubit()..load(),
         child: Column(
           children: [
             const CustomYelpAppBar(
@@ -37,6 +36,7 @@ class _RestauranTourScreen extends State<RestauranTourScreen> {
                       context.read<RestauranTourCubit>().load();
                       return;
                     },
+                    state: state,
                     child: ListView(
                       children: [
                         if (state is RestauranTourLoadedState)
