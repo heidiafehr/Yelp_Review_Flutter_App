@@ -56,10 +56,6 @@ void main() {
     );
   });
 
-  tearDown(() {
-    isTestMode = false;
-  });
-
   testGoldens(
     'ehh test pt2',
     (tester) async {
@@ -69,11 +65,11 @@ void main() {
           mockDetailedRestaurantViewCubit);
 
       isTestMode = true;
-      when(() => mockDetailedRestaurantViewCubit.load())
-          .thenAnswer((_) => Future.value());
+      when(() => mockDetailedRestaurantViewCubit.load(alias: 'test-alias'))
+          .thenAnswer((_) async {});
 
       when(() => mockDetailedRestaurantViewCubit.close())
-          .thenAnswer((_) => Future.value());
+          .thenAnswer((_) async {});
 
       final builder = DeviceBuilder();
 

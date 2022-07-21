@@ -10,30 +10,6 @@ import 'package:yelp_app/yelp_repo/category.dart' as cat;
 import 'package:yelp_app/restaurantour_screen/restaurantour_cubit.dart';
 import 'package:yelp_app/restaurantour_screen/restaurantour_screen.dart';
 
-//**ASK how to make padding consistent across the devices**
-  //ex: restaurantour_loaded_screen.png
-
-//The best instructions ever by travis **matt(definitely matt if this doesn't work)
-//make yelp image file
-//return cache network image
-//takes 1 (one) (single) parameters
-//1 - imageUrl (required)
-//inside this class , use getit to inject test helper class
-//test helper class will have three functions
-//  1 - isTestMode
-//  2 - place holder image
-//  3 - error image
-//in yelp image -> check if it isTestMode
-//   is - (and error is null) then we show place holder image
-//  is not - show error image
-//if !isTestMode
-//  show imageUrl
-//in our test we are going to mock testHelper class
-//  for error test -> use when to tell when to return error widget of choice
-//  for !errorTest -> return non-error widget of choice
-//in setup of flutter test config
-//  this class will always return true for isTestMode
-
 class MockRestauranTourCubit extends MockCubit<RestauranTourState>
     implements RestauranTourCubit {}
 
@@ -54,10 +30,6 @@ void main() {
       mockCatalog = RestaurantCatalog(restaurantCatalog: [mockRestaurant]);
     },
   );
-
-  tearDown(() {
-    isTestMode = false;
-  });
 
   testGoldens(
     'RestauranTour Loading Screen',
@@ -129,5 +101,42 @@ void main() {
       await screenMatchesGolden(tester, 'restaurantour_loaded_screen');
     },
   );
+
+  testGoldens(
+    'RestauranTour Error Screen',
+        (tester) async {
+      MockRestauranTourCubit mockRestauranTour = MockRestauranTourCubit();
+      getIt.registerSingleton<RestauranTourCubit>(mockRestauranTour);
+
+      isTestMode = true;
+      when(() => mockRestauranTour.load())
+          .thenAnswer((_) async {});
+      final builder = DeviceBuilder()..overrideDevicesForAllScenarios(devices: [
+        Device.phone,
+        Device.iphone11,
+      ]);
+
+      whenListen(
+        mockRestauranTour,
+        Stream.fromIterable(
+          [
+            RestauranTourLoadingState(),
+            RestauranTourErrorState(),
+          ],
+        ),
+        initialState: RestauranTourLoadingState(),
+      );
+
+      builder.addScenario(
+        name: 'Error',
+        widget: const RestauranTourScreen(),
+      );
+
+      await tester.pumpDeviceBuilder(builder);
+
+      await screenMatchesGolden(tester, 'restaurantour_error_screen');
+    },
+  );
 }
+
 

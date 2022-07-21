@@ -73,7 +73,6 @@ class DetailedRestaurantViewLoadedState extends DetailedRestaurantViewState {
 
 class DetailedRestaurantViewCubit extends Cubit<DetailedRestaurantViewState> {
   //YelpRepo restaurantRepository = YelpRepo();
-  late String alias;
   YelpRepo restaurantRepository = getIt<YelpRepo>();
 
   /*DetailedRestaurantViewCubit({required this.alias, YelpRepo? yelpRepo})
@@ -81,9 +80,9 @@ class DetailedRestaurantViewCubit extends Cubit<DetailedRestaurantViewState> {
     restaurantRepository = yelpRepo ?? YelpRepo();
   }*/
 
-  DetailedRestaurantViewCubit({required this.alias}) : super(DetailedRestaurantViewLoadingState());
+  DetailedRestaurantViewCubit() : super(DetailedRestaurantViewLoadingState());
 
-  void load() async {
+  void load({required String alias}) async {
     emit(DetailedRestaurantViewLoadingState());
     if (alias.isEmpty) {
       emit(DetailedRestaurantViewErrorState());

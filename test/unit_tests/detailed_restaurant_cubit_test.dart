@@ -61,11 +61,10 @@ void main() {
             .thenAnswer((_) => Future.value(mockRestaurant));
         when(() => mockRepo.fetchReview(any()))
             .thenAnswer((_) => Future.value(mockReviews));
-        return DetailedRestaurantViewCubit(
-            alias: 'test-alias');
+        return DetailedRestaurantViewCubit();
       },
       act: (DetailedRestaurantViewCubit cubit) =>
-          cubit.load(),
+          cubit.load(alias: 'test-alias'),
       expect: () => [
         isA<DetailedRestaurantViewLoadingState>(),
         isA<DetailedRestaurantViewLoadedState>()
@@ -79,11 +78,10 @@ void main() {
             .thenThrow((_) => Future.value(mockRestaurant));
         when(() => mockRepo.fetchReview(any()))
             .thenThrow((_) => Future.value(mockReviews));
-        return DetailedRestaurantViewCubit(
-            alias: 'test-alias');
+        return DetailedRestaurantViewCubit();
       },
       act: (DetailedRestaurantViewCubit cubit) =>
-          cubit.load(),
+          cubit.load(alias: 'test-alias'),
       expect: () => [
         isA<DetailedRestaurantViewLoadingState>(),
         isA<DetailedRestaurantViewErrorState>()

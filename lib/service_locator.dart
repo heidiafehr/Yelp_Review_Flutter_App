@@ -9,7 +9,7 @@ void setupDependencies() {
   getIt.registerSingleton<YelpRepo>(YelpRepo());
   getIt.registerSingleton<RestauranTourCubit>(RestauranTourCubit());
   getIt.registerSingleton<DetailedRestaurantViewCubit>(
-      DetailedRestaurantViewCubit(alias: 'test-alias'));
+      DetailedRestaurantViewCubit());
 }
 
 void setupTestDependencies() {
