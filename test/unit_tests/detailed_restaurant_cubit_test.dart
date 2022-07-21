@@ -1,6 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:yelp_app/service_locator.dart';
 import 'package:yelp_app/yelp_repo/category.dart';
 import 'package:yelp_app/yelp_repo/coordinates.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/detailed_restaurant_view_cubit.dart';
@@ -9,7 +10,7 @@ import 'package:yelp_app/yelp_repo/individual_user_reviews.dart';
 import 'package:yelp_app/yelp_repo/restaurant_class.dart';
 import 'package:yelp_app/yelp_repo/location.dart';
 import 'package:yelp_app/yelp_repo/review_class.dart';
-
+import 'package:yelp_app/yelp_repo/yelp_repo.dart';
 import '../mock_yelp_repo.dart';
 
 void main() {
@@ -19,6 +20,7 @@ void main() {
     late Reviews mockReviews;
 
     setUp(() {
+      getIt.registerSingleton<YelpRepo>(mockRepo);
       mockRestaurant = Restaurant(
           name: 'Mock Restaurant',
           price: 'cheap',
@@ -60,7 +62,7 @@ void main() {
         when(() => mockRepo.fetchReview(any()))
             .thenAnswer((_) => Future.value(mockReviews));
         return DetailedRestaurantViewCubit(
-            alias: 'test-alias', yelpRepo: mockRepo);
+            alias: 'test-alias');
       },
       act: (DetailedRestaurantViewCubit cubit) =>
           cubit.load(),
@@ -78,7 +80,7 @@ void main() {
         when(() => mockRepo.fetchReview(any()))
             .thenThrow((_) => Future.value(mockReviews));
         return DetailedRestaurantViewCubit(
-            alias: 'test-alias', yelpRepo: mockRepo);
+            alias: 'test-alias');
       },
       act: (DetailedRestaurantViewCubit cubit) =>
           cubit.load(),

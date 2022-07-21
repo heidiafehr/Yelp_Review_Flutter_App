@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:yelp_app/detailed_restaurant_view_screen/detailed_restaurant_view_screen.dart';
+
+import '../main.dart';
 
 class YelpRefreshIndicator extends StatelessWidget {
   final Widget child;
@@ -14,7 +15,7 @@ class YelpRefreshIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return imageError ? const Icon(
+    return isTestMode ? const Icon(
       Icons.refresh,
       color: Colors.blue,
     ) : RefreshIndicator(

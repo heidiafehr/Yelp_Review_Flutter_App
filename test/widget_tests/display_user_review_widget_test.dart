@@ -107,9 +107,6 @@ void main() {
     expect(find.byType(Card), findsOneWidget);
   });
 
-  //Doesn't work tbh Idk, but I am not spending any more time on this
-  //look at display_user_reviews line 39
-  //it should work >:(
   testWidgets('text is NOT valid', (tester) async{
     final tile = textIsNotValid;
     await mockNetworkImagesFor(() => tester.pumpWidget(tile));

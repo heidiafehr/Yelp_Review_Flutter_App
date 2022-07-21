@@ -2,13 +2,13 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
+import 'package:yelp_app/main.dart';
 import 'package:yelp_app/service_locator.dart';
 import 'package:yelp_app/yelp_repo/restaurant_catalog.dart';
 import 'package:yelp_app/yelp_repo/restaurant_class.dart';
 import 'package:yelp_app/yelp_repo/category.dart' as cat;
 import 'package:yelp_app/restaurantour_screen/restaurantour_cubit.dart';
 import 'package:yelp_app/restaurantour_screen/restaurantour_screen.dart';
-import 'package:yelp_app/restaurantour_screen/widgets/card_restaurant_info.dart';
 
 //**ASK how to make padding consistent across the devices**
   //ex: restaurantour_loaded_screen.png
@@ -56,7 +56,7 @@ void main() {
   );
 
   tearDown(() {
-    imageError = false;
+    isTestMode = false;
   });
 
   testGoldens(
@@ -65,7 +65,7 @@ void main() {
       MockRestauranTourCubit mockRestauranTour = MockRestauranTourCubit();
       getIt.registerSingleton<RestauranTourCubit>(mockRestauranTour);
 
-      imageError = true;
+      isTestMode = true;
       when(() => mockRestauranTour.load())
           .thenAnswer((_) async {});
       final builder = DeviceBuilder()..overrideDevicesForAllScenarios(devices: [
@@ -85,7 +85,7 @@ void main() {
 
       builder.addScenario(
         name: 'Loading',
-        widget: RestauranTourScreen(),
+        widget: const RestauranTourScreen(),
       );
 
       await tester.pumpDeviceBuilder(builder);
@@ -100,7 +100,7 @@ void main() {
       MockRestauranTourCubit mockRestauranTour = MockRestauranTourCubit();
       getIt.registerSingleton<RestauranTourCubit>(mockRestauranTour);
 
-      imageError = true;
+      isTestMode = true;
       when(() => mockRestauranTour.load())
           .thenAnswer((_) async {});
       final builder = DeviceBuilder()..overrideDevicesForAllScenarios(devices: [
@@ -121,7 +121,7 @@ void main() {
 
       builder.addScenario(
         name: 'Loaded',
-        widget: RestauranTourScreen(),
+        widget: const RestauranTourScreen(),
       );
 
       await tester.pumpDeviceBuilder(builder);

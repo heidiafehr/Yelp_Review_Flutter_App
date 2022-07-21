@@ -8,24 +8,15 @@ import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_overall
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_expanded_hours_with_header.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_user_reviews.dart';
 import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_restaurant_address.dart';
-import 'package:yelp_app/yelp_repo/restaurant_class.dart';
-import 'package:yelp_app/yelp_repo/review_class.dart';
 import 'package:yelp_app/widgets/yelp_appbar.dart';
 import 'package:yelp_app/yelp_review_app.dart';
-import '../yelp_repo/yelp_repo.dart';
-
-var imageError = false;
+import '../main.dart';
+import '../service_locator.dart';
 
 class DetailedRestaurantViewScreen extends StatefulWidget {
-  final String? appBarTitle;
   final String alias;
-  final DetailedRestaurantViewCubit? cubit;
 
-  const DetailedRestaurantViewScreen(
-      {@visibleForTesting this.appBarTitle,
-      required this.alias,
-      @visibleForTesting this.cubit,
-      Key? key})
+  const DetailedRestaurantViewScreen({required this.alias, Key? key})
       : super(key: key);
 
   @override
@@ -34,15 +25,12 @@ class DetailedRestaurantViewScreen extends StatefulWidget {
 }
 
 class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
-  Future<Restaurant>? futureRestaurant;
-  Future<Reviews>? futureReviews;
-  YelpRepo api = YelpRepo();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (_) => widget.cubit ?? DetailedRestaurantViewCubit(alias: widget.alias)..load(),
+        create: (_) => (getIt<DetailedRestaurantViewCubit>()..load()),
+        //widget.cubit ?? DetailedRestaurantViewCubit(alias: widget.alias)..load(),
         child: BlocBuilder<DetailedRestaurantViewCubit,
             DetailedRestaurantViewState>(
           builder: (context, state) {
@@ -63,7 +51,8 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
                             ),
                       if (state.photosAreValid &&
                           MediaQuery.of(context).orientation ==
-                              Orientation.portrait && !imageError)
+                              Orientation.portrait &&
+                          !isTestMode)
                         RestaurantImageCarousel(
                             photos: state.restaurant.photos!),
                       const Padding(
@@ -106,7 +95,7 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
                           state: state.restaurant.location!.state,
                           zipcode: state.restaurant.location!.zipcode,
                         ),
-                        if (state.coordinatesAreValid && !imageError)
+                        if (state.coordinatesAreValid && !isTestMode)
                           Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 30.0),

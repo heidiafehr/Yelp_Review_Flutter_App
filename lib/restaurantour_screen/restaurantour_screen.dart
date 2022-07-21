@@ -4,8 +4,7 @@ import 'package:yelp_app/restaurantour_screen/restaurantour_cubit.dart';
 import 'package:yelp_app/restaurantour_screen/widgets/display_restaurant_catalog.dart';
 import 'package:yelp_app/widgets/yelp_appbar.dart';
 import 'package:yelp_app/widgets/yelp_refresh_indicator.dart';
-
-import '../detailed_restaurant_view_screen/detailed_restaurant_view_screen.dart';
+import '../main.dart';
 import '../service_locator.dart';
 
 class RestauranTourScreen extends StatefulWidget {
@@ -56,7 +55,7 @@ class _RestauranTourScreen extends State<RestauranTourScreen> {
                           SizedBox(
                             height: MediaQuery.of(context).size.height / 1.3,
                             child: Center(
-                              child: imageError
+                              child: isTestMode
                                   ? const Icon(
                                       Icons.refresh,
                                       color: Colors.blue,

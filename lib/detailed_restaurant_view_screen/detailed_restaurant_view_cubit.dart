@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yelp_app/service_locator.dart';
 import '../yelp_repo/restaurant_class.dart';
 import '../yelp_repo/review_class.dart';
 import '../yelp_repo/yelp_repo.dart';
@@ -73,17 +74,14 @@ class DetailedRestaurantViewLoadedState extends DetailedRestaurantViewState {
 class DetailedRestaurantViewCubit extends Cubit<DetailedRestaurantViewState> {
   //YelpRepo restaurantRepository = YelpRepo();
   late String alias;
-  late YelpRepo restaurantRepository;
+  YelpRepo restaurantRepository = getIt<YelpRepo>();
 
-  /*DetailedRestaurantViewCubit({required this.alias})
-      : super(DetailedRestaurantViewLoadingState()) {
-    load(alias: alias);
-  }*/
-
-  DetailedRestaurantViewCubit({required this.alias, YelpRepo? yelpRepo})
+  /*DetailedRestaurantViewCubit({required this.alias, YelpRepo? yelpRepo})
       : super(DetailedRestaurantViewLoadingState()) {
     restaurantRepository = yelpRepo ?? YelpRepo();
-  }
+  }*/
+
+  DetailedRestaurantViewCubit({required this.alias}) : super(DetailedRestaurantViewLoadingState());
 
   void load() async {
     emit(DetailedRestaurantViewLoadingState());

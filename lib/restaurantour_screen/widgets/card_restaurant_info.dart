@@ -2,10 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_initicon/flutter_initicon.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import '../../main.dart';
 import '../../yelp_repo/restaurant_class.dart';
 import '../../yelp_review_app.dart';
-
-var imageError = false;
 
 ///Displays the info for each of each of the restaurants
 ///assumes restaurant name is valid
@@ -47,7 +46,7 @@ class CardRestaurantInfo extends StatelessWidget {
                       height: MediaQuery.of(context).size.width * .3,
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(10.0),
-                          child: !imageError
+                          child: !isTestMode
                               ? CachedNetworkImage(
                                   imageUrl: singleRestaurant.image!,
                                   errorWidget: (context, url, error) =>
