@@ -12,7 +12,7 @@ class RestaurantImageCarousel extends StatefulWidget {
 }
 
 class _ImageCarousel extends State<RestaurantImageCarousel> {
-  int activePage = 1;
+  int activePage = 0;
   late List<String> photos;
 
   @override

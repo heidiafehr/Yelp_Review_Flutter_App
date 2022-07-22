@@ -3,13 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yelp_app/restaurantour_screen/restaurantour_cubit.dart';
 import 'package:yelp_app/restaurantour_screen/widgets/display_restaurant_catalog.dart';
 import 'package:yelp_app/widgets/yelp_appbar.dart';
-import 'package:yelp_app/widgets/yelp_refresh_indicator.dart';
 import '../main.dart';
 
 class RestauranTourScreen extends StatefulWidget {
-
-  const RestauranTourScreen({Key? key})
-      : super(key: key);
+  const RestauranTourScreen({Key? key}) : super(key: key);
 
   @override
   State<RestauranTourScreen> createState() => _RestauranTourScreen();
@@ -31,12 +28,11 @@ class _RestauranTourScreen extends State<RestauranTourScreen> {
             Expanded(
               child: BlocBuilder<RestauranTourCubit, RestauranTourState>(
                 builder: (context, state) {
-                  return YelpRefreshIndicator(
+                  return RefreshIndicator(
                     onRefresh: () async {
                       context.read<RestauranTourCubit>().load();
                       return;
                     },
-                    state: state,
                     child: ListView(
                       children: [
                         if (state is RestauranTourLoadedState)

@@ -11,7 +11,6 @@ import 'package:yelp_app/detailed_restaurant_view_screen/widgets/display_restaur
 import 'package:yelp_app/widgets/yelp_appbar.dart';
 import 'package:yelp_app/yelp_review_app.dart';
 import '../main.dart';
-import '../service_locator.dart';
 
 class DetailedRestaurantViewScreen extends StatefulWidget {
   final String alias;
@@ -80,8 +79,9 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
                                 price: state.restaurant.price!,
                                 restaurantType: state.restaurant.categories!
                                     .first.restaurantType,
-                                isOpenNow:
-                                    state.restaurant.hours!.first.isOpenNow,
+                                isOpenNow: state.restaurant.hours!.isEmpty
+                                    ? null
+                                    : state.restaurant.hours!.first.isOpenNow,
                                 priceAndTypeAreValid:
                                     state.priceAndTypeAreValid,
                               ),

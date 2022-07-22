@@ -45,23 +45,11 @@ void main() {
     'RestauranTour Loading Screen',
     (tester) async {
       isTestMode = true;
-      /*when(() => mockRestauranTour.load())
-          .thenAnswer((_) async {});*/
       final builder = DeviceBuilder()
         ..overrideDevicesForAllScenarios(devices: [
           Device.phone,
           Device.iphone11,
         ]);
-
-      /*whenListen(
-        mockRestauranTour,
-        Stream.fromIterable(
-          [
-            RestauranTourLoadingState(),
-          ],
-        ),
-        initialState: RestauranTourLoadingState(),
-      );*/
 
       builder.addScenario(
         name: 'Loading',
@@ -82,9 +70,6 @@ void main() {
     'RestauranTour Loaded Screen',
     (tester) async {
       isTestMode = true;
-      //when(() =>
-      //mockRestauranTour.load())
-      //.thenAnswer((_) async {});
       final builder = DeviceBuilder()
         ..overrideDevicesForAllScenarios(
           devices: [
@@ -92,19 +77,7 @@ void main() {
             Device.iphone11,
           ],
         );
-      //]);
 
-      /*whenListen(
-        mockRestauranTour,
-        Stream.fromIterable(
-          [
-            RestauranTourLoadingState(),
-            RestauranTourLoadedState(restaurants: mockCatalog),
-          ],
-        ),
-        initialState: RestauranTourLoadingState(),
-      );
-*/
       builder.addScenario(
         name: 'Loaded',
         widget: const RestauranTourScreen(),
