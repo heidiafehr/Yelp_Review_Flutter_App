@@ -15,7 +15,7 @@ void main() {
     home: Scaffold(
       body: DisplayHeaderWithExpandedHours(
         openHours: [
-          OpenHours(isOvernight: false, start: '1000', end: '2200', day: 0)
+          OpenHours(start: '1000', end: '2200', day: 0)
         ],
         priceAndTypeAreValid: true,
         price: '\$',
@@ -29,7 +29,7 @@ void main() {
     home: Scaffold(
       body: DisplayHeaderWithExpandedHours(
         openHours: [
-          OpenHours(isOvernight: false, start: '1000', end: '2200', day: 0)
+          OpenHours(start: '1000', end: '2200', day: 0)
         ],
         priceAndTypeAreValid: false,
         restaurantType: 'food',

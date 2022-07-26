@@ -28,7 +28,7 @@ void main() {
           ],
           hours: [
             Hours(isOpenNow: true, openHours: [
-              OpenHours(isOvernight: true, start: 'now', end: 'never', day: 1)
+              OpenHours(start: 'now', end: 'never', day: 1)
             ]),
           ],
           location: Location(

@@ -37,7 +37,6 @@ class RestauranTourCubit extends Cubit<RestauranTourState> {
         emit(RestauranTourLoadedState(restaurants: restaurants));
       }
     } catch (e) {
-      print(e);
       emit(RestauranTourErrorState());
     }
   }

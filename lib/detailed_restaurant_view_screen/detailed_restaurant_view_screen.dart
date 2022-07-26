@@ -13,6 +13,7 @@ import 'package:yelp_app/yelp_review_app.dart';
 import '../main.dart';
 
 class DetailedRestaurantViewScreen extends StatefulWidget {
+  static const tileKey = Key('expanded-tile');
   final String alias;
 
   const DetailedRestaurantViewScreen({required this.alias, Key? key})
@@ -65,6 +66,7 @@ class _SingleRestaurantInfoScreen extends State<DetailedRestaurantViewScreen> {
                       if (state.hasHeaderData)
                         state.hasHours
                             ? DisplayHeaderWithExpandedHours(
+                              //key: DetailedRestaurantViewScreen.tileKey,
                                 price: state.restaurant.price!,
                                 restaurantType: state.restaurant.categories!
                                     .first.restaurantType,

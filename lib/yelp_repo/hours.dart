@@ -17,13 +17,11 @@ class Hours {
 }
 
 class OpenHours {
-  final bool isOvernight;
   final String start;
   final String end;
   final int day;
 
   OpenHours({
-    required this.isOvernight,
     required this.start,
     required this.end,
     required this.day,
@@ -31,7 +29,6 @@ class OpenHours {
 
   factory OpenHours.fromJson(Map<String, dynamic> json) {
     return OpenHours(
-      isOvernight: json['is_overnight'],
       start: json['start'],
       end: json['end'],
       day: json['day'],
