@@ -2,6 +2,8 @@
 
 This applicaiton is an end-to-end, multipage Flutter application that displays nearby restaurants and their information. Selecting a restaurant navigates to another screen and displays the full restaurant details & reviews and its location on Google Maps.
 
+![Screenshot](RestaurantViewScreenShot.png)
+
 # How To Run It
 Here are instructions on how to get your copy of the repo up and running on your local machine.
 
@@ -35,6 +37,7 @@ Note: Some information comes from the README for [Google Maps for Flutter]([url]
 <resources>
     <string name="MAPS_KEY">YOUR KEY HERE</string>
 </resources>`
+
 6. Create a file in `ios\Runner` and name it `secrets.swift`
 7. Paste the following code and insert the API key generated in previous steps:
 `struct Constants {
