@@ -2,8 +2,7 @@
 
 This applicaiton is an end-to-end, multipage Flutter application that displays nearby restaurants and their information. Selecting a restaurant navigates to another screen and displays the full restaurant details & reviews and its location on Google Maps.
 
-![Screenshot](RestaurantViewScreenShot.png)
-
+![alt text](https://github.com/heidiafehr/Yelp_Review_Flutter_App/blob/master/RestauranTourScreenShot.jpg)
 # How To Run It
 Here are instructions on how to get your copy of the repo up and running on your local machine.
 
