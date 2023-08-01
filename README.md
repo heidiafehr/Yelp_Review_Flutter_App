@@ -2,7 +2,16 @@
 
 This applicaiton is an end-to-end, multipage Flutter application that displays nearby restaurants and their information. Selecting a restaurant navigates to another screen and displays the full restaurant details & reviews and its location on Google Maps.
 
+### Features
+This application featured 2 screens. Starting with the RestauranTour Screen, the user can navigate to a more detailed page about the restaurant selected. Both pages implemented BLoC State Management, pull-to-refresh, and used the Yelp API and Google Maps API to display data.
+
+### RestauranTour Screen
+This screen display a list of nearby restaurants based on the user's latitude & longitude coordinates. Each restaurant card displays the name, image from the resaurant, price range, food category, and restaurant rating.
 ![alt text](https://github.com/heidiafehr/Yelp_Review_Flutter_App/blob/master/RestauranTourScreenShot.jpg)
+
+### Detailed Restaurant Screen
+This screen display a detailed page of the selected restaurant. The top of the page features an image carousel provided by the Yelp API. The dropdown menu below displays the status of the restaurant and the hours they are open. Futher down the page, Google Maps renders the restaurant's address and can be manipulated to zoom in and out as well as recenters the restaurant's location. At the bottom of the page, it features a list of reviews; including information on the user's rating, comments, user profile image, and username.
+![alt text](https://github.com/heidiafehr/Yelp_Review_Flutter_App/blob/master/RestaurantViewScreenShot.jpg)
 # How To Run It
 Here are instructions on how to get your copy of the repo up and running on your local machine.
 
@@ -32,6 +41,7 @@ Note: Some information comes from the README for [Google Maps for Flutter]([url]
     - Make sure the APIs you enabled are under the "Enabled APIs" section
 3. Create a file in `android\app\src\main\res\values` and name it `strings.xml`
 4. Paste the following code and insert the API key generated in the previous step:
+
 `<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="MAPS_KEY">YOUR KEY HERE</string>
